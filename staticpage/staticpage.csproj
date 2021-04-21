@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\FAQ\Credit\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 </Project>
