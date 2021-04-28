@@ -1,13 +1,3 @@
 ﻿body {
 }
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
-@media(min-width: 800px){
-    .red {
-        color: red;
-    }
-}
