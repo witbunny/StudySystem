@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form method="post" action="/">
+        <label>性别：</label>
+        <!--使用name属性进行分组-->
+        <!--用label包裹-->
+        <label><input type="radio" name="gender" value="male" checked />男</label>
+        <label><input type="radio" name="gender" value="female" />女</label>
+        <br />
+
+        <label>爱好：</label>
+        <label><input type="checkbox" name="hobby" value="tenis" />网球</label>
+        <label><input type="checkbox" name="hobby" value="football" />足球</label>
+        <label><input type="checkbox" name="hobby" value="basketball" />篮球</label>
+        <br />
+
+        <label>年龄：</label>
+        <select multiple name="age">
+            <option value="1">one</option>
+            <option value="2" selected>two</option>
+            <option value="3">three</option>
+        </select>
+        <br />
+
+        <label>用户名：</label>
+        <input type="text" name="username" disabled value="123" />
+        <br />
+        <label>昵称：</label>
+        <input type="text" name="likename" readonly value="456" />
+        <br />
+        <label>密码：</label>
+        <input type="password" name="pw" value="1234" />
+        <br />
+        <input type="submit" value="submit提交i" />
+
+        <br />
+        <input type="hidden" name="fg" value="潜伏" />
+
+        <br />
+        <input type="button" value="button提交i" />
+        <button type="button">button提交b</button>
+        <button type="reset">reset重置b</button>
+        <input type="reset" value="reset清空i" />
+    </form>
+</body>
+</html>

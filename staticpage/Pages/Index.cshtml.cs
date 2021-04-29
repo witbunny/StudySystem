@@ -21,5 +21,10 @@ namespace staticpage.Pages
         {
 
         }
+
+        public void OnPost() 
+        {
+
+        }
     }
 }
