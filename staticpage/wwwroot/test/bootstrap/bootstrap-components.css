@@ -586,6 +586,67 @@ a.badge-dark:focus, a.badge-dark.focus {
     border-radius: 0.2rem;
 }
 
+.btn-group,
+.btn-group-vertical {
+    position: relative;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+    .btn-group > .btn,
+    .btn-group-vertical > .btn {
+        position: relative;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+    }
+
+        .btn-group > .btn:hover,
+        .btn-group-vertical > .btn:hover {
+            z-index: 1;
+        }
+
+        .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active,
+        .btn-group-vertical > .btn:focus,
+        .btn-group-vertical > .btn:active,
+        .btn-group-vertical > .btn.active {
+            z-index: 1;
+        }
+
+.btn-group > .btn:not(:first-child),
+.btn-group > .btn-group:not(:first-child) {
+    margin-left: -1px;
+}
+
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn-group:not(:last-child) > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+        .btn-group > .btn:not(:first-child),
+        .btn-group > .btn-group:not(:first-child) > .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+.btn-group-toggle > .btn,
+.btn-group-toggle > .btn-group > .btn {
+    margin-bottom: 0;
+}
+
+
+    .btn-group-toggle > .btn input[type="radio"],
+    .btn-group-toggle > .btn input[type="checkbox"],
+    .btn-group-toggle > .btn-group > .btn input[type="radio"],
+    .btn-group-toggle > .btn-group > .btn input[type="checkbox"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+        pointer-events: none;
+    }
+
+
+
 .btn-block {
     display: block;
     width: 100%;
