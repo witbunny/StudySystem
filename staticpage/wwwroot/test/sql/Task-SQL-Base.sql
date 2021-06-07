@@ -180,3 +180,32 @@ SELECT * FROM Problem;
 ALTER TABLE Problem 
 --DROP COLUMN Id;
 ADD ID INT IDENTITY;
+
+----------------------------
+
+SELECT * FROM [Problem];
+
+ALTER TABLE [Problem] 
+ADD [Author] NVARCHAR(10);
+
+UPDATE [Problem] SET [Author] = 'fei';
+
+UPDATE [Problem] SET [Author] = 'bufei' WHERE ID = 4;
+
+SELECT TOP 3 * FROM [Problem] WHERE [Author] = 'fei' ORDER BY [Reward] DESC;
+
+SELECT [Author],[Reward],[Title] FROM [Problem] GROUP BY [Author],[Reward],[Title] ORDER BY [Author],[Reward] DESC;
+
+SELECT * FROM [Problem];
+
+SELECT [Author],COUNT([Reward]) AS [Count],SUM([Reward]) AS [Sum],AVG([Reward]) AS [Avg] FROM [Problem] GROUP BY [Author];
+
+SELECT [Author],AVG([Reward]) AS [Avg] FROM [Problem] GROUP BY [Author] HAVING AVG([Reward]) < 10 ORDER BY AVG([Reward]);
+
+SELECT [Author],[Reward] 
+INTO [NewProblem] 
+FROM [Problem];
+
+SELECT * FROM [NewProblem];
+
+INSERT [NewProblem] SELECT [Author],[Reward] FROM [Problem];
