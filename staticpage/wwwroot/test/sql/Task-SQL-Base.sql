@@ -209,3 +209,55 @@ FROM [Problem];
 SELECT * FROM [NewProblem];
 
 INSERT [NewProblem] SELECT [Author],[Reward] FROM [Problem];
+
+--------------------------------
+
+CREATE TABLE [Message] 
+(
+	Id INT NOT NULL,
+	FromUser NVARCHAR(20) NULL,
+	ToUser NVARCHAR(20) NULL,
+	UrgentLevel INT NULL,
+	Kind NVARCHAR(10) NULL,
+	HasRead BIT NULL,
+	IsDelete BIT NULL,
+	Content TEXT NOT NULL
+);
+
+ALTER TABLE [Message]
+--ADD CONSTRAINT UQ_Message_Id UNIQUE (Id);
+--DROP CONSTRAINT UQ_Message_Id;
+ADD CONSTRAINT PK_Message_Id PRIMARY KEY (Id);
+--ALTER COLUMN Content NVARCHAR(20) NOT NULL;
+--ALTER COLUMN Content NTEXT NOT NULL;
+--ALTER COLUMN Content NTEXT NULL;
+--DROP CONSTRAINT PK_Message_Id;
+--DROP COLUMN Id;
+ADD ID INT IDENTITY;
+
+
+-- [type]：1 聚集; >1 非聚集
+SELECT [name], [type], is_unique, is_primary_key, is_unique_constraint 
+FROM sys.indexes 
+WHERE object_id = OBJECT_ID('Message');
+
+CREATE UNIQUE INDEX IX_Message_Id ON [Message] (Id);
+
+CREATE UNIQUE CLUSTERED INDEX IX_Message_FromUser_ToUser ON [Message] (FromUser,ToUser);
+
+CREATE INDEX IX_Message_FromUser ON [Message] (FromUser);
+
+
+DROP INDEX [Message].IX_Message_Id;
+
+DROP INDEX [Message].IX_Message_FromUser_ToUser;
+
+SELECT * FROM [Message]
+WHERE FromUser = N'peideluo';
+--WHERE Id = 2;
+
+SELECT FromUser FROM [Message]
+WHERE FromUser = N'peideluo';
+
+INSERT [Message] 
+SELECT FromUser,ToUser,UrgentLevel,Kind,HasRead,IsDelete,Content FROM [Message];
