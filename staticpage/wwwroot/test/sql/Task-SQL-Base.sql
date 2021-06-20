@@ -261,3 +261,188 @@ WHERE FromUser = N'peideluo';
 
 INSERT [Message] 
 SELECT FromUser,ToUser,UrgentLevel,Kind,HasRead,IsDelete,Content FROM [Message];
+
+---------------------------------------
+--多张表：外键 / Cascade / 三大范式 / ER模型
+
+--1.
+
+SELECT * FROM [User];
+SELECT * FROM [Profile];
+
+CREATE TABLE [Profile] 
+(
+	[ID] INT CONSTRAINT PK_Profile_ID PRIMARY KEY NOT NULL,
+	[Portrait] NVARCHAR(200) NOT NULL,
+	[Gender] BIT NOT NULL,
+	[BirthYear] INT NOT NULL,
+	[BirthMonth] TINYINT NOT NULL,
+	[Constellation] TINYINT NOT NULL,
+	[Keywords] NVARCHAR(200) NOT NULL,
+	[Description] NVARCHAR(255) NULL
+);
+
+ALTER TABLE [User]
+DROP COLUMN Describe;
+
+DELETE [User];
+
+INSERT [Profile] VALUES (1,'E:\echo\zero\adn\adnWork\StudySystem\staticpage\wwwroot\Images\1.jpg',1,1987,11,8,N'Windows 操作系统 VisualStudio 工具软件 C# 编程开发语言 ',N'喜欢钻研的技术宅');
+INSERT [User] VALUES (1,'Scorpio','aa123456');
+
+INSERT [Profile] VALUES (2,'E:\echo\zero\adn\adnWork\StudySystem\staticpage\wwwroot\Images\2.jpg',0,1987,10,7,N'Windows 操作系统 VisualStudio 工具软件 C# 编程开发语言 ',N'喜欢钻研的技术宅0');
+INSERT [User] VALUES (2,'Libra','bb123456');
+
+SELECT 
+U.ID,
+U.UserName,
+F.BirthYear,
+F.BirthMonth,
+F.Constellation
+FROM [User] U JOIN [Profile] F ON U.ID = F.ID
+WHERE U.ID = 2;
+
+ALTER TABLE [Profile] 
+ADD CONSTRAINT FK_Profile_ID_User_ID 
+FOREIGN KEY (ID) 
+REFERENCES [User] (ID) 
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
+
+ALTER TABLE [User] 
+--DROP CONSTRAINT PK_User_ID;
+--ALTER COLUMN ID INT NOT NULL;
+ADD CONSTRAINT PK_User_ID PRIMARY KEY (ID);
+
+SELECT * FROM [User];
+SELECT * FROM [Profile];
+
+BEGIN TRAN
+--DELETE [User] WHERE ID = 2;
+UPDATE [User] SET ID = 3 WHERE ID =2;
+
+ROLLBACK;
+
+--2.
+
+CREATE TABLE [Credit] 
+(
+	[Id] INT CONSTRAINT PK_Credit_ID PRIMARY KEY NOT NULL,
+	[UserID] INT NOT NULL,
+	[GetTime] DATETIME NOT NULL,
+	[Category] TINYINT NOT NULL,
+	[Reason] NVARCHAR(200) NULL,
+	[Points] INT NOT NULL
+);
+
+--3.
+
+
+
+ALTER TABLE Problem 
+--DROP COLUMN ID,Author;
+ADD Id INT  NULL,
+Content NTEXT  NULL,
+Keywords NVARCHAR(200)  NULL,
+ToWhom INT NULL,
+InReality BIT  NULL,
+UserID INT  NULL;
+
+SELECT * FROM [User];
+SELECT * FROM Problem;
+
+ALTER TABLE [Problem] 
+ADD CONSTRAINT FK_Problem_UserID_User_ID 
+FOREIGN KEY (UserID) 
+REFERENCES [User] (ID) 
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
+
+BEGIN TRAN 
+DELETE [User] WHERE ID = 2;
+
+ROLLBACK;
+
+--4.
+
+SELECT * FROM Problem;
+SELECT * FROM Keyword;
+SELECT * FROM Problem2Keyword;
+
+ALTER TABLE Keyword 
+--DROP COLUMN Id;
+--DROP CONSTRAINT PK_Keyword_Id;
+ADD Id INT;
+
+CREATE TABLE [Problem2Keyword] 
+(
+	[Id] INT NOT NULL,
+	[PID] INT NULL,
+	[KID] INT NULL
+);
+
+ALTER TABLE [Problem2Keyword] 
+ADD CONSTRAINT FK_Problem2Keyword_PID_Problem_ID 
+FOREIGN KEY (PID) 
+REFERENCES Problem (ID) 
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
+
+ALTER TABLE Problem 
+--ALTER COLUMN ID INT NOT NULL;
+ADD CONSTRAINT PK_Problem_ID 
+PRIMARY KEY (ID);
+
+ALTER TABLE [Problem2Keyword] 
+ADD CONSTRAINT FK_Problem2Keyword_KID_Keyword_ID 
+FOREIGN KEY (KID) 
+REFERENCES Keyword (ID) 
+ON DELETE CASCADE 
+ON UPDATE CASCADE;
+
+ALTER TABLE Keyword
+--ALTER COLUMN ID INT NOT NULL;
+ADD CONSTRAINT PK_Keyword_ID 
+PRIMARY KEY (ID);
+
+
+SELECT * FROM Problem;
+SELECT * FROM Keyword;
+SELECT * FROM Problem2Keyword;
+
+SELECT 
+P.ID,
+P.Title,
+P.Keywords,
+T.PID,
+T.KID,
+K.ID,
+K.[Name]
+FROM Problem P 
+JOIN Problem2Keyword T ON P.ID = T.PID 
+JOIN Keyword K ON T.KID = K.ID
+WHERE P.ID = 1;
+
+SELECT 
+K.ID,
+K.[Name],
+T.KID,
+T.PID,
+P.ID,
+P.Title,
+P.Keywords
+FROM Problem P 
+JOIN Problem2Keyword T ON P.ID = T.PID 
+JOIN Keyword K ON T.KID = K.ID
+WHERE K.ID = 2;
+
+
+SELECT * FROM Problem;
+SELECT * FROM Keyword;
+SELECT * FROM Problem2Keyword;
+
+BEGIN TRAN 
+--DELETE Problem WHERE ID = 1;
+DELETE Keyword WHERE ID = 2;
+
+ROLLBACK;
