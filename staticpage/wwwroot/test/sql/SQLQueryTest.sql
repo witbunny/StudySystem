@@ -309,3 +309,6 @@ s.[Name]
 FROM xue x 
 FULL JOIN xue2shi t ON x.Id = t.xid 
 FULL JOIN shi s ON t.[sid] = s.Id
+
+
+DROP DATABASE TaskSQL;

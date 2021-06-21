@@ -1,11 +1,16 @@
 ﻿
 CREATE DATABASE TaskSQL;
 
-BACKUP DATABASE TaskSQL TO DISK = 'E:\echo\zero\adn\adnWork\StudySystem\staticpage\wwwroot\test\sql\TaskSQL.bak';
+BACKUP DATABASE TaskSQL TO DISK = 'E:\echo\zero\adn\adnWork\StudySystem\staticpage\wwwroot\test\sql\bak\TaskSQL.bak';
 
 DROP DATABASE TaskSQL;
 
-RESTORE DATABASE TaskSQL FROM DISK = 'E:\echo\zero\adn\adnWork\StudySystem\staticpage\wwwroot\test\sql\TaskSQL.bak';
+RESTORE DATABASE TaskSQL FROM DISK = 'E:\echo\zero\adn\adnWork\StudySystem\staticpage\wwwroot\test\sql\bak\TaskSQL.bak';
+
+-----
+
+
+
 
 USE TaskSQL;
 
@@ -446,3 +451,43 @@ BEGIN TRAN
 DELETE Keyword WHERE ID = 2;
 
 ROLLBACK;
+
+
+
+-------
+
+
+DECLARE @DBNAME VARCHAR(255)
+ DECLARE @TargetPath VARCHAR(255)
+ DECLARE @CmdCommand VARCHAR(2000)
+
+SET @DBNAME='TEST001'
+ SET @TargetPath='D:\MyDB'
+
+--第一步:设置数据库脱机
+SET @CmdCommand= 'ALTER DATABASE '+@DBNAME+' SET OFFLINE'
+ EXEC(@CmdCommand)
+
+--第二步：物理拷贝数据库文件到新目录
+DECLARE @FileName VARCHAR(255)
+ DECLARE @SourceFullName VARCHAR(255)
+ DECLARE FileCur CURSOR for SELECT name,physical_name from sys.master_files where database_id=db_id(@DBNAME)
+ OPEN FileCur
+ FETCH NEXT FROM FileCur INTO @FileName,@SourceFullName
+ WHILE @@FETCH_STATUS=0
+ BEGIN
+  SET @CmdCommand= 'copy "'+@SourceFullName+'" "'+@TargetPath+'"'
+  EXEC master..xp_cmdshell @CmdCommand
+  
+  --修改数据库文件的路径指向新目录
+ SET @CmdCommand='ALTER DATABASE '+@DBNAME+' MODIFY FILE(FILENAME='''+@TargetPath+CASE WHEN RIGHT(@TargetPath,1)='\'THEN'' ELSE'\' END+
+   RIGHT(@SourceFullName, CHARINDEX('\', REVERSE(@SourceFullName))-1)+''',name='''+@FileName+''')'
+  EXEC(@CmdCommand)
+  FETCH NEXT FROM FileCur INTO @FileName,@SourceFullName
+ END
+ CLOSE FileCur
+ DEALLOCATE FileCur
+
+--第三步：设置数据库联机
+SET @CmdCommand= 'ALTER DATABASE '+@DBNAME+' SET ONLINE'
+ EXEC(@CmdCommand)
