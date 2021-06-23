@@ -7,10 +7,7 @@ DROP DATABASE TaskSQL;
 
 RESTORE DATABASE TaskSQL FROM DISK = 'E:\echo\zero\adn\adnWork\StudySystem\staticpage\wwwroot\test\sql\bak\TaskSQL.bak';
 
------
-
-
-
+-----------------------
 
 USE TaskSQL;
 
@@ -452,42 +449,101 @@ DELETE Keyword WHERE ID = 2;
 
 ROLLBACK;
 
+---------------------------------------
+--JOIN和UNION：INNER/LEFT/RIGHT/FULL/CROSS以及自连接
+--1.
 
+SELECT * FROM Problem
+SELECT * FROM [User]
 
--------
+SELECT 
+P.Title,
+U.UserName
+FROM Problem P JOIN [User] U 
+ON P.UserID = U.ID 
 
+--2.
 
-DECLARE @DBNAME VARCHAR(255)
- DECLARE @TargetPath VARCHAR(255)
- DECLARE @CmdCommand VARCHAR(2000)
+SELECT 
+P.Title,
+U.UserName
+FROM Problem P RIGHT JOIN [User] U 
+ON P.UserID = U.ID 
+WHERE P.Title IS NULL
 
-SET @DBNAME='TEST001'
- SET @TargetPath='D:\MyDB'
+SELECT * FROM Problem
+SELECT * FROM [User]
 
---第一步:设置数据库脱机
-SET @CmdCommand= 'ALTER DATABASE '+@DBNAME+' SET OFFLINE'
- EXEC(@CmdCommand)
+BEGIN TRAN 
+DELETE [User] 
+FROM Problem P RIGHT JOIN [User] U 
+ON P.UserID = U.ID 
+WHERE P.Title IS NULL
 
---第二步：物理拷贝数据库文件到新目录
-DECLARE @FileName VARCHAR(255)
- DECLARE @SourceFullName VARCHAR(255)
- DECLARE FileCur CURSOR for SELECT name,physical_name from sys.master_files where database_id=db_id(@DBNAME)
- OPEN FileCur
- FETCH NEXT FROM FileCur INTO @FileName,@SourceFullName
- WHILE @@FETCH_STATUS=0
- BEGIN
-  SET @CmdCommand= 'copy "'+@SourceFullName+'" "'+@TargetPath+'"'
-  EXEC master..xp_cmdshell @CmdCommand
-  
-  --修改数据库文件的路径指向新目录
- SET @CmdCommand='ALTER DATABASE '+@DBNAME+' MODIFY FILE(FILENAME='''+@TargetPath+CASE WHEN RIGHT(@TargetPath,1)='\'THEN'' ELSE'\' END+
-   RIGHT(@SourceFullName, CHARINDEX('\', REVERSE(@SourceFullName))-1)+''',name='''+@FileName+''')'
-  EXEC(@CmdCommand)
-  FETCH NEXT FROM FileCur INTO @FileName,@SourceFullName
- END
- CLOSE FileCur
- DEALLOCATE FileCur
+ROLLBACK
 
---第三步：设置数据库联机
-SET @CmdCommand= 'ALTER DATABASE '+@DBNAME+' SET ONLINE'
- EXEC(@CmdCommand)
+--3.
+
+USE SSDBtest
+
+SELECT 
+U.Id,
+U.[Name],
+U.InviteBy,
+I.Id,
+I.[Name]
+FROM Student U JOIN Student I 
+ON U.InviteBy = I.Id 
+
+--4.
+
+USE TaskSQL
+
+SELECT * FROM Keyword
+
+ALTER TABLE Keyword 
+--ADD Superior INT NULL
+ADD CONSTRAINT FK_Keyword_Superior_Keyword_Id 
+FOREIGN KEY (Superior) 
+REFERENCES Keyword (Id)
+
+SELECT 
+T.Id,
+T.[Name],
+W.[Name],
+O.[Name]
+FROM Keyword T 
+LEFT JOIN Keyword W ON T.Superior = W.Id 
+LEFT JOIN Keyword O ON W.Superior = O.Id
+
+--5.
+
+SELECT * FROM Problem
+
+CREATE TABLE Suggest 
+(
+	Id INT NOT NULL CONSTRAINT PK_Suggest_Id PRIMARY KEY,
+	Title NVARCHAR(20) NOT NULL,
+	Content NTEXT NULL,
+	Kind NVARCHAR(20) NULL,
+	PublishTime DATETIME NOT NULL,
+	Auhthor INT NULL CONSTRAINT FK_Suggest_Auhthor_User_ID FOREIGN KEY REFERENCES [User] (ID)
+)
+
+CREATE TABLE Article 
+(
+	Id INT NOT NULL CONSTRAINT PK_Article_Id PRIMARY KEY,
+	Title NVARCHAR(20) NOT NULL,
+	Content NTEXT NULL,
+	Category INT NULL,
+	PublishTime DATETIME NOT NULL,
+	Auhthor INT NULL CONSTRAINT FK_Article_Auhthor_User_ID FOREIGN KEY REFERENCES [User] (ID)
+)
+
+SELECT Title,UserID,PublishDateTime FROM Problem WHERE UserID = 2 
+UNION 
+SELECT Title,Auhthor,PublishTime FROM Suggest WHERE Auhthor = 2 
+UNION 
+SELECT Title,Auhthor,PublishTime FROM Article WHERE Auhthor = 2 
+--
+ORDER BY PublishDateTime DESC

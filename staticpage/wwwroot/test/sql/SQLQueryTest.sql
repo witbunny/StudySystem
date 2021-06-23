@@ -310,5 +310,12 @@ FROM xue x
 FULL JOIN xue2shi t ON x.Id = t.xid 
 FULL JOIN shi s ON t.[sid] = s.Id
 
+------------------------------
 
-DROP DATABASE TaskSQL;
+SELECT * FROM Major
+SELECT * FROM shi
+SELECT * FROM student
+SELECT * FROM [Table]
+SELECT * FROM Teacher
+SELECT * FROM xue
+SELECT * FROM xue2shi
