@@ -547,3 +547,133 @@ UNION
 SELECT Title,Auhthor,PublishTime FROM Article WHERE Auhthor = 2 
 --
 ORDER BY PublishDateTime DESC
+
+
+----------------------------------------
+--子查询：独立/相关，以及集合运算
+--1.
+
+SELECT * FROM Problem
+
+SELECT UserID,Title,Reward FROM Problem ORDER BY UserID,Reward
+
+SELECT UserID,MIN(Reward) FROM Problem GROUP BY UserID
+
+SELECT UserID,Title,Reward FROM Problem OT
+WHERE Reward = (
+	SELECT MIN(Reward) FROM Problem IT 
+	WHERE OT.UserID = IT.UserID
+)
+
+BEGIN TRAN 
+DELETE Problem 
+WHERE Title IN (
+	SELECT Title FROM Problem OT
+	WHERE Reward = (
+		SELECT MIN(Reward) FROM Problem IT 
+		WHERE OT.UserID = IT.UserID
+	)
+)
+
+ROLLBACK
+
+--2
+
+USE SSDBtest
+
+SELECT * FROM Student
+
+SELECT * FROM Student 
+WHERE Id NOT IN (
+	SELECT InviteBy FROM Student 
+	WHERE InviteBy IS NOT NULL
+	GROUP BY InviteBy
+)
+
+--3
+
+USE TaskSQL
+
+SELECT * FROM Problem
+SELECT * FROM Keyword
+SELECT * FROM Problem2Keyword
+
+SELECT 
+P.Id,
+P.Title,
+P.Reward,
+T.PID,
+T.KID,
+K.Id,
+K.[Name]
+FROM Problem P 
+JOIN Problem2Keyword T ON P.Id = T.PID 
+JOIN Keyword K ON T.KID = K.Id
+
+SELECT P.Id,COUNT(K.[Name])
+FROM Problem P 
+JOIN Problem2Keyword T ON P.Id = T.PID 
+JOIN Keyword K ON T.KID = K.Id
+GROUP BY P.Id
+
+BEGIN TRAN 
+UPDATE Problem SET Reward *= 2 
+WHERE Id IN (
+	SELECT P.Id FROM Problem P 
+	JOIN Problem2Keyword T ON P.Id = T.PID 
+	JOIN Keyword K ON T.KID = K.Id
+	GROUP BY P.Id
+	HAVING COUNT(K.[Name]) >= 3
+)
+
+ROLLBACK
+
+SELECT * FROM Problem
+
+--4.
+
+SELECT UserID,COUNT(Title) FROM Problem 
+GROUP BY UserID
+
+SELECT * FROM [User] U 
+LEFT JOIN [Profile] F ON U.ID = F.ID 
+WHERE U.ID IN (
+	SELECT UserID FROM Problem 
+	GROUP BY UserID
+	HAVING COUNT(Title) > 3 
+)
+
+--5.
+
+SELECT UserID,PublishDateTime,Title FROM Problem ORDER BY UserID,PublishDateTime DESC
+
+SELECT ROW_NUMBER() 
+OVER (PARTITION BY UserID 
+ORDER BY PublishDateTime DESC) RID,
+UserID,PublishDateTime,Title 
+FROM Problem 
+
+SELECT * FROM (
+	SELECT ROW_NUMBER() 
+	OVER (PARTITION BY UserID 
+	ORDER BY PublishDateTime DESC) RID,
+	UserID,PublishDateTime,Title 
+	FROM Problem 
+) DP 
+WHERE DP.RID = 1 
+
+SELECT UserID,PublishDateTime,Title FROM Problem OT 
+WHERE PublishDateTime IN (
+	SELECT MAX(PublishDateTime) FROM Problem IT
+	WHERE OT.UserID = IT.UserID
+)
+
+--6.
+
+SELECT UserID,Title,Reward FROM Problem ORDER BY UserID,Reward
+
+SELECT UserID,Title,Reward FROM Problem OT
+WHERE 5 < (
+	SELECT MIN(Reward) FROM Problem IT 
+	WHERE OT.UserID = IT.UserID
+)
