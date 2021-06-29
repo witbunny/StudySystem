@@ -677,3 +677,143 @@ WHERE 5 < (
 	SELECT MIN(Reward) FROM Problem IT 
 	WHERE OT.UserID = IT.UserID
 )
+
+
+------------------------------------------
+--表表达式：派生表/CTE/分页查询
+--1.
+
+SELECT * FROM Problem
+
+SELECT te.Pyear,te.Pmonth,COUNT(te.Title) FROM (
+	SELECT Title,
+	YEAR(PublishDateTime) AS Pyear,
+	MONTH(PublishDateTime) AS Pmonth
+	FROM Problem ) te 
+GROUP BY te.Pyear,te.Pmonth
+ORDER BY te.Pyear,te.Pmonth
+
+WITH te AS (
+	SELECT Title,
+	YEAR(PublishDateTime) AS Pyear,
+	MONTH(PublishDateTime) AS Pmonth
+	FROM Problem )
+SELECT te.Pyear,te.Pmonth,COUNT(te.Title) FROM te 
+GROUP BY te.Pyear,te.Pmonth
+ORDER BY te.Pyear,te.Pmonth
+
+--2.
+
+SELECT * FROM (
+	SELECT 
+	ROW_NUMBER() OVER (
+		PARTITION BY te.Pyear,te.Pmonth 
+		ORDER BY te.Pyear,te.Pmonth,te.Reward DESC
+	) AS RID,* 
+	FROM (
+		SELECT	
+		YEAR(PublishDateTime) AS Pyear,
+		MONTH(PublishDateTime) AS Pmonth,
+		Title,
+		Reward
+		FROM Problem
+	) te ) rte
+WHERE rte.RID <= 3
+
+WITH te AS (
+	SELECT	
+	YEAR(PublishDateTime) AS Pyear,
+	MONTH(PublishDateTime) AS Pmonth,
+	Title,
+	Reward
+	FROM Problem )
+SELECT * FROM (
+	SELECT 
+	ROW_NUMBER() OVER (
+		PARTITION BY te.Pyear,te.Pmonth 
+		ORDER BY te.Pyear,te.Pmonth,te.Reward DESC
+	) AS RID,* 
+	FROM te ) rte
+WHERE rte.RID <= 3
+
+WITH 
+te AS (
+	SELECT	
+	YEAR(PublishDateTime) AS Pyear,
+	MONTH(PublishDateTime) AS Pmonth,
+	Title,
+	Reward
+	FROM Problem ),
+rte AS (
+	SELECT 
+	ROW_NUMBER() OVER (
+		PARTITION BY te.Pyear,te.Pmonth 
+		ORDER BY te.Pyear,te.Pmonth,te.Reward DESC
+	) AS RID,* 
+	FROM te )
+SELECT * FROM rte 
+WHERE rte.RID <= 3
+
+--3.
+
+WITH 
+te AS (
+	SELECT	
+	UserID,
+	YEAR(PublishDateTime) AS Pyear,
+	MONTH(PublishDateTime) AS Pmonth,
+	Title,
+	Reward
+	FROM Problem ),
+rte AS (
+	SELECT 
+	ROW_NUMBER() OVER (
+		PARTITION BY te.UserID,te.Pyear,te.Pmonth 
+		ORDER BY te.UserID,te.Pyear,te.Pmonth,te.Reward DESC
+	) AS RID,* 
+	FROM te )
+SELECT * FROM rte 
+WHERE rte.RID <= 3
+
+--4.
+
+SELECT * FROM Problem ORDER BY PublishDateTime
+
+SELECT TOP 3 Title,Reward,PublishDateTime,UserID FROM Problem 
+ORDER BY PublishDateTime
+
+SELECT TOP 3 Title,Reward,PublishDateTime,UserID FROM Problem
+WHERE ID NOT IN (
+	SELECT TOP 3 ID FROM Problem 
+	ORDER BY PublishDateTime )
+ORDER BY PublishDateTime
+
+SELECT TOP 3 Title,Reward,PublishDateTime,UserID FROM Problem
+WHERE ID NOT IN (
+	SELECT TOP 6 ID FROM Problem 
+	ORDER BY PublishDateTime )
+ORDER BY PublishDateTime
+
+---
+
+SELECT ID,Title,Reward,PublishDateTime,UserID FROM Problem 
+ORDER BY PublishDateTime
+
+SELECT * FROM (
+	SELECT 
+	ROW_NUMBER() OVER (
+		ORDER BY PublishDateTime ) AS RID,
+	ID,Title,Reward,PublishDateTime,UserID FROM Problem ) TE
+WHERE TE.RID >= 4 AND TE.RID <= 6
+
+--1--1-3   
+--2--4-6
+--3--7-9   (pageindex-1)*pagesize+1  --  pageindex*pagesize
+
+---
+
+SELECT ID,Title,Reward,PublishDateTime,UserID FROM Problem 
+ORDER BY PublishDateTime
+OFFSET 6 ROWS
+FETCH NEXT 3 ROWS ONLY
+
