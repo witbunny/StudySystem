@@ -326,3 +326,112 @@ IF EXISTS(SELECT NULL) PRINT 'YES' ELSE PRINT 'NO'
 IF NOT EXISTS(SELECT NULL) PRINT 'Yes' ELSE PRINT 'NO'
 IF 4 IN (1,2,3,NULL) PRINT 'YES' ELSE PRINT 'NO'
 IF 4 NOT IN(1,2,NULL) PRINT 'YES' ELSE PRINT 'NO'
+
+
+-------------------------------
+
+SELECT * FROM student
+
+ALTER TABLE Student 
+ADD Score INT NULL
+
+SELECT 
+ROW_NUMBER() OVER (
+	PARTITION BY Age 
+	ORDER BY Score
+) AS RID,
+Id,
+[Name],
+Age,
+Score
+FROM Student
+
+SELECT 
+ROW_NUMBER() OVER (
+	PARTITION BY Age 
+	ORDER BY Score
+) AS RID,
+Id,
+[Name],
+Age,
+MAX(Score) OVER (
+	PARTITION BY Age 
+	--ORDER BY Score
+) AS MAS,
+Score,
+MAX(Score) OVER (
+	PARTITION BY Age 
+	--ORDER BY Score
+) - Score AS CHA
+FROM Student
+
+-----------------------------
+
+SELECT 
+Id,
+[Name],
+Age,
+Score,
+CASE  
+	WHEN Score >= 90 THEN N'优秀'
+	WHEN Score >= 80 THEN N'良好'
+	WHEN Score >= 70 THEN N'一般'
+	WHEN Score >= 60 THEN N'及格'
+	ELSE N'不及格'
+END AS Grade
+FROM Student
+
+SELECT * FROM student
+
+ALTER TABLE Student 
+ADD Grade NVARCHAR(10) NULL
+
+UPDATE Student SET Grade = 
+CASE  
+	WHEN Score >= 90 THEN N'优秀'
+	WHEN Score >= 80 THEN N'良好'
+	WHEN Score >= 70 THEN N'一般'
+	WHEN Score >= 60 THEN N'及格'
+	ELSE N'不及格'
+END
+
+SELECT * FROM [Table]
+
+SELECT 
+[name],
+isfemale,
+CASE isfemale
+	WHEN 1 THEN N'男'
+	WHEN 0 THEN N'女'
+	ELSE N'未知'
+END AS BIE
+FROM [Table]
+
+CREATE TABLE StudentScore (
+	Id INT NOT NULL,
+	Sname NVARCHAR(10) NOT NULL,
+	Major NVARCHAR(10) NOT NULL,
+	Score INT NULL
+)
+
+SELECT * FROM StudentScore
+
+SELECT 
+--Id,
+Sname,
+--Major,
+--Score,
+MAX(CASE Major
+	WHEN 'C#' THEN Score ELSE -1
+END) AS C#,
+MAX(CASE Major
+	WHEN 'JAVA' THEN Score ELSE -1
+END) AS JAVA,
+MAX(CASE Major
+	WHEN 'JS' THEN Score ELSE -1
+END) AS JS,
+MAX(CASE Major
+	WHEN 'SQL' THEN Score ELSE -1
+END) AS SQL
+FROM StudentScore
+GROUP BY Sname
