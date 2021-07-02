@@ -909,3 +909,19 @@ SELECT * FROM VProblemKeyword
 CREATE INDEX IX_VProblemKeyword_ProblemReward
 ON VProblemKeyword(ProblemReward)
 
+
+------------------------
+WITH CT 
+AS (
+	SELECT P.UserID,P.Title,COUNT(K.[Name]) AS ACOUNT
+	FROM Problem P 
+	JOIN Problem2Keyword T ON P.Id =T.PID
+	JOIN Keyword K ON T.KID = K.Id
+	GROUP BY P.UserID,P.Title ) 
+SELECT * FROM CT OC
+WHERE ACOUNT = (
+	SELECT MAX(ACOUNT) FROM CT IC
+	WHERE OC.UserId = IC.UserId )
+
+
+--ORDER BY CT.UserID,CT.ACOUNT DESC
