@@ -817,3 +817,95 @@ ORDER BY PublishDateTime
 OFFSET 6 ROWS
 FETCH NEXT 3 ROWS ONLY
 
+
+--视图：标准/SCHEMABINDING/CHECK/ENCRYPTION/聚集索引
+--1.
+
+CREATE TABLE TResponse (
+	Id INT NOT NULL,
+	Content NVARCHAR(200) NULL,
+	AuthorId INT NOT NULL,
+	ProblemId INT NOT NULL,
+	CreateTime DATETIME NOT NULL
+)
+
+--2.
+
+CREATE VIEW VResponse 
+WITH SCHEMABINDING, ENCRYPTION
+AS 
+SELECT 
+R.Id AS ResponseId,
+R.Content,
+R.AuthorId,
+RU.UserName AS AuthorName,
+R.ProblemId,
+P.Title AS ProblemTitle,
+p.Reward,
+P.UserID,
+PU.UserName,
+R.CreateTime
+FROM dbo.TResponse R
+JOIN dbo.[User] RU ON R.AuthorId = RU.ID
+JOIN dbo.Problem P ON R.ProblemId = P.Id
+JOIN dbo.[User] PU ON P.UserID = PU.ID
+WHERE P.Reward > 5 --WITH CHECK OPTION
+
+DROP VIEW VResponse 
+
+--3.
+
+SELECT * FROM VResponse
+
+INSERT VResponse (ResponseId,AuthorId,ProblemId,CreateTime) VALUES (4,3,4,'2019-11-12')
+
+--4.
+
+ALTER VIEW VResponse 
+WITH SCHEMABINDING, ENCRYPTION
+AS 
+SELECT 
+R.Id AS ResponseId,
+R.Content,
+R.AuthorId,
+RU.UserName AS AuthorName,
+R.ProblemId,
+P.Title AS ProblemTitle,
+p.Reward,
+P.UserID,
+PU.UserName,
+R.CreateTime
+FROM dbo.TResponse R
+JOIN dbo.[User] RU ON R.AuthorId = RU.ID
+JOIN dbo.Problem P ON R.ProblemId = P.Id
+JOIN dbo.[User] PU ON P.UserID = PU.ID
+WHERE P.Reward > 5 WITH CHECK OPTION
+
+--5.
+
+CREATE VIEW VProblemKeyword 
+WITH SCHEMABINDING
+AS 
+SELECT 
+P.Id AS ProblemId,
+P.Title AS ProblemTitle,
+P.Reward AS ProblemReward,
+COUNT_BIG(*) AS KeywordAmount
+FROM dbo.Problem P
+JOIN dbo.Problem2Keyword T ON P.Id = T.PID 
+JOIN dbo.Keyword K ON T.KID = K.Id
+GROUP BY P.Id,P.Title,P.Reward
+
+DROP VIEW VProblemKeyword
+
+CREATE UNIQUE CLUSTERED INDEX IX_VProblemKeyword_ProblemId 
+ON VProblemKeyword(ProblemId)
+
+ALTER TABLE Problem 
+ALTER COLUMN Id BIGINT NOT NULL
+
+SELECT * FROM VProblemKeyword
+
+CREATE INDEX IX_VProblemKeyword_ProblemReward
+ON VProblemKeyword(ProblemReward)
+
