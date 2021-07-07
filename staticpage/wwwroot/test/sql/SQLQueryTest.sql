@@ -435,3 +435,9 @@ MAX(CASE Major
 END) AS SQL
 FROM StudentScore
 GROUP BY Sname
+
+
+------------------------------------------------------
+--数据库：14 - 并发冲突和锁
+
+DBCC USEROPTIONS
