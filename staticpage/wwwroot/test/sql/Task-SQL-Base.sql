@@ -925,3 +925,64 @@ WHERE ACOUNT = (
 
 
 --ORDER BY CT.UserID,CT.ACOUNT DESC
+
+-----------------------------------------------
+--事务和异常
+
+CREATE TABLE TReigister (
+	ID INT IDENTITY,
+	UserID INT NOT NULL,
+	BMoney INT NOT NULL DEFAULT(10)
+)
+
+ALTER TABLE TReigister
+--DROP CONSTRAINT CK_TReigister_BMoney
+ADD CONSTRAINT CK_TReigister_BMoney CHECK (BMoney >= 0)
+
+SELECT * FROM Problem
+SELECT * FROM TReigister
+
+
+BEGIN TRY
+	BEGIN TRAN
+		INSERT Problem (Id, UserID, Title, Reward, PublishDateTime) 
+		VALUES (15, 1, N'如何使用异常', 100, '2020/3/16 9:00:00');
+		
+		UPDATE TReigister SET BMoney -= 100 WHERE UserID = 1;
+
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	ROLLBACK TRAN;
+	THROW;
+END CATCH
+
+SELECT @@TRANCOUNT
+
+BEGIN TRY
+	BEGIN TRAN
+	UPDATE TReigister SET BMoney += 5;
+		BEGIN TRAN
+		SAVE TRAN inner_point
+		BEGIN TRY
+			INSERT Problem (Id, UserID, Title, Reward, PublishDateTime) 
+			VALUES (15, 1, N'如何使用异常', 100, '2020/3/16 9:00:00');
+		
+			UPDATE TReigister SET BMoney -= 100 WHERE UserID = 1;
+
+			COMMIT TRAN
+		END TRY
+		BEGIN CATCH
+			ROLLBACK TRAN inner_point;
+			COMMIT TRAN;
+			--THROW
+		END CATCH
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	ROLLBACK TRAN;
+	THROW
+END CATCH
+
+SELECT * FROM Problem
+SELECT * FROM TReigister
