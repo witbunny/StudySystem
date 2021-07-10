@@ -72,8 +72,8 @@ WHERE EXISTS (
 	SELECT * FROM [Table]
 	WHERE ID = 2
 
-	SELECT * FROM [Table]
-	WHERE ID = 5
+	--SELECT * FROM [Table]
+	--WHERE ID = 5
 )
 
 SELECT * FROM [Table]
@@ -107,9 +107,9 @@ ALTER TABLE Student
 --DROP COLUMN InviteBy;
 --DROP CONSTRAINT FK_Student_Teacher_Id;
 
-ADD CONSTRAINT FK_Student_InviteBy_Student_Id 
-FOREIGN KEY (InviteBy) 
-REFERENCES Student (Id);
+--ADD CONSTRAINT FK_Student_InviteBy_Student_Id 
+--FOREIGN KEY (InviteBy) 
+--REFERENCES Student (Id);
 
 ADD CONSTRAINT FK_Student_TeacherId_Teacher_Id 
 FOREIGN KEY (TeacherId) 
@@ -441,3 +441,26 @@ GROUP BY Sname
 --数据库：14 - 并发冲突和锁
 
 DBCC USEROPTIONS
+
+
+-------------------------------------------------------
+
+GO
+CREATE FUNCTION tt (@num INT)
+RETURNS TABLE
+RETURN SELECT TOP (@num) * FROM Problem
+GO
+
+SELECT * FROM tt(10)
+
+GO 
+CREATE FUNCTION ct (@id INT, @na NVARCHAR(20))
+RETURNS @t TABLE (Id INT, Na VARCHAR(20))
+AS
+BEGIN
+	INSERT @t VALUES (@id, @na)
+	RETURN
+END
+GO
+
+SELECT * FROM ct(2,N'zs')

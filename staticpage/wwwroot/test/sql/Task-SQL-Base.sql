@@ -235,7 +235,7 @@ ADD CONSTRAINT PK_Message_Id PRIMARY KEY (Id);
 --ALTER COLUMN Content NTEXT NULL;
 --DROP CONSTRAINT PK_Message_Id;
 --DROP COLUMN Id;
-ADD ID INT IDENTITY;
+--ADD ID INT IDENTITY;
 
 
 -- [type]：1 聚集; >1 非聚集
@@ -830,7 +830,7 @@ CREATE TABLE TResponse (
 )
 
 --2.
-
+GO
 CREATE VIEW VResponse 
 WITH SCHEMABINDING, ENCRYPTION
 AS 
@@ -850,6 +850,7 @@ JOIN dbo.[User] RU ON R.AuthorId = RU.ID
 JOIN dbo.Problem P ON R.ProblemId = P.Id
 JOIN dbo.[User] PU ON P.UserID = PU.ID
 WHERE P.Reward > 5 --WITH CHECK OPTION
+GO
 
 DROP VIEW VResponse 
 
@@ -860,7 +861,7 @@ SELECT * FROM VResponse
 INSERT VResponse (ResponseId,AuthorId,ProblemId,CreateTime) VALUES (4,3,4,'2019-11-12')
 
 --4.
-
+GO
 ALTER VIEW VResponse 
 WITH SCHEMABINDING, ENCRYPTION
 AS 
@@ -880,7 +881,7 @@ JOIN dbo.[User] RU ON R.AuthorId = RU.ID
 JOIN dbo.Problem P ON R.ProblemId = P.Id
 JOIN dbo.[User] PU ON P.UserID = PU.ID
 WHERE P.Reward > 5 WITH CHECK OPTION
-
+GO
 --5.
 
 CREATE VIEW VProblemKeyword 
@@ -895,6 +896,7 @@ FROM dbo.Problem P
 JOIN dbo.Problem2Keyword T ON P.Id = T.PID 
 JOIN dbo.Keyword K ON T.KID = K.Id
 GROUP BY P.Id,P.Title,P.Reward
+GO
 
 DROP VIEW VProblemKeyword
 
@@ -908,7 +910,7 @@ SELECT * FROM VProblemKeyword
 
 CREATE INDEX IX_VProblemKeyword_ProblemReward
 ON VProblemKeyword(ProblemReward)
-
+GO
 
 ------------------------
 WITH CT 
@@ -1002,3 +1004,242 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITTED
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+
+
+
+----------------------------------------------------------------
+--数据库：函数和存储过程
+
+--打印如下所示的等腰三角形： 
+--   1
+
+--  333
+
+-- 55555
+
+--7777777
+GO
+ALTER FUNCTION triangle (@init INT, @level INT)
+RETURNS NVARCHAR(200)
+AS
+BEGIN
+	DECLARE @outstr NVARCHAR(200) = ''
+	DECLARE @n INT = 0
+	WHILE (@n < @level)
+	BEGIN
+		SET @n += 1
+		SET @outstr += SPACE(@level-@n) + REPLICATE(
+			@init+2*(@n-1), 2*(@n-1)+1
+			)
+			+ CHAR(13) + CHAR(10)
+	END	
+	RETURN @outstr
+END
+GO
+
+PRINT dbo.triangle(1,5)
+
+
+
+--DECLARE @init INT = 1, @level INT = 4;
+--DECLARE @outstr NVARCHAR(200) = '';
+--DECLARE @n INT = 0;
+--WHILE (@n < @level)
+--BEGIN
+--	SET @n += 1;
+--	SET @outstr += SPACE(@level-1) + REPLICATE(@init+2,3);	
+--END
+
+--PRINT @outstr
+
+--------------------------------------------------------------------
+
+
+
+--TProblem中：
+	--找出所有周末发布的求助（添加CreateTime列，如果还没有的话）
+
+PRINT DATEPART(WEEKDAY,'2021/7/11')
+
+PRINT GETDATE()
+
+SELECT * FROM Problem
+WHERE DATEPART(WEEKDAY,PublishDateTime) = 1 OR DATEPART(WEEKDAY,PublishDateTime) =7 
+
+SELECT @@DATEFIRST
+
+	--找出每个作者所有求助悬赏的平均值，精确到小数点后两位
+
+SELECT UserID, CAST(AVG(CAST(Reward AS DECIMAL(8,3))) AS DECIMAL(7,2)) 
+FROM Problem
+GROUP BY UserID
+
+--SELECT UserID, CAST(AVG(Reward) AS DECIMAL(7,2)) 
+--FROM Problem
+--GROUP BY UserID
+
+
+
+	--有一些标题以test、[test]后者Test-开头的求助，找打他们并把这些前缀都换成大写
+
+SELECT * FROM Problem
+WHERE Title LIKE N'test%' OR Title LIKE N'/[test/]%' ESCAPE '/'
+
+BEGIN TRAN
+UPDATE Problem SET Title = UPPER(Title)
+WHERE Title LIKE N'test%' OR Title LIKE N'/[test/]%' ESCAPE '/'
+
+ROLLBACK
+
+--定义一个函数RANDINT(INT max)，可以取0-max之间的最大值
+
+GO
+ALTER FUNCTION randint ( @mi INT = 0, @ma INT = 10, @rnd DECIMAL(8,6) )
+RETURNS INT
+AS
+BEGIN
+	RETURN CEILING( @rnd * ( @ma - @mi ) + @mi )
+END
+GO
+
+PRINT dbo.randint(5,15,RAND())
+
+--PRINT CEILING(RAND()*10)
+--PRINT RAND()
+
+
+----------------------------------------------------------
+
+--编写存储过程“一起帮用户注册”，包含以下逻辑：
+--	检查用户名是否重复。如果重复，返回错误代码：1
+--	检查用户名密码是否符合“长度不小于4位”的要求。如果不符合，返回错误代码：2
+--	如果有邀请人：
+--		检查邀请人是否存在，如果不存在，返回错误代码：10
+--		检查邀请码是否正确，如果邀请码不正确，返回错误代码：11
+--	将用户名、密码和邀请人存入数据库（TRegister）
+--	给邀请人增加10个帮帮点积分
+--	通知邀请人（TMessage中生成一条数据）某人使用了他作为邀请人。
+
+GO
+ALTER PROCEDURE UserRegister
+@una NVARCHAR(20),
+@upw NVARCHAR(20),
+@ivn NVARCHAR(20),
+@ivc INT,
+@outcode INT OUTPUT
+AS
+IF ( @una IN (SELECT UserName FROM TReigister) )
+BEGIN
+	SET @outcode = 1
+END
+ELSE
+BEGIN
+	IF ( 4 > LEN(@upw) )
+	BEGIN
+		SET @outcode = 2
+	END
+	ELSE
+	BEGIN
+		IF ( @ivn NOT IN (SELECT UserName FROM TReigister) )
+		BEGIN
+			SET @outcode = 10
+		END
+		ELSE
+		BEGIN
+			IF ( @ivc <> (SELECT InviteCode FROM TReigister WHERE UserName = @ivn) )
+			BEGIN
+				SET @outcode = 11
+			END
+			ELSE
+			BEGIN
+				BEGIN TRY
+					BEGIN TRAN
+						DECLARE @ivi INT = (SELECT UserID FROM TReigister 
+							WHERE UserName = @ivn)
+						INSERT TReigister (UserName, UserPassword, InviteBy) 
+							VALUES (@una, @upw, @ivi);
+						UPDATE TReigister SET BMoney += 10
+							WHERE UserName = @ivn;
+						INSERT [Message] (FromUser, ToUser, Content) 
+							VALUES (@una, @ivn, @una + N'使用了您作为邀请人');
+					COMMIT TRAN;
+					PRINT N'All executed successfully.';
+				END TRY
+				BEGIN CATCH
+					ROLLBACK TRAN;
+					THROW;
+				END CATCH
+			END
+		END
+	END
+END
+GO
+----------------------------------------------------------------------
+DECLARE @outcode INT 
+EXECUTE UserRegister N'yoyo', N'yoyo', N'jojo', 6606, @outcode OUTPUT
+PRINT @outcode
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+DECLARE @outcode INT 
+EXECUTE UserRegister @una = N'toto', @upw = N'toto', @ivn = N'jojo', @ivc = 6606, @outcode = @outcode OUTPUT
+PRINT @outcode
+----------------------------------------------------------------------
+--SELECT * FROM [User]
+SELECT * FROM TReigister
+--SELECT * FROM [Profile]
+SELECT * FROM [Message]
+
+BEGIN TRAN
+--DELETE TReigister
+DELETE [Message] WHERE ID > 3
+
+COMMIT
+
+ALTER TABLE TReigister
+--ADD UserName NVARCHAR(20) NOT NULL,
+--UserPassword NVARCHAR(20) NOT NULL,
+--InviteBy INT NOT NULL,
+--InviteCode INT NULL
+ALTER COLUMN InviteBy INT NULL
+
+----------------------------------------------------------------------
+
+-- SQL Server Syntax  
+-- Trigger on an INSERT, UPDATE, or DELETE statement to a table or view (DML Trigger)  
+GO 
+ALTER TRIGGER tr_addUpdateTime
+ON Problem  
+AFTER UPDATE
+AS 
+UPDATE Problem SET LatestUpdateTime = GETDATE()
+FROM Problem P 
+JOIN inserted I ON P.Id = I.Id
+JOIN deleted D ON P.Id = D.Id
+
+--WHERE Id IN ( SELECT Id FROM inserted ) AND 
+--Id IN ( SELECT Id FROM deleted )
+
+GO
+CREATE TRIGGER tr_addCreateTime
+ON Problem
+FOR INSERT
+AS
+UPDATE Problem SET PublishDateTime = GETDATE()
+WHERE Id = ( SELECT Id FROM inserted )
+
+------------------------------------------------
+SELECT * FROM Problem
+  
+ALTER TABLE Problem
+ADD LatestUpdateTime DATETIME NULL
+
+UPDATE Problem SET Content = N'更新了'
+WHERE Id = 16
+
+INSERT Problem (Id, Title, Content ) VALUES (16,N'如何定义触发',N'创建了')
+
+PRINT @@VERSION
+
+PRINT @@IDENTITY
+
+PRINT @@ROWCOUNT
