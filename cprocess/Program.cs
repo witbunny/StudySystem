@@ -229,6 +229,7 @@ namespace cprocess
 
 			*/
 
+			/*
 			////////////////////////////////////////////////////////////////
 			///
 			//将源栈同学姓名 / 昵称分别：
@@ -319,13 +320,149 @@ namespace cprocess
 				Console.WriteLine();
 			}
 
+			*/
 
+			//利用ref调用Swap()方法交换两个同学的床位号
+			int seata = 18, seatb = 32;
+			Swap(ref seata, ref seatb);
+			Console.WriteLine(seata);
+			Console.WriteLine(seatb);
+
+			//将登陆的过程封装成一个方法LogOn()，调用之后能够获得：
+			//true / false，表示登陆是否成功
+			//string，表示登陆失败的原因
+			//if (LogOn(out string message))
+			//{
+			//	Console.WriteLine("恭喜！登录成功！");
+			//}
+			//else
+			//{
+			//	Console.WriteLine(message);
+			//}
+
+			//将之前作业封装成方法（自行思考参数和返回值），并调用执行。且以后作业，如无特别声明，皆需使用方法封装。
+
+			//计算得到源栈同学的平均成绩（精确到两位小数），方法名GetAverage()
+			double[] score = new double[] { 78.56, 98.75, 67.54, 85.35 };
+			double avg = GetAverage(78.56, 98.75, 67.54, 85.35);
+			Console.WriteLine(avg);
+
+			//完成“猜数字”游戏，方法名GuessMe()：
+			//随机生成一个大于0小于1000的整数
+			//用户输入一个猜测值，系统进行判断，告知用户猜测的数是“大了”，还是“小了”
+			//没猜中可以继续猜，但最多不能超过10次
+			//如果5次之内猜中，输出：你真牛逼！
+			//如果8次之内猜中，输出：不错嘛！
+			//10次还没猜中，输出：(～￣(OO)￣)ブ
+			GuessMe();
 
 
 
 
 
 			Console.Read();
+		}
+
+		private static void GuessMe()
+		{
+			Console.WriteLine("请输入一个不超过1000的自然数：");
+			int target = new Random().Next(0, 1000);
+			for (int i = 1; i <= 10; i++)
+			{
+				int input = int.Parse(Console.ReadLine());
+				if (target == input)
+				{
+					if (i <= 5)
+					{
+						Console.WriteLine($"恭喜你，答对了！只用了{i}次呢，你真牛逼！");
+					}
+					else if (i <= 8)
+					{
+						Console.WriteLine($"恭喜你，答对了！只用了{i}次呢，不错嘛！");
+					}
+					else
+					{
+						Console.WriteLine($"恭喜你，答对了！只用了{i}次呢，棒棒哒！");
+					}
+					return;
+				}
+				else
+				{
+					if (i < 10)
+					{
+						if (target > input)
+						{
+							Console.WriteLine($"太小了呢！（还剩{10 - i}次）");
+						}
+						else
+						{
+							Console.WriteLine($"太大了哟！（还剩{10 - i}次）");
+						}
+					}
+					else
+					{
+						Console.WriteLine("(～￣(OO)￣)ブ");
+					}
+				}
+			}
+		}
+
+		private static double GetAverage(params double[] score)
+		{
+			double temp = 0.00;
+			for (int i = 0; i < score.Length; i++)
+			{
+				temp += score[i];
+			}
+			return Math.Round(temp / score.Length, 2);
+		}
+
+		private static bool LogOn(out string failed)
+		{
+			string code = "ut91";
+			string name = "yezi";
+			string pass = "1234";
+			failed = "";
+
+			Console.WriteLine($"请输入验证码（{code}）：");
+			if (code != Console.ReadLine())
+			{
+				failed = "验证码错误";
+			}
+			else
+			{
+				Console.WriteLine($"请输入用户名（{name}）：");
+				if (name != Console.ReadLine())
+				{
+					failed = "用户名不存在";
+				}
+				else
+				{
+					Console.WriteLine($"请输入密码（{pass}）：");
+					if (pass != Console.ReadLine())
+					{
+						failed = "密码错误";
+					}
+					else
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+
+		/// <summary>
+		/// 交换
+		/// </summary>
+		/// <param name="a">值一</param>
+		/// <param name="b">值二</param>
+		static void Swap(ref int a, ref int b)
+		{
+			int temp = a;
+			a = b;
+			b = temp;
 		}
 	}
 }
