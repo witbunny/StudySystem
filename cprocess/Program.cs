@@ -322,6 +322,7 @@ namespace cprocess
 
 			*/
 
+			/*
 			//利用ref调用Swap()方法交换两个同学的床位号
 			int seata = 18, seatb = 32;
 			Swap(ref seata, ref seatb);
@@ -356,12 +357,45 @@ namespace cprocess
 			//10次还没猜中，输出：(～￣(OO)￣)ブ
 			GuessMe();
 
+			*/
 
 
 
+			User newUser = new User("admin", "123", "lilei");
+			//{
+			//	name = "zl",
+			//	password = "123",
+			//	invitedBy = "lilei"
+			//};
+
+			//User newUser = new User()
+			//{
+			//	Name = "admin",
+			//	Password = "123"
+			//};
+
+			Console.WriteLine(newUser.Register());
+			Console.WriteLine(newUser.Login());
+
+			//newUser.SetName("zlll");
+			//Console.WriteLine(newUser.GetName());
+
+			newUser.Password = "234";
+			//Console.WriteLine(newUser.Password);
+
+			var ays = new
+			{
+				Name = "345",
+				pass = "566",
+			};
+
+			Problem pbm = new Problem();
+			pbm.Reward = -57;
 
 			Console.Read();
 		}
+
+		/*
 
 		private static void GuessMe()
 		{
@@ -464,5 +498,10 @@ namespace cprocess
 			a = b;
 			b = temp;
 		}
+
+
+		*/
+
+
 	}
 }
