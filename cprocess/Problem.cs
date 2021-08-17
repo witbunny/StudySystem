@@ -10,6 +10,24 @@ namespace cprocess
 		private string body;
 		private int reward;
 		private string author;
+		private string[] keywords;
+
+		//public Problem()
+		//{
+
+		//}
+
+		public Problem(string body, int num)
+		{
+			Body = body;
+			keywords = new string[num];
+		}
+
+		public string this[int index]
+		{
+			get { return keywords[index]; }
+			set { keywords[index] = value; }
+		}
 
 		public string Title { get; set; }
 		public string Body { get; set; }

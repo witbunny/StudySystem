@@ -10,10 +10,10 @@ namespace cprocess
 		private string password;
 		private string invitedBy;
 
-		public User()
-		{
+		//public User()
+		//{
 
-		}
+		//}
 
 		public User(string name, string password)
 		{

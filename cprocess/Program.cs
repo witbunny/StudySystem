@@ -389,8 +389,13 @@ namespace cprocess
 				pass = "566",
 			};
 
-			Problem pbm = new Problem();
+			Problem pbm = new Problem("dotnet", 10);
 			pbm.Reward = -57;
+
+
+			pbm[0] = "C#";
+			Console.WriteLine(pbm[0]);
+
 
 			Console.Read();
 		}
