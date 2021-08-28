@@ -374,6 +374,9 @@ namespace cprocess
 			//	Password = "123"
 			//};
 
+
+			/*------------------------------------------------------------------
+
 			Console.WriteLine(newUser.Register());
 			Console.WriteLine(newUser.Login());
 
@@ -396,6 +399,26 @@ namespace cprocess
 			pbm[0] = "C#";
 			Console.WriteLine(pbm[0]);
 
+
+			-----------------------------------------------------------------*/
+
+			MimicStack mstack = new MimicStack(3);
+
+			Console.WriteLine(mstack.Push(35));
+			Console.WriteLine(mstack.Push(25));
+			Console.WriteLine(mstack.Push(15));
+
+			Console.WriteLine(mstack.Pop());
+			Console.WriteLine(mstack.Push(5));
+			Console.WriteLine(mstack.Pop());
+			Console.WriteLine(mstack.Pop());
+
+			int[] arr = new int[] { 5, 6, 7, 8, 9 };
+			Console.WriteLine(mstack.Push( arr ));
+			Console.WriteLine(mstack.Pop());
+			Console.WriteLine(mstack.Pop());
+			Console.WriteLine(mstack.Pop());
+			Console.WriteLine(mstack.Pop());
 
 			Console.Read();
 		}

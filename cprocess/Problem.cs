@@ -46,5 +46,28 @@ namespace cprocess
 		}
 		public string Author { get; set; }
 
+
+		public string Publish()
+		{
+			return "";
+		}
+
+		public string Load(int Id)
+		{
+			return "";
+		}
+
+		public string Delete(int Id)
+		{
+			return "";
+		}
+
+		private Repoistory repoistory;
+
+		public Repoistory Repoistory
+		{
+			get { return repoistory; }
+			set { }
+		}
 	}
 }
