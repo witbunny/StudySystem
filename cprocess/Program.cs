@@ -402,6 +402,8 @@ namespace cprocess
 
 			-----------------------------------------------------------------*/
 
+
+			/*---------------------------------------------------------------------
 			MimicStack mstack = new MimicStack(3);
 
 			Console.WriteLine(mstack.Push(35));
@@ -419,6 +421,16 @@ namespace cprocess
 			Console.WriteLine(mstack.Pop());
 			Console.WriteLine(mstack.Pop());
 			Console.WriteLine(mstack.Pop());
+
+			------------------------------------------------------------------*/
+
+			Content ctt = new Problem();
+			ctt.Add();
+			((Problem)ctt).Publish();
+
+			Problem pbm = ctt as Problem;
+			
+
 
 			Console.Read();
 		}

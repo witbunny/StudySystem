@@ -4,7 +4,8 @@ using System.Text;
 
 namespace cprocess
 {
-	class User
+	sealed class User
+		: Entity
 	{
 		private string name;
 		private string password;

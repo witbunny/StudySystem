@@ -5,19 +5,22 @@ using System.Text;
 namespace cprocess
 {
 	class Problem
+		: Content
 	{
-		private string title;
-		private string body;
+		//private string title;
+		//private string body;
 		private int reward;
 		private string author;
 		private string[] keywords;
 
-		//public Problem()
-		//{
+		public Problem()
+			: base("problem")
+		{
 
-		//}
+		}
 
 		public Problem(string body, int num)
+			: this()
 		{
 			Body = body;
 			keywords = new string[num];

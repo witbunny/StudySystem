@@ -5,6 +5,7 @@ using System.Text;
 namespace cprocess
 {
 	class HelpMoney
+		: Entity
 	{
 		public static int available;
 		public static int frozen;
