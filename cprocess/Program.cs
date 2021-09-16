@@ -424,13 +424,25 @@ namespace cprocess
 
 			------------------------------------------------------------------*/
 
+
+			/*-----------------------------------------------------------------
 			Content ctt = new Problem();
 			ctt.Add();
 			((Problem)ctt).Publish();
 
 			Problem pbm = ctt as Problem;
-			
+			-----------------------------------------------------------------*/
 
+			Article atc = new Article();
+			Suggest sgt = new Suggest();
+			Problem pbm = new Problem()
+			{
+				Reward = 10
+			};
+
+			ContentService.Release(atc);
+			ContentService.Release(sgt);
+			ContentService.Release(pbm);
 
 			Console.Read();
 		}

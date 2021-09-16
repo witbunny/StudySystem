@@ -50,9 +50,9 @@ namespace cprocess
 		public string Author { get; set; }
 
 
-		public string Publish()
+		public override void Publish()
 		{
-			return "";
+			Console.WriteLine($"帮帮币-{reward}");
 		}
 
 		public string Load(int Id)

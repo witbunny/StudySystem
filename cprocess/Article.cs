@@ -12,5 +12,10 @@ namespace cprocess
 		{
 
 		}
+
+		public override void Publish()
+		{
+			Console.WriteLine("帮帮币-1");
+		}
 	}
 }

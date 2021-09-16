@@ -24,5 +24,10 @@ namespace cprocess
 		{
 
 		}
+
+		public virtual void Publish()
+		{
+			
+		}
 	}
 }
