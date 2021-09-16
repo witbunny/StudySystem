@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	class Content
+	abstract class Content
 		: Entity
 	{
 		public string title;
@@ -25,9 +25,7 @@ namespace cprocess
 
 		}
 
-		public virtual void Publish()
-		{
-			
-		}
+		public abstract void Publish();
+
 	}
 }

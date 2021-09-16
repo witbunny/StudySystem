@@ -5,7 +5,7 @@ using System.Text;
 namespace cprocess
 {
 	sealed class User
-		: Entity
+		: Entity, ISendMessage, IChat
 	{
 		private string name;
 		private string password;
@@ -85,6 +85,16 @@ namespace cprocess
 		public string Login()
 		{
 			return $"{name}开始登录，输入密码：{password}";
+		}
+
+		void ISendMessage.Send()
+		{
+			Console.WriteLine("send user message");
+		}
+
+		void IChat.Send()
+		{
+			Console.WriteLine("我们开始聊天吧");
 		}
 	}
 }

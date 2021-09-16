@@ -10,7 +10,7 @@ namespace cprocess
 		//private string title;
 		//private string body;
 		private int reward;
-		private string author;
+		private User author;
 		private string[] keywords;
 
 		public Problem()
@@ -47,9 +47,11 @@ namespace cprocess
 				reward = value;
 			}
 		}
-		public string Author { get; set; }
+		public User Author { get; set; }
 
+		#region 
 
+		#endregion
 		public override void Publish()
 		{
 			Console.WriteLine($"帮帮币-{reward}");
