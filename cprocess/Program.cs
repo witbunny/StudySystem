@@ -433,6 +433,8 @@ namespace cprocess
 			Problem pbm = ctt as Problem;
 			-----------------------------------------------------------------*/
 
+
+			/*------------------------------------------------------------------
 			Article atc = new Article();
 			Suggest sgt = new Suggest();
 			Problem pbm = new Problem()
@@ -443,6 +445,23 @@ namespace cprocess
 			ContentService.Release(atc);
 			ContentService.Release(sgt);
 			ContentService.Release(pbm);
+
+			-------------------------------------------------------------------*/
+
+			Tuition tuition = new Tuition();
+			Tuition ttn = tuition;
+			tuition.Money = 20.25;
+
+			Cost cost = new Cost();
+			Cost cst = cost;
+			cost.Money = 20.35;
+
+			DateTime time = new DateTime(2021, 9, 22, 14, 00, 30);
+			Console.WriteLine(Tuition.GetDate(time, 20.00));
+			Console.WriteLine(Tuition.GetDate(time, 3));
+			Console.WriteLine(time.DayOfWeek);
+
+			Tuition.showWeeks(time, 8);
 
 			Console.Read();
 		}

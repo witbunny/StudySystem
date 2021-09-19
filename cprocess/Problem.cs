@@ -57,12 +57,12 @@ namespace cprocess
 			Console.WriteLine($"帮帮币-{reward}");
 		}
 
-		public string Load(int Id)
+		public static string Load(int Id)
 		{
 			return "";
 		}
 
-		public string Delete(int Id)
+		public static string Delete(int Id)
 		{
 			return "";
 		}
