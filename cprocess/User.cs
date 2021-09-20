@@ -11,10 +11,14 @@ namespace cprocess
 		private string password;
 		private string invitedBy;
 
-		//public User()
-		//{
+		public int BMoney { get; set; }
 
-		//}
+		public TokenManager Tokens { get; set; }
+
+		public User()
+		{
+
+		}
 
 		public User(string name, string password)
 		{

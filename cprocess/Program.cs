@@ -448,6 +448,8 @@ namespace cprocess
 
 			-------------------------------------------------------------------*/
 
+
+			/*--------------------------------------------------------------------
 			Tuition tuition = new Tuition();
 			Tuition ttn = tuition;
 			tuition.Money = 20.25;
@@ -462,6 +464,29 @@ namespace cprocess
 			Console.WriteLine(time.DayOfWeek);
 
 			Tuition.showWeeks(time, 8);
+
+			-------------------------------------------------------------*/
+
+			User superX = new User()
+			{
+				Name = "superX",
+				Tokens = new TokenManager(),
+			};
+
+			superX.Tokens.Add(Token.Admin);
+			superX.Tokens.Add(Token.Blogger);
+			superX.Tokens.Add(Token.Newbie);
+
+			superX.Tokens.Remove(Token.Newbie);
+
+			if (superX.Tokens.Has(Token.SuperAdmin))
+			{
+				superX.Tokens.Remove(Token.SuperAdmin);
+			}
+			else
+			{
+				superX.Tokens.Add(Token.SuperAdmin);
+			}
 
 			Console.Read();
 		}
