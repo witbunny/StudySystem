@@ -361,7 +361,7 @@ namespace cprocess
 
 
 
-			User newUser = new User("admin", "123", "lilei");
+			//User newUser = new User("admin", "123", "lilei");
 			//{
 			//	name = "zl",
 			//	password = "123",
@@ -520,6 +520,9 @@ namespace cprocess
 			Console.WriteLine(mso.Pop());
 			Console.WriteLine(mso.Pop());
 
+			//接口显式实现的调用
+			ISendMessage sm = new User();
+			sm.Send();
 
 
 

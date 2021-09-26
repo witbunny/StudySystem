@@ -6,7 +6,7 @@ namespace cprocess
 {
 	interface IAppraise
 	{
-		void Agree(User ath, User apr);
-		void Disagree(User ath, User apr);
+		void Agree(/*User ath,*/ User apr);
+		void Disagree(/*User ath,*/ User apr);
 	}
 }

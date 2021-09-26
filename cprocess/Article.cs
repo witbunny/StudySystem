@@ -7,6 +7,11 @@ namespace cprocess
 	class Article
 		: Content, IAppraise
 	{
+		public int AgreeAmount { get; set; }
+		public int DisagreeAmount { get; set; }
+
+		public User Author { get; set; }
+
 		public Article()
 			: base("article")
 		{
@@ -18,16 +23,22 @@ namespace cprocess
 			Console.WriteLine("帮帮币-1");
 		}
 
-		public void Agree(User ath, User apr)
+		public void Agree(/*User ath,*/ User apr)
 		{
-			Console.WriteLine($"{ath.Name}帮帮点+1");
-			Console.WriteLine($"{apr.Name}帮帮点-1");
+			//Console.WriteLine($"{ath.Name}帮帮点+1");
+			//Console.WriteLine($"{apr.Name}帮帮点-1");
+			apr.HelpPoint++;
+			Author.HelpPoint++;
+			AgreeAmount++;
 		}
 
-		public void Disagree(User ath, User apr)
+		public void Disagree(/*User ath,*/ User apr)
 		{
-			Console.WriteLine($"{ath.Name}帮帮点-1");
-			Console.WriteLine($"{apr.Name}帮帮点+1");
+			//Console.WriteLine($"{ath.Name}帮帮点-1");
+			//Console.WriteLine($"{apr.Name}帮帮点+1");
+			apr.HelpPoint++;
+			Author.HelpPoint++;
+			DisagreeAmount++;
 		}
 	}
 }
