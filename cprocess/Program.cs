@@ -467,6 +467,8 @@ namespace cprocess
 
 			-------------------------------------------------------------*/
 
+			/*-------------------------------------------------------------
+			
 			User superX = new User()
 			{
 				Name = "superX",
@@ -487,6 +489,39 @@ namespace cprocess
 			{
 				superX.Tokens.Add(Token.SuperAdmin);
 			}
+
+			--------------------------------------------------------*/
+
+			//构造一个能装任何数据的数组，并完成数据的读写
+
+			Object[] obj = new Object[]
+			{
+				2, "123", new User()
+			};
+
+
+			//使用object改造数据结构栈（MimicStack），并在出栈时获得出栈元素
+
+			MimicStackObject mso = new MimicStackObject(3);
+			Console.WriteLine(mso.Push(1));
+			Console.WriteLine(mso.Push("123"));
+			Console.WriteLine(mso.Push(new User()));
+			Console.WriteLine(mso.Push(new int[] { 1, 2, 3 }));
+
+			Console.WriteLine(mso.Pop());
+			Console.WriteLine(mso.Pop());
+			Console.WriteLine(mso.Pop());
+			Console.WriteLine(mso.Pop());
+
+			Console.WriteLine(mso.Push(new Object[] { new int[] { 1, 2, 3 }, 2, "456", 9 }));
+
+			Console.WriteLine(mso.Pop());
+			Console.WriteLine(mso.Pop());
+			Console.WriteLine(mso.Pop());
+			Console.WriteLine(mso.Pop());
+
+
+
 
 			Console.Read();
 		}
