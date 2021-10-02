@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace cprocess
@@ -37,7 +38,7 @@ namespace cprocess
 		public int Reward
 		{
 			get => reward;
-			set 
+			set
 			{
 				if (value < 0)
 				{
@@ -52,10 +53,14 @@ namespace cprocess
 		#region 
 
 		#endregion
+		[HelpMoneyChanged(0, Message = "求助发布")]
 		public override void Publish()
 		{
-			Author.BMoney -= reward;
-			Console.WriteLine($"帮帮币-{reward}");
+			Author.HelpMoney -= reward;
+			
+			//HelpMoneyChangedAttribute hmca = (HelpMoneyChangedAttribute)typeof(Problem).GetMethod("Publish").GetCustomAttribute(typeof(HelpMoneyChangedAttribute));
+			//hmca.ChangeAmount = -reward;
+			//Console.WriteLine($"帮帮币-{reward}");
 		}
 
 		public static string Load(int Id)

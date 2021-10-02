@@ -15,7 +15,7 @@ namespace cprocess
 			point = -1;
 		}
 
-		public int Push(int date)
+		public int Push(int data)
 		{
 			if (point == stack.Length - 1)
 			{
@@ -25,7 +25,7 @@ namespace cprocess
 			else
 			{
 				point++;
-				stack[point] = date;
+				stack[point] = data;
 				return 1;
 			}
 

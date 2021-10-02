@@ -15,7 +15,7 @@ namespace cprocess
 			point = 0;
 		}
 
-		public int Push(Object date)
+		public int Push(Object data)
 		{
 			if (point == stack.Length)
 			{
@@ -24,22 +24,22 @@ namespace cprocess
 			}
 			else
 			{
-				stack[point] = date;
+				stack[point] = data;
 				point++;
 				return 1;
 			}
 		}
 
-		public int Push(Object[] dates)
+		public int Push(Object[] datas)
 		{
-			for (int i = 0; i < dates.Length; i++)
+			for (int i = 0; i < datas.Length; i++)
 			{
-				if (Push(dates[i]) == 0)
+				if (Push(datas[i]) == 0)
 				{
 					return i;
 				}//else continue
 			}
-			return dates.Length;
+			return datas.Length;
 		}
 
 		public Object Pop()

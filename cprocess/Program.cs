@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace cprocess
 {
@@ -492,6 +493,8 @@ namespace cprocess
 
 			--------------------------------------------------------*/
 
+			/*-------------------------------------------------------------
+
 			//构造一个能装任何数据的数组，并完成数据的读写
 
 			Object[] obj = new Object[]
@@ -524,7 +527,40 @@ namespace cprocess
 			ISendMessage sm = new User();
 			sm.Send();
 
+			------------------------------------------------------------------*/
 
+			//在Content之外封装一个方法，可以修改Content的CreateTime和PublishTime
+			Content cont = new Article();
+
+			Type tp = typeof(Content);
+			PropertyInfo ct = tp.GetProperty("CreateTime", BindingFlags.NonPublic | BindingFlags.Instance);
+			Console.WriteLine(ct.GetValue(cont));
+			ct.SetValue(cont, DateTime.Now);
+			Console.WriteLine(ct.GetValue(cont));
+
+			//用反射获取Publish()上的特性实例，输出其中包含的信息
+
+			User zl = new User()
+			{
+				Name = "zl",
+				HelpMoney = 10
+			};
+
+			Problem pbm = new Problem()
+			{
+				Title = "000",
+				Reward = 5,
+				Author = zl
+			};
+
+			pbm.Publish();
+
+			HelpMoneyChangedAttribute hmca = (HelpMoneyChangedAttribute)typeof(Problem).GetMethod("Publish").GetCustomAttribute(typeof(HelpMoneyChangedAttribute));
+
+			Console.WriteLine(hmca.ChangeAmount);
+
+			//HelpMoneyChangedAttribute hmca = (HelpMoneyChangedAttribute)Attribute.GetCustomAttribute(typeof(Problem).GetMethod("Publish"), typeof(HelpMoneyChangedAttribute));
+			//Console.WriteLine(hmca.ChangeAmount + hmca.Message);
 
 			Console.Read();
 		}

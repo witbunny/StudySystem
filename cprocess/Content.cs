@@ -10,19 +10,22 @@ namespace cprocess
 		public string title;
 		public string body;
 		protected string kind;
-		private DateTime createTime;
-		protected DateTime PublishTime;
+
+		private DateTime CreateTime { get; set; }
+		protected DateTime PublishTime { get; private set; }
 
 		public Content(string cate)
 		{
 			Kind = cate;
+			CreateTime = DateTime.Now;
+			PublishTime = CreateTime;
 		}
 
 		public string Kind { get; set; }
 
 		public void Add()
 		{
-
+			
 		}
 
 		public abstract void Publish();

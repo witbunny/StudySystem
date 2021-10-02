@@ -18,9 +18,11 @@ namespace cprocess
 
 		}
 
+		[HelpMoneyChanged(-1, Message = "文章发布")]
 		public override void Publish()
 		{
-			Console.WriteLine("帮帮币-1");
+			//Console.WriteLine("帮帮币-1");
+			Author.HelpMoney--;
 		}
 
 		public void Agree(/*User ath,*/ User apr)

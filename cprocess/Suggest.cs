@@ -13,6 +13,7 @@ namespace cprocess
 
 		}
 
+		[HelpMoneyChanged(0, Message = "意见发布")]
 		public override void Publish()
 		{
 			Console.WriteLine("帮帮币-000");

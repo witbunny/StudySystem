@@ -11,7 +11,7 @@ namespace cprocess
 		private string password;
 		private string invitedBy;
 
-		public int BMoney { get; set; }
+		public int HelpMoney { get; set; }
 		public int HelpPoint { get; set; }
 
 		public TokenManager Tokens { get; set; }
