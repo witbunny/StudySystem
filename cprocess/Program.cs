@@ -529,6 +529,8 @@ namespace cprocess
 
 			------------------------------------------------------------------*/
 
+			/*-----------------------------------------------------------------
+
 			//在Content之外封装一个方法，可以修改Content的CreateTime和PublishTime
 			Content cont = new Article();
 
@@ -561,6 +563,17 @@ namespace cprocess
 
 			//HelpMoneyChangedAttribute hmca = (HelpMoneyChangedAttribute)Attribute.GetCustomAttribute(typeof(Problem).GetMethod("Publish"), typeof(HelpMoneyChangedAttribute));
 			//Console.WriteLine(hmca.ChangeAmount + hmca.Message);
+
+			----------------------------------------------------------------*/
+
+
+			///*--------------------------------------------------------------
+
+			Article article = new Article("     niha           ");
+
+			//---------------------------------------------------------------*/
+
+
 
 			Console.Read();
 		}

@@ -11,6 +11,8 @@ namespace cprocess
 		public string body;
 		protected string kind;
 
+		public string Title { get => title; set => title = value; }
+
 		private DateTime CreateTime { get; set; }
 		protected DateTime PublishTime { get; private set; }
 

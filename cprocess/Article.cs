@@ -12,10 +12,21 @@ namespace cprocess
 
 		public User Author { get; set; }
 
-		public Article()
+		public Article(string title)
 			: base("article")
 		{
-
+			if (string.IsNullOrWhiteSpace(title))
+			{
+				Console.WriteLine("标题不能为空");
+			}
+			else if (title.StartsWith(" ") || title.EndsWith(" "))
+			{
+				Title = title.Trim();
+			}
+			else
+			{
+				Title = title;
+			}
 		}
 
 		[HelpMoneyChanged(-1, Message = "文章发布")]
