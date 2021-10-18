@@ -6,7 +6,7 @@ namespace cprocess
 {
 	class TokenManager
 	{
-		private Token _tokens;
+		private Token? _tokens;
 
 		public void Add(Token token)
 		{
@@ -15,7 +15,15 @@ namespace cprocess
 
 		public void Remove(Token token)
 		{
-			_tokens ^= token;
+			if (Has(token))
+			{
+				_tokens ^= token;
+			}
+			else
+			{
+				Console.WriteLine("该权限未被赋予");
+			}
+			
 		}
 
 		public bool Has(Token token)

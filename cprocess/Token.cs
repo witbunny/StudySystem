@@ -10,6 +10,7 @@ namespace cprocess
 		Admin = 8,			//2^3 = 01000
 		Blogger = 4,		//2^2 = 00100
 		Newbie = 2,			//2^1 = 00010
-		Registered = 1		//2^0 = 00001
+		Registered = 1,		//2^0 = 00001
+		None = 0
 	}
 }

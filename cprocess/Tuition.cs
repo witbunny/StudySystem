@@ -55,7 +55,11 @@ namespace cprocess
 
 			for (int i = 1; i <= count; i++)
 			{
-				Console.WriteLine($"第{i}周：{dateTime.AddDays(offsetDays + 7 * (i - 1)).ToString("yyyy年MM月dd日")} - {dateTime.AddDays(offsetDays + 6.00 + 7 * (i - 1)).ToString("yyyy年MM月dd日")}");
+				Console.WriteLine(
+					$"第{i}周：" +
+					$"{dateTime.AddDays(offsetDays + 7 * (i - 1)).ToString("yyyy年MM月dd日")}" +
+					$" - " +
+					$"{dateTime.AddDays(offsetDays + 6.00 + 7 * (i - 1)).ToString("yyyy年MM月dd日")}");
 			}
 		}
 	}
