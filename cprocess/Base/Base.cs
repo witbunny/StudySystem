@@ -4,9 +4,9 @@ using System.Text;
 
 namespace cprocess
 {
-	internal class Base
+	public class Base
 	{
-		private static void GuessMe()
+		public static void GuessMe()
 		{
 			Console.WriteLine("请输入一个不超过1000的自然数：");
 			int target = new Random().Next(0, 1000);
@@ -50,7 +50,7 @@ namespace cprocess
 			}
 		}
 
-		private static double GetAverage(params double[] score)
+		public static double GetAverage(params double[] score)
 		{
 			double temp = 0.00;
 			for (int i = 0; i < score.Length; i++)
@@ -60,7 +60,7 @@ namespace cprocess
 			return Math.Round(temp / score.Length, 2);
 		}
 
-		private static bool LogOn(out string failed)
+		public static bool LogOn(out string failed)
 		{
 			string code = "ut91";
 			string name = "yezi";
@@ -101,7 +101,7 @@ namespace cprocess
 		/// </summary>
 		/// <param name="a">值一</param>
 		/// <param name="b">值二</param>
-		static void Swap(ref int a, ref int b)
+		public static void Swap(ref int a, ref int b)
 		{
 			int temp = a;
 			a = b;

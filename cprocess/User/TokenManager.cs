@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	class TokenManager
+	public class TokenManager
 	{
 		private Token? _tokens;
 

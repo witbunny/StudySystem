@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	sealed class User
+	public sealed class User
 		: Entity, ISendMessage, IChat
 	{
 		private string name;

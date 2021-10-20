@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	enum Token
+	public enum Token
 	{
 		SuperAdmin = 16,	//2^4 = 10000
 		Admin = 8,			//2^3 = 01000

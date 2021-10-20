@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	internal class Entity
+	public class Entity
 	{
 		protected int id;
 

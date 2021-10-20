@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	internal class Article
+	public class Article
 		: Content, IAppraise
 	{
 		public int AgreeAmount { get; set; }
