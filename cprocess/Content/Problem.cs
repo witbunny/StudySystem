@@ -5,7 +5,7 @@ using System.Text;
 
 namespace cprocess
 {
-	class Problem
+	internal class Problem
 		: Content
 	{
 		//private string title;

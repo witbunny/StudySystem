@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	class Suggest
+	internal class Suggest
 		: Content
 	{
 		public Suggest()
