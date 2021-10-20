@@ -4,13 +4,18 @@ using System.Text;
 
 namespace cprocess
 {
-	class Entity
+	internal class Entity
 	{
 		protected int id;
 
 		public int Id
 		{
-			get; private set;
+			get => id; private set => id = value;
 		}
+	}
+
+	internal class Entity<T>
+	{
+		public T Id { get; set; }
 	}
 }
