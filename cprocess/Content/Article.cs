@@ -12,6 +12,10 @@ namespace cprocess
 
 		public User Author { get; set; }
 
+		public IList<Comment> Comments { get; set; }
+		public Appraise Appraise { get; set; }
+		public IList<Keyword> Keywords { get; set; }
+
 		public Article(string title)
 			: base("article")
 		{

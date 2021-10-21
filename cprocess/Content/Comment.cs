@@ -4,7 +4,9 @@ using System.Text;
 
 namespace cprocess
 {
-	class Comment
+	public class Comment
 	{
+		public Article Article { get; set; }
+		public Appraise Appraise { get; set; }
 	}
 }

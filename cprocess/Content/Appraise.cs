@@ -4,7 +4,16 @@ using System.Text;
 
 namespace cprocess
 {
-	class Appraise
+	public class Appraise : IAppraise
 	{
+		public void Agree(User apr)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Disagree(User apr)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

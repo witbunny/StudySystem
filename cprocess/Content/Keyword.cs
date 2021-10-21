@@ -4,7 +4,8 @@ using System.Text;
 
 namespace cprocess
 {
-	class Keyword
+	public class Keyword
 	{
+		public IList<Article> Articles { get; set; }
 	}
 }
