@@ -14,7 +14,7 @@ namespace cprocess
 		}
 	}
 
-	internal class Entity<T>
+	public class Entity<T>
 	{
 		public T Id { get; set; }
 	}

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	internal class MimicStack
+	public class MimicStack
 	{
 		private int[] stack;
 		private int point;
@@ -59,48 +59,59 @@ namespace cprocess
 		}
 	}
 
-	internal class MimicStack<T>
+	public class MimicStack<T>
 	{
 		private T[] stack;
-		private int point;
+		private int pointEmpty;
+
+		public bool IsEmpty { get => pointEmpty == 0; }
+		public bool IsFull { get => pointEmpty == stack.Length; }
 
 		public MimicStack(int deep)
 		{
 			stack = new T[deep];
-			point = -1;
+			pointEmpty = 0;
 		}
 
-		public int Push(T data)
+		public int Push(T data, out T result)
 		{
-			if (point == stack.Length - 1)
+			if (IsFull)
 			{
 				Console.WriteLine("栈溢出");
+				result = default(T);
 				return 0;
 			}
 			else
 			{
-				point++;
-				stack[point] = data;
+				stack[pointEmpty] = data;
+				pointEmpty++;
+				result = data;
 				return 1;
 			}
 
 		}
 
-		public int Push(T[] array)
+		public int Push(T[] datas, out List<T> result)
 		{
-			for (int i = 0; i < array.Length; i++)
+			result = new List<T>();
+
+			for (int i = 0; i < datas.Length; i++)
 			{
-				if (Push(array[i]) == 0)
+				if (Push(datas[i], out T single) == 0)
 				{
 					return i;
 				}
+				else
+				{
+					result.Add(single);
+				}
 			}
-			return array.Length;
+			return datas.Length;
 		}
 
 		public bool Pop(out T result)
 		{
-			if (point == -1)
+			if (IsEmpty)
 			{
 				Console.WriteLine("栈已空");
 				result = default(T);
@@ -108,9 +119,8 @@ namespace cprocess
 			}
 			else
 			{
-				//stack[point] = 0;
-				point--;
-				result = stack[point + 1];
+				pointEmpty--;
+				result = stack[pointEmpty];
 				return true;
 			}
 		}

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	class MimicStackObject
+	public class MimicStackObject
 	{
 		private Object[] stack;
 		private int point;

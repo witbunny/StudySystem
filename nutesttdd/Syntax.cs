@@ -440,30 +440,7 @@ namespace nutesttdd
 			*/
 		}
 
-		public void MimicStackTest001()
-		{
-			/*---------------------------------------------------------------------
-			MimicStack mstack = new MimicStack(3);
-
-			Console.WriteLine(mstack.Push(35));
-			Console.WriteLine(mstack.Push(25));
-			Console.WriteLine(mstack.Push(15));
-
-			Console.WriteLine(mstack.Pop());
-			Console.WriteLine(mstack.Push(5));
-			Console.WriteLine(mstack.Pop());
-			Console.WriteLine(mstack.Pop());
-
-			int[] arr = new int[] { 5, 6, 7, 8, 9 };
-			Console.WriteLine(mstack.Push( arr ));
-			Console.WriteLine(mstack.Pop());
-			Console.WriteLine(mstack.Pop());
-			Console.WriteLine(mstack.Pop());
-			Console.WriteLine(mstack.Pop());
-
-			------------------------------------------------------------------*/
-		}
-
+		
 		public void ObjectTest002()
 		{
 			/*-----------------------------------------------------------------
@@ -538,48 +515,18 @@ namespace nutesttdd
 
 			--------------------------------------------------------*/
 		}
+				
 
-		public void MimicStackTest002()
+		public void AttributeTest()
 		{
 			/*-------------------------------------------------------------
-
-			//构造一个能装任何数据的数组，并完成数据的读写
-
-			Object[] obj = new Object[]
-			{
-				2, "123", new User()
-			};
-
-
-			//使用object改造数据结构栈（MimicStack），并在出栈时获得出栈元素
-
-			MimicStackObject mso = new MimicStackObject(3);
-			Console.WriteLine(mso.Push(1));
-			Console.WriteLine(mso.Push("123"));
-			Console.WriteLine(mso.Push(new User()));
-			Console.WriteLine(mso.Push(new int[] { 1, 2, 3 }));
-
-			Console.WriteLine(mso.Pop());
-			Console.WriteLine(mso.Pop());
-			Console.WriteLine(mso.Pop());
-			Console.WriteLine(mso.Pop());
-
-			Console.WriteLine(mso.Push(new Object[] { new int[] { 1, 2, 3 }, 2, "456", 9 }));
-
-			Console.WriteLine(mso.Pop());
-			Console.WriteLine(mso.Pop());
-			Console.WriteLine(mso.Pop());
-			Console.WriteLine(mso.Pop());
-
 			//接口显式实现的调用
 			ISendMessage sm = new User();
 			sm.Send();
 
 			------------------------------------------------------------------*/
-		}
 
-		public void AttributeTest()
-		{
+
 			/*-----------------------------------------------------------------
 
 			//在Content之外封装一个方法，可以修改Content的CreateTime和PublishTime
