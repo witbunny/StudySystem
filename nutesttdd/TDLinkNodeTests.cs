@@ -307,5 +307,23 @@ namespace nutesttdd
 
 		}
 
+		[Test]
+		public void MaxTest()
+		{
+			node1.Value = 15;
+			node2.Value = 10;
+			node3.Value = 37;
+			node4.Value = -56;
+			DLinkNode<int> findNode = node1.Max();
+			Assert.AreEqual(node3, findNode);
+
+			findNode = node3.Max();
+			Assert.AreEqual(node3, findNode);
+
+			findNode = node4.Max();
+			Assert.AreEqual(node3, findNode);
+
+		}
+
 	}
 }

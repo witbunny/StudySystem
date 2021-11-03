@@ -392,7 +392,7 @@ namespace cprocess
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return new Enumerator(this);
+			 return new Enumerator(this);
 		}
 
 		public struct Enumerator : IEnumerator<DLinkNode<T>>
@@ -409,7 +409,7 @@ namespace cprocess
 
 			public DLinkNode<T> Current { get; set; }
 
-			object IEnumerator.Current => throw new NotImplementedException();
+			object IEnumerator.Current => localDLN;
 
 			public void Dispose()
 			{
@@ -441,6 +441,31 @@ namespace cprocess
 			{
 				throw new NotImplementedException();
 			}
+		}
+	}
+
+	public static class DLinkNodeExtension
+	{
+		public static DLinkNode<int> Max(this DLinkNode<int> sourceNode)
+		{
+			DLinkNode<int> findMaxNode = sourceNode;
+
+			for (DLinkNode<int> upNode = sourceNode; upNode.Prev != null; upNode = upNode.Prev)
+			{
+				if (upNode.Prev.Value > findMaxNode.Value)
+				{
+					findMaxNode = upNode.Prev;
+				}
+			}
+			for (DLinkNode<int> dnNode = sourceNode; dnNode.Next != null; dnNode = dnNode.Next)
+			{
+				if (dnNode.Next.Value > findMaxNode.Value)
+				{
+					findMaxNode = dnNode.Next;
+				}
+			}
+
+			return findMaxNode;
 		}
 	}
 }
