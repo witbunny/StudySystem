@@ -5,7 +5,7 @@ using System.Text;
 namespace cprocess
 {
 	[AttributeUsage(AttributeTargets.Method)]
-	class HelpMoneyChangedAttribute
+	public class HelpMoneyChangedAttribute
 		: Attribute
 	{
 		public HelpMoneyChangedAttribute(int amount)

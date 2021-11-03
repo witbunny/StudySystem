@@ -1,6 +1,7 @@
 ﻿using cprocess;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace nutesttdd
@@ -527,13 +528,13 @@ namespace nutesttdd
 			------------------------------------------------------------------*/
 
 
-			/*-----------------------------------------------------------------
+			//*-----------------------------------------------------------------
 
 			//在Content之外封装一个方法，可以修改Content的CreateTime和PublishTime
-			Content cont = new Article();
+			Content cont = new Article("");
 
 			Type tp = typeof(Content);
-			PropertyInfo ct = tp.GetProperty("CreateTime", BindingFlags.NonPublic | BindingFlags.Instance);
+			PropertyInfo ct = tp.GetProperty(/*nameof(cont.CreateTime)*/ "CreateTime", BindingFlags.NonPublic | BindingFlags.Instance);
 			Console.WriteLine(ct.GetValue(cont));
 			ct.SetValue(cont, DateTime.Now);
 			Console.WriteLine(ct.GetValue(cont));
@@ -562,7 +563,7 @@ namespace nutesttdd
 			//HelpMoneyChangedAttribute hmca = (HelpMoneyChangedAttribute)Attribute.GetCustomAttribute(typeof(Problem).GetMethod("Publish"), typeof(HelpMoneyChangedAttribute));
 			//Console.WriteLine(hmca.ChangeAmount + hmca.Message);
 
-			----------------------------------------------------------------*/
+			//----------------------------------------------------------------*/
 		}
 
 		public void StringTest()

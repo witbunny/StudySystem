@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cprocess
 {
-	class Repoistory
+	public class Repoistory
 	{
 		private const int VERSION = 1;
 		private static readonly string connection;
