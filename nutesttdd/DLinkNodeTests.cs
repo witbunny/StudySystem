@@ -288,5 +288,16 @@ namespace nutesttdd
 			Assert.AreEqual("not find", finded5.Value);
 		}
 
+		[Test]
+		public void ForeachTest()
+		{
+			foreach (var item in node1)
+			{
+				//Assert.AreEqual(node1, item);
+
+			}
+
+		}
+
 	}
 }

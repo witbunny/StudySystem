@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace cprocess
 {
-	public class DLinkNode
+	public class DLinkNode : IEnumerable
 	{
 		public DLinkNode Prev { get; set; }
 		public DLinkNode Next { get; set; }
@@ -165,9 +166,56 @@ namespace cprocess
 				return new DLinkNode() { Value = "not find" };
 			}
 		}
+
+		public IEnumerator GetEnumerator()
+		{
+			return new Enumerator(this);
+		}
+
+		public struct Enumerator : IEnumerator
+		{
+			private DLinkNode localDLN;
+			private bool isFirst;
+
+			public Enumerator(DLinkNode dLinkNode)
+			{
+				localDLN = dLinkNode;
+				Current = dLinkNode;
+				isFirst = true;
+			}
+
+			public object Current { get; set; }
+
+			public bool MoveNext()
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+					return true;
+				}
+				else
+				{
+					if (((DLinkNode)Current).Next == null)
+					{
+						return false;
+					}
+					else
+					{
+						Current = ((DLinkNode)Current).Next;
+						return true;
+					}
+				}
+			}
+
+			public void Reset()
+			{
+				throw new NotImplementedException();
+			}
+		}
 	}
 
-	public class DLinkNode<T>
+
+	public class DLinkNode<T> : IEnumerable<DLinkNode<T>>
 	{
 		public DLinkNode<T> Prev { get; set; }
 		public DLinkNode<T> Next { get; set; }
@@ -334,6 +382,64 @@ namespace cprocess
 				}
 
 				return list;
+			}
+		}
+
+		public IEnumerator<DLinkNode<T>> GetEnumerator()
+		{
+			return new Enumerator(this);
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return new Enumerator(this);
+		}
+
+		public struct Enumerator : IEnumerator<DLinkNode<T>>
+		{
+			private DLinkNode<T> localDLN;
+			private bool isFirst;
+
+			public Enumerator(DLinkNode<T> dLinkNode)
+			{
+				localDLN = dLinkNode;
+				Current = dLinkNode;
+				isFirst = true;
+			}
+
+			public DLinkNode<T> Current { get; set; }
+
+			object IEnumerator.Current => throw new NotImplementedException();
+
+			public void Dispose()
+			{
+				
+			}
+
+			public bool MoveNext()
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+					return true;
+				}
+				else
+				{
+					if (Current.IsTail)
+					{
+						return false;
+					}
+					else
+					{
+						Current = Current.Next;
+						return true;
+					}
+				}
+			}
+
+			public void Reset()
+			{
+				throw new NotImplementedException();
 			}
 		}
 	}
