@@ -14,7 +14,7 @@ namespace cprocess
 		public string Title { get => title; set => title = value; }
 
 		private DateTime CreateTime { get; set; }
-		protected DateTime PublishTime { get; private set; }
+		public DateTime PublishTime { get; private set; }
 
 		public Content(string cate)
 		{
