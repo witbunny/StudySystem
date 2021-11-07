@@ -106,17 +106,19 @@ namespace nutesttdd
 		[Test]
 		public void LinqTest_001()
 		{
-			var excellent = from s in students
-							where s.Score > 90
-							orderby s.Score descending
-							select s;
+			//var excellent = from s in students
+			//				where s.Score > 90
+			//				orderby s.Score descending
+			//				select s;
+			var excellent = students.Where(s => s.Score > 90).OrderByDescending(s => s.Score);
 			foreach (var item in excellent)
 			{
 				Console.WriteLine(item.Name + ":" + item.Score);
 			}
 
-			var groupedMajor = from m in majors
-							   group m by m.Teacher;
+			//var groupedMajor = from m in majors
+			//				   group m by m.Teacher;
+			var groupedMajor = majors.GroupBy(m => m.Teacher);
 			foreach (var item in groupedMajor)
 			{
 				Console.WriteLine(item.Key.GetType() + ":" + item.Key.Name);
@@ -126,25 +128,27 @@ namespace nutesttdd
 				}
 			}
 
-			var shadow = from s in students
-						 select new
-						 {
-							 s.Name,
-							 s.Score
-						 };
+			//var shadow = from s in students
+			//			 select new
+			//			 {
+			//				 s.Name,
+			//				 s.Score
+			//			 };
+			var shadow = students.Select(s => new { s.Name, s.Score });
 			foreach (var item in shadow)
 			{
 				Console.WriteLine(item.Name + ":" + item.Score);
 			}
 
-			var statistics = from m in majors
-							 group m by m.Teacher
-							 into g
-							 select new
-							 {
-								 g.Key.Name,
-								 Count = g.Count()
-							 };
+			//var statistics = from m in majors
+			//				 group m by m.Teacher
+			//				 into g
+			//				 select new
+			//				 {
+			//					 g.Key.Name,
+			//					 Count = g.Count()
+			//				 };
+			var statistics = majors.GroupBy(m => m.Teacher).Select(g => new { g.Key.Name, Count = g.Count() });
 			foreach (var item in statistics)
 			{
 				Console.WriteLine(item.Name + ":" + item.Count);
@@ -160,15 +164,20 @@ namespace nutesttdd
 		[Test]
 		public void LinqTest_002()
 		{
-			var innermt = from m in majors
-						  join t in teachers
-						  on m.TeacherId equals t.Id
-						  where t.Name == "王老师"
-						  select new
-						  {
-							  majorName = m.Name,
-							  teacherName = t.Name
-						  };
+			//var innermt = from m in majors
+			//			  join t in teachers
+			//			  on m.TeacherId equals t.Id
+			//			  where t.Name == "王老师"
+			//			  select new
+			//			  {
+			//				  majorName = m.Name,
+			//				  teacherName = t.Name
+			//			  };
+			var innermt = majors.Join(teachers, m => m.TeacherId, t => t.Id, (m, t) => new
+			{
+				majorName = m.Name,
+				teacherName = t.Name
+			}).Where(a => a.teacherName == "王老师");
 			foreach (var item in innermt)
 			{
 				Console.WriteLine(item.majorName + ":" + item.teacherName);
@@ -204,38 +213,58 @@ namespace nutesttdd
 				Console.WriteLine($"{item.Id}:{item.teacherName}:{item.majorName}");
 			}
 
-			var teacherAgeMajor = from t in teachers
-								  join m in majors
-								  on new
-								  {
-									  TeacherId = t.Id,
-									  TeacherAge = t.Age
-								  }
-								  equals new
-								  {
-									  m.TeacherId,
-									  m.TeacherAge
-								  }
-								  select new
-								  {
-									  t.Id,
-									  t.Name,
-									  t.Age,
-									  majorName = m.Name
-								  };
+			//var teacherAgeMajor = from t in teachers
+			//					  join m in majors
+			//					  on new
+			//					  {
+			//						  TeacherId = t.Id,
+			//						  TeacherAge = t.Age
+			//					  }
+			//					  equals new
+			//					  {
+			//						  m.TeacherId,
+			//						  m.TeacherAge
+			//					  }
+			//					  select new
+			//					  {
+			//						  t.Id,
+			//						  t.Name,
+			//						  t.Age,
+			//						  majorName = m.Name
+			//					  };
+			var teacherAgeMajor = teachers.Join(majors, t => new
+			{
+				TeacherId = t.Id,
+				TeacherAge = t.Age
+			}, m => new
+			{
+				m.TeacherId,
+				m.TeacherAge
+			}, (t, m) => new
+			{
+				t.Id,
+				t.Name,
+				t.Age,
+				majorName = m.Name
+			});
 			foreach (var item in teacherAgeMajor)
 			{
 				Console.WriteLine($"编号为{item.Id}的{item.Name}（{item.Age}岁）教“{item.majorName}”课");
 			}
 
-			var studentMajor = from s in students
-							   let ms = s.Majors
-							   from m in ms
-							   select new
-							   {
-								   s.Name,
-								   Major = m.Name
-							   };
+			//var studentMajor = from s in students
+			//				   let ms = s.Majors
+			//				   from m in ms
+			//				   select new
+			//				   {
+			//					   s.Name,
+			//					   Major = m.Name
+			//				   };
+			var studentMajor = students.SelectMany(s => s.Majors, (s, m) => new
+			{
+				s.Name,
+				Major = m.Name
+			});
 			foreach (var item in studentMajor)
 			{
 				Console.WriteLine(item.Name + ":" + item.Major);
