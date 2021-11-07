@@ -114,15 +114,40 @@ namespace nutesttdd
 				Console.WriteLine(item.Name + ":" + item.Count);
 			}
 
-			var keywordArticles = from a in articles
-								  where a.Keywords.Contains(csharp) || a.Keywords.Contains(net)
-								  select a;
+			//var keywordArticles = from a in articles
+			//					  where a.Keywords.Contains(csharp) || a.Keywords.Contains(net)
+			//					  select a;
+			var keywordArticles = articles.Where(a => a.Keywords.Contains(csharp) || a.Keywords.Contains(net));
 			foreach (var item in keywordArticles)
 			{
 				foreach (var i in item.Keywords)
 				{
 					Console.WriteLine(item.Title + ":" + i.Name);
 				}
+			}
+
+			var recentArticle = articles.Where(a => a.Author.Name == "leo").OrderByDescending(a => a.PublishTime).First();
+			//foreach (var item in recentArticle)
+			//{
+			//	Console.WriteLine(item.Title + ":" + item.PublishTime);
+			//}
+			Console.WriteLine(recentArticle.Title + ":" + recentArticle.PublishTime);
+
+			var grArticles = articles.GroupBy(a => a.Author).Select(g => new
+			{
+				Key = g.Key.Name,
+				Value = g.OrderByDescending(a => a.PublishTime).First()
+			});
+			//foreach (var item in grArticles)
+			//{
+			//	foreach (var i in item.Value)
+			//	{
+			//		Console.WriteLine(item.Key.Name + ":" + i.Title + ":" + i.PublishTime);
+			//	}
+			//}
+			foreach (var item in grArticles)
+			{
+				Console.WriteLine(item.Key + ":" + item.Value.Title + ":" + item.Value.PublishTime);
 			}
 
 
