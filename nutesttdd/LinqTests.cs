@@ -21,37 +21,52 @@ namespace nutesttdd
 		{
 			wang = new Teacher()
 			{
-				Name = "王老师"
+				Id = 1,
+				Name = "王老师",
+				Age = 50
 			};
 			lee = new Teacher
 			{
-				Name = "李老师"
+				Id = 2,
+				Name = "李老师",
+				Age = 30
+
 			};
 			zhang = new Teacher
 			{
-				Name = "张老师"
+				Id = 3,
+				Name = "张老师",
+				Age = 23
 			};
 			teachers = new List<Teacher> { wang, lee, zhang };
 
 			Csharp = new Major()
 			{
 				Name = "C#",
-				Teacher = wang
+				Teacher = wang,
+				TeacherId = 1,
+				TeacherAge = 50
 			};
 			SQL = new Major
 			{
 				Name = "SQL",
-				Teacher = wang
+				Teacher = wang,
+				TeacherId = 1,
+				TeacherAge = 23
 			};
 			Javascript = new Major
 			{
 				Name = "Javascript",
-				Teacher = wang
+				Teacher = wang,
+				TeacherId = 1,
+				TeacherAge = 50
 			};
 			UI = new Major
 			{
 				Name = "UI",
-				Teacher = lee
+				Teacher = lee,
+				TeacherId = 2,
+				TeacherAge = 30
 			};
 			majors = new List<Major> { Csharp, SQL, Javascript, UI };
 
@@ -89,7 +104,7 @@ namespace nutesttdd
 		}
 
 		[Test]
-		public void LinqTest()
+		public void LinqTest_001()
 		{
 			var excellent = from s in students
 							where s.Score > 90
@@ -141,5 +156,107 @@ namespace nutesttdd
 				Console.WriteLine(item.Key + ":" + item.Value);
 			}
 		}
+
+		[Test]
+		public void LinqTest_002()
+		{
+			var innermt = from m in majors
+						  join t in teachers
+						  on m.TeacherId equals t.Id
+						  where t.Name == "王老师"
+						  select new
+						  {
+							  majorName = m.Name,
+							  teacherName = t.Name
+						  };
+			foreach (var item in innermt)
+			{
+				Console.WriteLine(item.majorName + ":" + item.teacherName);
+			}
+
+			var crossmt = from m in majors
+						  from t in teachers
+						  select new
+						  {
+							  majorName = m.Name,
+							  m.TeacherId,
+							  t.Id,
+							  teacherName = t.Name
+						  };
+			foreach (var item in crossmt)
+			{
+				Console.WriteLine($"{item.majorName}:{item.TeacherId}:{item.Id}:{item.teacherName}");
+			}
+
+			var TeacherMajor = from t in teachers
+							   join m in majors
+							   on t equals m.Teacher
+							   into ms
+							   from m in ms.DefaultIfEmpty()
+							   select new
+							   {
+								   t.Id,
+								   teacherName = t.Name,
+								   majorName = m?.Name ?? "没有课程"
+							   };
+			foreach (var item in TeacherMajor)
+			{
+				Console.WriteLine($"{item.Id}:{item.teacherName}:{item.majorName}");
+			}
+
+			var teacherAgeMajor = from t in teachers
+								  join m in majors
+								  on new
+								  {
+									  TeacherId = t.Id,
+									  TeacherAge = t.Age
+								  }
+								  equals new
+								  {
+									  m.TeacherId,
+									  m.TeacherAge
+								  }
+								  select new
+								  {
+									  t.Id,
+									  t.Name,
+									  t.Age,
+									  majorName = m.Name
+								  };
+			foreach (var item in teacherAgeMajor)
+			{
+				Console.WriteLine($"编号为{item.Id}的{item.Name}（{item.Age}岁）教“{item.majorName}”课");
+			}
+
+			var studentMajor = from s in students
+							   let ms = s.Majors
+							   from m in ms
+							   select new
+							   {
+								   s.Name,
+								   Major = m.Name
+							   };
+			foreach (var item in studentMajor)
+			{
+				Console.WriteLine(item.Name + ":" + item.Major);
+			}
+
+			var crosssm = from s in students
+						  from m in majors
+						  where s.Majors.Contains(m)
+						  select new
+						  {
+							  s.Name,
+							  Major = m.Name 
+						  };
+			foreach (var item in crosssm)
+			{
+				Console.WriteLine(item.Name + ":::" + item.Major);
+			}
+
+		}
+
+
+
 	}
 }
