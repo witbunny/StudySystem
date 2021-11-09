@@ -36,6 +36,10 @@ namespace cprocess
 		[HelpMoneyChanged(-1, Message = "文章发布")]
 		public override void Publish()
 		{
+			if (Author == null)
+			{
+				throw new ArgumentNullException("Author", "Author为空");
+			}
 			//Console.WriteLine("帮帮币-1");
 			Author.HelpMoney--;
 		}

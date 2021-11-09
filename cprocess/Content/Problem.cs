@@ -42,8 +42,9 @@ namespace cprocess
 			{
 				if (value < 0)
 				{
-					Console.WriteLine("悬赏不能为负数");
-					return;
+					throw new ArgumentOutOfRangeException("value", $"{value}小于零");
+					//Console.WriteLine("悬赏不能为负数");
+					//return;
 				}
 				reward = value;
 			}
@@ -56,6 +57,11 @@ namespace cprocess
 		[HelpMoneyChanged(0, Message = "求助发布")]
 		public override void Publish()
 		{
+			if (Author == null)
+			{
+				throw new ArgumentNullException("Author", "Author为空");
+			}
+			Reward = -10;
 			Author.HelpMoney -= reward;
 			
 			//HelpMoneyChangedAttribute hmca = (HelpMoneyChangedAttribute)typeof(Problem).GetMethod("Publish").GetCustomAttribute(typeof(HelpMoneyChangedAttribute));
