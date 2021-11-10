@@ -392,7 +392,7 @@ namespace cprocess
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			 return new Enumerator(this);
+			return GetEnumerator();
 		}
 
 		public struct Enumerator : IEnumerator<DLinkNode<T>>
@@ -409,7 +409,7 @@ namespace cprocess
 
 			public DLinkNode<T> Current { get; set; }
 
-			object IEnumerator.Current => localDLN;
+			object IEnumerator.Current => Current;
 
 			public void Dispose()
 			{
