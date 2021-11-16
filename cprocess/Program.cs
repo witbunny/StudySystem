@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -66,6 +68,8 @@ namespace cprocess
 			//Console.WriteLine(task.Result);
 			//Process();
 
+			/*
+
 			//IO
 			//path
 			string folderpath = @"E:\echo\zero\adn";
@@ -90,8 +94,13 @@ namespace cprocess
 			//stream.Write(
 			//	new byte[4] { 33, 34, 35, 36 }, //要写入的字节
 			//	0,
-			//	4  /*缓冲的大小*/);
+			//	4  //缓冲的大小
+			//);
 			//stream.Flush();
+
+			*/
+
+			/*
 
 			FileStream stream = File.OpenRead(fullpath);
 			byte[] container = new byte[100];
@@ -100,6 +109,8 @@ namespace cprocess
 			Console.WriteLine(Encoding.UTF8.GetString(container));
 
 			stream.Dispose();
+
+			*/
 
 			/*
 			StreamWriter writer = File.AppendText(Path.Join(folderpath, "greet.txt"));
@@ -115,14 +126,43 @@ namespace cprocess
 			writer.Dispose();
 			*/
 
+			/*
+
 			using (StreamWriter writer    //StreamWriter实现了IDisposable
 				= File.CreateText(Path.Join(folderpath, "greet.txt")))
 			{
 				writer.Write("吃饭了");
 			}//在using块结束时由writer调用其Dispose()方法
 
+			*/
 
+			//现有一个txt文件，里面存放了若干email地址，使用分号（;）或者换行进行了分隔。请删除其中重复的email地址，并按每30个email一行（行内用;分隔）重新组织
+			string path = @"E:\echo\zero\adn\test\testing\email.txt";
+			string content = File.ReadAllText(path);
+			string[] emails = content.Split(new string[] { ";", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+			IEnumerable<string> strs = emails.Distinct();
+			IList<string> restrs = new List<string>();
+			string temp = "";
+			int i = 1;
+			foreach (var item in strs)
+			{
+				if (i == 30 || item == strs.Last())
+				{
+					temp += item;
+					restrs.Add(temp);
+					temp = "";
+					i = 1;
+				}
+				else
+				{
+					temp += item + ";";
+					i++;
+				}
+			}
+			string newcontent = string.Join("\r\n", restrs);
+			File.WriteAllText(@"E:\echo\zero\adn\test\testing\reemail.txt", newcontent);
 
+			
 
 
 			Console.Read();
