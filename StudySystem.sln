@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "captcha", "captcha\captcha.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tssrazor", "tssrazor\tssrazor.csproj", "{73FE374F-90E5-4856-9A34-076471D9ACAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tssnutest", "tssnutest\tssnutest.csproj", "{9420C646-D693-4C58-887B-7D1561C8A8BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{73FE374F-90E5-4856-9A34-076471D9ACAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73FE374F-90E5-4856-9A34-076471D9ACAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73FE374F-90E5-4856-9A34-076471D9ACAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9420C646-D693-4C58-887B-7D1561C8A8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9420C646-D693-4C58-887B-7D1561C8A8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9420C646-D693-4C58-887B-7D1561C8A8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9420C646-D693-4C58-887B-7D1561C8A8BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
