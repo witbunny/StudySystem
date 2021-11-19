@@ -1,0 +1,22 @@
+﻿@page
+@model staticpage.Pages.CandleModel
+@{
+    ViewData["Title"] = "candle";
+}
+
+<link rel="stylesheet" href="~/css/Candle.css" />
+
+@for (int i = 0; i < 5; i++)
+{
+    <div class="candle candle_@(i%2+1) d-flex">
+        <div class="mx-auto">
+            @for (int j = 0; j < 2 * i + 1; j++)
+            {
+                <span>i</span>
+            }
+        </div>
+        
+
+    </div>
+
+}

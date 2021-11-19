@@ -1,0 +1,35 @@
+﻿@page
+@model staticpage.Pages.Task.History.MonthModel
+@{
+    ViewData["Title"] = "历史任务月表";
+}
+
+@*<link rel="stylesheet" href="~/css/Month.css" />*@
+
+<p class="text-center">@(Model.Year)年@(Model.Month)月 </p>
+<table class="table table-striped text-center" >
+    <tbody>
+        <tr>
+            <th>一</th>
+            <th>二</th>
+            <th>三</th>
+            <th>四</th>
+            <th>五</th>
+            <th>六</th>
+            <th>日</th>
+        </tr>
+        @foreach (var item in Model.MonthCalendar)
+        {
+            <tr>
+                <td>@item[0].Day</td>
+                <td>@item[1].Day</td>
+                <td>@item[2].Day</td>
+                <td>@item[3].Day</td>
+                <td>@item[4].Day</td>
+                <td>@item[5].Day</td>
+                <td>@item[6].Day</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

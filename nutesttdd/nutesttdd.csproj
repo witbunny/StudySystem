@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\cprocess\cprocess.csproj" />
+    <ProjectReference Include="..\staticpage\staticpage.csproj" />
   </ItemGroup>
 
 </Project>
