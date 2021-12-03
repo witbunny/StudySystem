@@ -1,50 +1,275 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - tssrazor</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/sss16x16.ico" media="screen" />
+    <title>@ViewData["Title"] • Super StudySystem</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link href="/css/base.css" rel="stylesheet" />
+
+    
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">tssrazor</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top border-bottom box-shadow navbar-py-0">
+        <div class="container">
+            <a href="/" class="navbar-brand">
+                <img src="/images/sss48x48.ico" alt="Super StudySystem Logo" class="navbar-brand-img" />
+                <strong style="font-weight: 600;">Super StudySystem</strong>
+            </a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-main">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-grow-0" id="nav-main">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link" data-toggle="dropdown">
+                            <span class="fa fa-file-text">
+                                <i class="fa">文章</i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/Articles" class="dropdown-item">
+                                <span class="fa fa-list">
+                                    <i class="fa">列表</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-folder-open">
+                                    <i class="fa">开通</i>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link" data-toggle="dropdown">
+                            <span class="fa fa-flag">
+                                <i class="fa">目标</i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-paper-plane">
+                                    <i class="fa">我的目标</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-gavel">
+                                    <i class="fa">我的督促</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-file-code-o">
+                                    <i class="fa">未交作业</i>
+                                </span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-handshake-o">
+                                    <i class="fa">寻求督促</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-eye">
+                                    <i class="fa">督促他人</i>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link" data-toggle="dropdown">
+                            <span class="fa fa-coffee">
+                                <i class="fa">社区</i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-list-alt">
+                                    <i class="fa">列表</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-edit">
+                                    <i class="fa">发布</i>
+                                </span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header">版块</h6>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-graduation-cap">
+                                    <i class="fa">超级班级</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-th-list">
+                                    <i class="fa">疑问列表</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-print">
+                                    <i class="fa">疑问发布</i>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-user-circle-o">
+                                <i class="fa">用户</i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-home">
+                                    <i class="fa">我的主页</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-tasks">
+                                    <i class="fa">新手任务</i>
+                                </span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-eercast bean">
+                                    <i class="fa">学习豆</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-bullseye dot">
+                                    <i class="fa">学习点</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-user-secret credit">
+                                    <i class="fa">学习币</i>
+                                </span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header">修改</h6>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-lock">
+                                    <i class="fa">我的密码</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-envelope">
+                                    <i class="fa">联系方式</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-camera">
+                                    <i class="fa">个人资料</i>
+                                </span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-sign-out">
+                                    <i class="fa">退出登录</i>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-gear">
+                                <i class="fa">管理</i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-bell">
+                                    <i class="fa">我的消息</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-file-o">
+                                    <i class="fa">我的草稿</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-user-plus">
+                                    <i class="fa">邀请注册</i>
+                                </span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header">广告推广</h6>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-fax">
+                                    <i class="fa">联系我们</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-window-maximize">
+                                    <i class="fa">侧边栏</i>
+                                </span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header">学习币</h6>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-cart-plus">
+                                    <i class="fa">购买</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-shopping-cart">
+                                    <i class="fa">出售</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-download">
+                                    <i class="fa">已购买</i>
+                                </span>
+                            </a>
+                            <a href="" class="dropdown-item">
+                                <span class="fa fa-upload">
+                                    <i class="fa">已出售</i>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            @RenderSection("Scripts", required: false)
         </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - tssrazor - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+        <hr />
+        <footer>
+            <div>
+                <a href="">关于我们</a>
+                <span> | </span>
+                <a href="">超级课堂</a>
+                <span> | </span>
+                <a href="">常见问题</a>
+                <span> | </span>
+                <a href="">意见建议</a>
+                <span> | </span>
+                <a href="">历史通知</a>
+                <span> | </span>
+                <a href="" class="text-success">友情捐赠</a>
+                <span> | </span>
+                <a href="">诚邀合伙人</a>
+            </div>
+            <p class="text-right">
+                <a href="">粤ICP备XXXXXXXX号（备案）</a>
+                <span>© 2017 - 2021</span>
+                <img src="/images/sss16x16.ico" alt="Super StudySystem Logo" />
+            </p>
+        </footer>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @RenderSection("Scripts", required: false)
+    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
 </body>
 </html>

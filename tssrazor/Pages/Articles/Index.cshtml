@@ -1,4 +1,12 @@
 ﻿@page
 @model tssrazor.Pages.Articles.IndexModel
 @{
+    ViewData["Title"] = "Article";
 }
+
+<div class="text-center">
+    @for (int i = 0; i < 20; i++)
+    {
+        <h1 class="display-4">Welcome to Article Index</h1>
+    }
+</div>
