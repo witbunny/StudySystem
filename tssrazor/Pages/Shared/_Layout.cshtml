@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
     @*<link rel="stylesheet" href="~/css/site.css" />*@
-    <link href="/css/base.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/base.css" />
 
-    
+
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top border-bottom box-shadow navbar-py-0">
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top border-bottom box-shadow navbar-p-0">
         <div class="container">
             <a href="/" class="navbar-brand">
                 <img src="/images/sss48x48.ico" alt="Super StudySystem Logo" class="navbar-brand-img" />
@@ -238,10 +238,7 @@
     </nav>
 
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-            @RenderSection("Scripts", required: false)
-        </main>
+        @RenderBody()
 
         <hr />
         <footer>
@@ -271,5 +268,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+    <script src="/js/base.js"></script>
+
 </body>
 </html>

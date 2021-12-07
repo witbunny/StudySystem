@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="d-flex justify-content-end mr-md-n5">
+    <div class="fixed-side d-flex flex-column">
+        <a href="" class="link-box mb-1">
+            <span class="fa fa-question-circle-o text-center">
+                <br />
+                <i class="fa">帮助</i>
+            </span>
+        </a>
+        <a href="" class="link-box">
+            <span class="fa fa-comments-o text-center">
+                <br />
+                <i class="fa">反馈</i>
+            </span>
+        </a>
+    </div>
+</div>
+
+<div class="row pt-5">
+    <div class="col-md-8">
+        <div class="fixed-corner d-block d-md-none">
+            <a href="#modal-right" class="link-box" data-toggle="modal">
+                <span class="fa fa-window-restore">
+                    <i class="fa">更多</i>
+                </span>
+            </a>
+        </div>
+        
+        @RenderBody()
+    </div>
+    <div class="col-md-4">
+
+        <div class="modal fade modal-md-visible-body" id="modal-right" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <span class="fa fa-window-restore">
+                                <i class="fa">更多</i>
+                            </span>
+                        </h4>
+                        <a href="" class="close" data-dismiss="modal">&times;</a>
+                    </div>
+                    <div class="modal-body">
+                        @RenderSection("WidgetList", required: false)
+                        @RenderSection("WidgetKeywords", required: false)
+                        @RenderSection("WidgetInfo", required: false)
+                        @RenderSection("WidgetAd", required: false)
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
