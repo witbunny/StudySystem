@@ -15,7 +15,7 @@ namespace tssrazor.Repositories
 		{
 			articles = new List<Article>
 			{
-				new Article(1, "逻辑概念", new UserRepository().Find(1))
+				new Article(1, "1-逻辑概念", new UserRepository().Find(1))
 				{
 					Body = @"复习：
 
@@ -32,7 +32,7 @@ namespace tssrazor.Repositories
 					CreateTime = new DateTime(2021, 5, 5, 9, 7, 8),
 					PublishTime = new DateTime(2021, 5, 5, 9, 7, 8)
 				},
-				new Article(2, "冒泡排序", new UserRepository().Find(1))
+				new Article(2, "2-冒泡排序", new UserRepository().Find(1))
 				{
 					Body = @"需求：将数组中的数字（比如：9 2 3 5 4 7 6 8 1 0），按从小到大的顺序排列
 
@@ -51,7 +51,7 @@ PS：读别人的代码，比自己写还难
 					CreateTime = new DateTime(2021, 10, 17, 14, 30, 50),
 					PublishTime = new DateTime(2021, 10, 17, 14, 30, 50)
 				},
-				new Article(3, "二分查找", new UserRepository().Find(2))
+				new Article(3, "3-二分查找", new UserRepository().Find(2))
 				{
 					Body = @"猜数字的游戏（1-1000），你会怎么猜？
 
@@ -70,13 +70,95 @@ PS：读别人的代码，比自己写还难
 重复以上过程，直到找到满足条件的元素",
 					CreateTime = new DateTime(2021, 10, 19, 14, 30, 50),
 					PublishTime = new DateTime(2021, 10, 19, 14, 30, 50)
+				},
+				new Article(4, "4-快速排序", new UserRepository().Find(1))
+				{
+					Body = @"总结：
+
+通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小
+然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行……
+直到：整个数据变成有序序列。
+第一轮
+为什么不能简单的按照上述描述进行coding？
+
+受限于“数组”的特征：定长定位。没有int[-1]啊！数组的操作只有一个：交换（swap）
+
+#悟#：运动是相对的。",
+					CreateTime = new DateTime(2021, 11, 5, 9, 7, 8),
+					PublishTime = new DateTime(2021, 11, 5, 9, 7, 8)
+				},
+				new Article(5, "5-递归调用", new UserRepository().Find(1))
+				{
+					Body = @"完成一轮排序之后，如何对其左右两部分再进行一次排序呢？而且还要将这个过程一直执行下去呢……
+
+童鞋们，这就是典型的递归啊！
+
+首先，将每一轮的排序抽象成方法：
+
+function quickSort(arr, left, right){    //@想一想@：为什么要left和right参数？
+小技巧：记录下每一轮排序前的oldLeft和oldRight：
+
+int oldLeft = left, oldRight = right;
+一轮排序完成之后，继续调用方法自己：
+
+            //左边排序
+            quickSort(array, oldLeft, middle - 1);
+
+            //右边排序
+            quickSort(array, middle + 1, oldRight);
+特别注意，一定要想好递归结束的条件：
+
+            ///1.递归终止条件
+            if (left >= right)
+            {
+                return;
+            }",
+					CreateTime = new DateTime(2021, 12, 17, 14, 30, 50),
+					PublishTime = new DateTime(2021, 12, 17, 14, 30, 50)
+				},
+				new Article(6, "6-复杂度", new UserRepository().Find(2))
+				{
+					Body = @"冒泡排序和快速排序哪一个更快？为什么呢？
+
+我们使用复杂度来衡量一个（比较各个）算法的效率：
+
+空间复杂度
+还记得飞哥自创的排序法不？用一个新数组按从小到大的顺序来装原数组……这种算法，就额外耗费了一个数组的存储空间；
+而冒泡排序法，只耗费了多少额外空间？一个元素对应的临时变量而已。
+
+这种算法所需的额外存储空间多少，就是空间复杂度。
+
+时间复杂度
+按字母意思，是指完成某个算法需要消耗的时间。
+
+但因为耗时受硬件影响，不够客观，我们我们通常以运算（循环）次数衡量。
+
+同时，算法还受数据影响
+
+可能有最好的情况（比如第一次循环就找到），
+还有可能有最坏的情况（比如直到循环结束才找到），
+我们一般默认指的是通常状况，或者说算法的平均复杂度。
+用大O表示，指示所需运算（循环）次数和参与运算元素之间的关系，一般包括三个量级：
+
+线性：O(n），类似于 y=x
+指数：O(n^2)，类似于 y=x^2
+对数：O(log(n))，类似于 y=log(x)",
+					CreateTime = new DateTime(2021, 12, 19, 14, 30, 50),
+					PublishTime = new DateTime(2021, 12, 19, 14, 30, 50)
 				}
 			};
 		}
 
+		public int Count => articles.Count;
+
 		public override IList<int> GetIdTable()
 		{
 			return articles.Select(a => a.Id).ToList();
+		}
+
+		public IList<Article> GetList(int pageIndex, int pageSize)
+		{
+			return articles.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 		}
 
 		public Article Find(int id)

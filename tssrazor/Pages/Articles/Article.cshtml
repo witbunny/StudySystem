@@ -1,18 +1,30 @@
 ﻿@page
 @model tssrazor.Pages.Articles.ArticleModel
 @{
+    ViewData["Title"] = Model.Article.Title;
+    Layout = "_LayoutContentWidget";
 }
 
 <div>
-    <div class="text-primary h2">@Model.Article.Title</div>
-    <hr />
-    <span>@Model.Article.PublishTime.ToString("yyyy年MM月dd日 HH时mm分ss秒")</span>
-    <span class="float-right">
-        <span>
-            作者：
-            <a href="/Articles/IndexByUser">@Model.Article.Author.Name</a>
+    <h2 class="text-primary">
+        <span class="fa fa-file-text-o">
+            <i class="fa">@Model.Article.Title</i>
         </span>
-    </span>
+    </h2>
+    <hr />
+
+    <div class="d-flex justify-content-between">
+        <span class="text-muted">
+            <span class="fa fa-calendar">
+                <i class="fa">@Model.Article.PublishTime.ToString("yyyy年MM月dd日 HH时mm分ss秒")</i>
+            </span>
+        </span>
+        <span>
+            <span>作者：</span>
+            <a href="">@Model.Article.Author.Name</a>
+        </span>
+    </div>
+
     <div>
         @Model.Article.Body
     </div>

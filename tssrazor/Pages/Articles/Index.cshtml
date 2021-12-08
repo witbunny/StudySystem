@@ -1,13 +1,107 @@
 ﻿@page
 @model tssrazor.Pages.Articles.IndexModel
 @{
-    ViewData["Title"] = "Article";
+    ViewData["Title"] = $"文章-第{Model.PageIndex}页-";
     Layout = "_LayoutContentWidget";
 }
 
-<div class="text-center">
-    @for (int i = 0; i < 20; i++)
-    {
-        <h1 class="display-4">Welcome to Article Index</h1>
-    }
-</div>
+@foreach (var item in Model.Articles)
+{
+    <div class="mb-4 pb-2" style="border-bottom: 1px dashed #ccc;">
+        <div>
+            <div class="d-flex justify-content-between">
+                <span class="text-muted">
+                    <span class="fa fa-calendar">
+                        <i class="fa">@item.PublishTime.ToString("yyyy年MM月dd日 HH时mm分ss秒")</i>
+                    </span>
+                </span>
+                <span>
+                    <span>作者：</span>
+                    <a href="">@item.Author.Name</a>
+                </span>
+            </div>
+            <h4>
+                <a href="/Articles/Article?id=@item.Id">@item.Title</a>
+            </h4>
+            <p class="mt-2 mb-2 text-intro">
+                <span class="text-intro-text">@item.Body</span>
+                <a href="/Articles/Article?id=@item.Id" class="text-muted text-intro-overflow" data-toggle="tooltip" title="全文">......</a>
+            </p>
+            <div>
+                <label>
+                    <span class="fa fa-tags">
+                        <i class="fa">关键字：</i>
+                    </span>
+                </label>
+                <span class="badge badge-pill badge-secondary">model</span>
+                <span class="badge badge-pill badge-secondary">view</span>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a href="#" class="ml-3 text-info">
+                    <span class="fa fa-comments-o">
+                        <i class="fa">评论：0</i>
+                    </span>
+                </a>
+                <a href="#" class="ml-3 text-success">
+                    <span class="fa fa-thumbs-o-up">
+                        <i class="fa">赞：0</i>
+                    </span>
+                </a>
+                <a href="#" class="ml-3 text-secondary">
+                    <span class="fa fa-thumbs-o-down">
+                        <i class="fa">踩：0</i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+<nav>
+    <ul class="pagination">
+
+        @if (Model.PageIndex == 1)
+        {
+            <li class="page-item disabled">
+                <a href="javascript: void(0);" class="page-link">&laquo;</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a href="/Articles?pageIndex=@(Model.PageIndex-1)" class="page-link">&laquo;</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.PageNumber; i++)
+        {
+            if (Model.PageIndex == i)
+            {
+                <li class="page-item active">
+                    <a href="javascript: void(0);" class="page-link">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a href="/Articles?pageIndex=@i" class="page-link">@i</a>
+                </li>
+            }
+
+        }
+
+        @if (Model.PageIndex == Model.PageNumber)
+        {
+            <li class="page-item disabled">
+                <a href="javascript: void(0);" class="page-link">&raquo;</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a href="/Articles?pageIndex=@(Model.PageIndex+1)" class="page-link">&raquo;</a>
+            </li>
+        }
+
+    </ul>
+</nav>
