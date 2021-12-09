@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/x-icon" href="/images/sss16x16.ico" media="screen" />
+    <link rel="shortcut icon" type="image/x-icon" href="/images/sss16x16.ico" media="screen" asp-append-version="true" />
     <title>@ViewData["Title"] • Super StudySystem</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
     @*<link rel="stylesheet" href="~/css/site.css" />*@
-    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/base.css" asp-append-version="true" />
 
 
 </head>
@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top border-bottom box-shadow navbar-p-0">
         <div class="container">
             <a href="/" class="navbar-brand">
-                <img src="/images/sss48x48.ico" alt="Super StudySystem Logo" class="navbar-brand-img" />
+                <img src="/images/sss48x48.ico" alt="Super StudySystem Logo" class="navbar-brand-img" asp-append-version="true" />
                 <strong style="font-weight: 600;">Super StudySystem</strong>
             </a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-main">
@@ -33,7 +33,7 @@
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="/Article/Page/1" class="dropdown-item">
+                            <a class="dropdown-item" asp-page="/Articles/Index" asp-route-pageIndex="1" >
                                 <span class="fa fa-list">
                                     <i class="fa">列表</i>
                                 </span>
@@ -260,7 +260,7 @@
             <p class="text-right">
                 <a href="">粤ICP备XXXXXXXX号（备案）</a>
                 <span>© 2017 - 2021</span>
-                <img src="/images/sss16x16.ico" alt="Super StudySystem Logo" />
+                <img src="/images/sss16x16.ico" alt="Super StudySystem Logo" asp-append-version="true" />
             </p>
         </footer>
     </div>
@@ -268,7 +268,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
-    <script src="/js/base.js"></script>
+    <script src="/js/base.js" asp-append-version="true"></script>
 
 </body>
 </html>

@@ -21,11 +21,11 @@
                 </span>
             </div>
             <h4>
-                <a href="/Article/@item.Id">@item.Title</a>
+                <a asp-page="/Articles/Article" asp-route-id="@item.Id">@item.Title</a>
             </h4>
             <p class="mt-2 mb-2 text-intro">
                 <span class="text-intro-text">@item.Body</span>
-                <a href="/Article/@item.Id" class="text-muted text-intro-overflow" data-toggle="tooltip" title="全文">......</a>
+                <a class="text-muted text-intro-overflow" data-toggle="tooltip" title="全文" asp-page="/Articles/Article" asp-route-id="@item.Id">......</a>
             </p>
             <div>
                 <label>
@@ -69,7 +69,7 @@
         else
         {
             <li class="page-item">
-                <a href="/Article/Page/@(Model.PageIndex-1)" class="page-link">&laquo;</a>
+                <a class="page-link" asp-page="/Articles/Index" asp-route-pageIndex="@(Model.PageIndex-1)">&laquo;</a>
             </li>
         }
 
@@ -84,7 +84,7 @@
             else
             {
                 <li class="page-item">
-                    <a href="/Article/Page/@i" class="page-link">@i</a>
+                    <a class="page-link" asp-page="/Articles/Index" asp-route-pageIndex="@i">@i</a>
                 </li>
             }
 
@@ -99,7 +99,7 @@
         else
         {
             <li class="page-item">
-                <a href="/Article/Page/@(Model.PageIndex+1)" class="page-link">&raquo;</a>
+                <a class="page-link" asp-page="/Articles/Index" asp-route-pageIndex="@(Model.PageIndex+1)">&raquo;</a>
             </li>
         }
 
