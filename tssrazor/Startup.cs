@@ -22,7 +22,12 @@ namespace tssrazor
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddRazorPages();
+			services.AddRazorPages()
+				.AddRazorPagesOptions(opt =>
+				{
+					opt.Conventions.AddPageRoute("/Articles/Article", "/Article/{id:int}");
+					opt.Conventions.AddPageRoute("/Articles/Index", "/Article/Page/{pageIndex:int}");
+				});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -22,7 +22,9 @@ namespace tssrazor.Pages.Articles
 
         public void OnGet()
         {
-            int id = int.Parse(Request.Query["id"][0]);
+            //int id = int.Parse(Request.Query["id"][0]);
+            //int id = int.Parse((string)RouteData.Values["id"]);
+            int id = Convert.ToInt32(RouteData.Values["id"]);
             Article = articleRepository.Find(id);
         }
     }

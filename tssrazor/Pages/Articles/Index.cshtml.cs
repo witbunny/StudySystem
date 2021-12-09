@@ -32,7 +32,8 @@ namespace tssrazor.Pages.Articles
 
         public void OnGet()
         {
-            PageIndex = int.Parse(Request.Query["pageIndex"][0]);
+            //PageIndex = int.Parse(Request.Query["pageIndex"][0]);
+            PageIndex = Convert.ToInt32(RouteData.Values["pageIndex"]);
 
             PageNumber = (int)Math.Ceiling((double)TotalCount / PageSize);
 
