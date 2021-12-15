@@ -15,3 +15,91 @@
 <!a asp-page="About">what</!a>
 
 <datetime asp-showicon="true" asp-only="">@DateTime.Now</datetime>
+
+
+<form  method="post" enctype="application/x-www-form-urlencoded" novalidate asp-page="/">
+    <label>用户名：</label>
+    <input type="text" name="username" value="www" />
+    <label>密码：</label>
+    <input type="password" name="passwords" value="1234" disabled />
+    <input type="submit" name="submits" value="tj" formaction="" />
+    <input type="button" name="name" value="my" />
+    <button type="button">btn</button>
+
+    <input type="hidden" name="hide" value="ishidden" />
+    <label>多行文本框：</label>
+    <textarea rows="10" cols="10" name="miaoshu">dis</textarea>
+
+
+    <label><input type="radio" name="gender" value="male" checked />男</label>
+    <label><input type="radio" name="gender" value="female" />女</label>
+    <label><input type="radio" name="gender" value="" />神</label>
+    <label><input type="radio" name="gender" />马</label> @* "on" *@
+
+    <br /> @* 不选 不传 *@
+    <label><input type="checkbox" name="hobby" value="tenis" />网球</label>
+    <label><input type="checkbox" name="hobby" value="chess" />象棋</label>
+    <label><input type="checkbox" name="hobby" value="" />神马</label>
+    <label><input type="checkbox" name="hobby" />草泥马</label> @* "on" *@
+
+    <select name="age">
+        <option value="1">one</option>
+        <option value="2" selected>two</option>
+        <option value="3">three</option>
+    </select>
+
+    <select multiple name="age">
+        <option >one</option>
+        <option selected>二</option>
+        <option >three</option>
+    </select>
+
+    <input type="file" name="icon" value="" accept="image/*" multiple />
+
+    <input type="color" name="name" value="" />
+
+    <input type="week" name="date" value="" />
+
+    <input type="email" name="email" value="34" placeholder="qingshu" />
+
+    <input type="range" name="number" value="" />
+</form>
+
+<hr />
+
+<form method="post" asp-page="/">
+    <label>用户名：</label>
+    <input asp-for="UserName" />
+    <label>密码：</label>
+    <input asp-for="Password" />
+
+    <br />
+
+    <label>用户名：</label>
+    <input asp-for="NewUser.UserName" />
+    <label>密码：</label>
+    <input asp-for="NewUser.Password" />
+
+    <input asp-for="RememberMe" />
+
+    <br />
+    <label>性别</label>
+    <input type="radio" value="true" asp-for="NewUser.IsMale" />男
+    <input type="radio" value="false" asp-for="NewUser.IsMale" />女
+
+    <br />
+    <select asp-for="BirthMonth" asp-items="Model.AvailableMonths"></select>
+
+    <br />
+    <select asp-for="Months" asp-items="Model.AvailableMonths"></select>
+
+    @for (int i = 0; i < Model.Hobbies.Count; i++)
+    {
+        <input asp-for="Hobbies[i].IsLike" />
+        <label asp-for="Hobbies[i].IsLike">@Model.Hobbies[i].Content</label>
+        <input asp-for="Hobbies[i].Id" type="hidden" />
+    }
+
+
+    <input type="submit" name="submits" value="提交" />
+</form>
