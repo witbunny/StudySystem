@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nutesttdd", "nutesttdd\nute
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "captcha", "captcha\captcha.csproj", "{3F03D2A7-CBB2-4BB3-84E7-9A6C8C06687B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tssrazor", "tssrazor\tssrazor.csproj", "{73FE374F-90E5-4856-9A34-076471D9ACAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tssrazor", "tssrazor\tssrazor.csproj", "{73FE374F-90E5-4856-9A34-076471D9ACAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tssnutest", "tssnutest\tssnutest.csproj", "{9420C646-D693-4C58-887B-7D1561C8A8BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tssnutest", "tssnutest\tssnutest.csproj", "{9420C646-D693-4C58-887B-7D1561C8A8BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

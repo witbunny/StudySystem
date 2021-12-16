@@ -14,8 +14,8 @@ namespace tssrazor.Repositories
 		{
 			users = new List<User>
 			{
-				new User(1, "leo"),
-				new User(2, "tik")
+				new User(1, "leo") { InviteCode = "0101" },
+				new User(2, "tik") { InviteCode = "0202" }
 			};
 		}
 
@@ -27,6 +27,11 @@ namespace tssrazor.Repositories
 		public User Find(int id)
 		{
 			return users.Where(u => u.Id == id).SingleOrDefault();
+		}
+
+		public User Find(string name)
+		{
+			return users.Where(u => u.Name == name).SingleOrDefault();
 		}
 
 		public bool Delete(int id)

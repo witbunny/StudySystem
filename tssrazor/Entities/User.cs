@@ -21,7 +21,8 @@ namespace tssrazor.Entities
 
 		public string Name { get; set; }
 		public string Password { get; set; }
+		public string InviteCode { get; set; }
 
-		
+		public User InvitedBy { get; set; }
 	}
 }
