@@ -2,7 +2,7 @@
 @model tssrazor.Pages.Articles.IndexModel
 @{
     ViewData["Title"] = $"文章-第{Model.PageIndex}页-";
-    Layout = "_LayoutContentWidget";
+    Layout = "_LayoutFixedContentWidget";
 }
 
 @foreach (var item in Model.Articles)

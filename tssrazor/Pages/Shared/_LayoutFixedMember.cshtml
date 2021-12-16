@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_LayoutFixed";
+}
+
+<div class="mt-5">
+    @RenderSection("TextHeader", false)
+    <hr />
+</div>
+<div class="row">
+    <div class="col-md-6 col-lg-5 col-xl-4">
+        @RenderBody()
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-4 mx-auto d-none d-md-block">
+        @RenderSection("TextDescription", false)
+    </div>
+</div>
