@@ -1,0 +1,189 @@
+﻿@page
+@model tssrazor.Pages.Backstage.MessageMineModel
+@{
+    ViewData["Title"] = "我的消息";
+    Layout = "_LayoutFixedBackstage";
+}
+
+<h2>
+    <span class="fa fa-bell">
+        <i class="fa">我的消息</i>
+    </span>
+</h2>
+<hr />
+
+<div class="d-flex my-4">
+    <ul class="nav flex-column nav-tabs nav-tabs-left custom-nav">
+        <li class="nav-item">
+            <a href="#msg-unread" class="nav-link text-center active" data-toggle="tab">
+                <span class="fa fa-bars">
+                    <br />
+                    <i class="fa mt-1">未<br />读<br />的</i>
+                </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#msg-read" class="nav-link text-center" data-toggle="tab">
+                <span class="fa fa-check">
+                    <br />
+                    <i class="fa mt-1">已<br />读<br />的</i>
+                </span>
+            </a>
+        </li>
+        <li class="nav-item flex-fill">
+            <a href="#msg-deleted" class="nav-link text-center h-100" data-toggle="tab">
+                <span class="fa fa-recycle">
+                    <br />
+                    <i class="fa mt-1">回<br />收<br />站</i>
+                </span>
+            </a>
+        </li>
+    </ul>
+    <div class="flex-fill tab-content border border-left-0 rounded-right p-3" style="min-height: 250px;">
+        <div class="tab-pane fade show active" id="msg-unread">
+            <form method="post">
+                <div class="form-inline mb-2">
+
+                    @*<div class="custom-control custom-checkbox mr-2">
+                <input class="custom-control-input" id="select-all" type="checkbox">
+                <label class="custom-control-label" for="select-all">全选</label>
+            </div>*@
+
+                    <div class="form-check mr-2">
+                        <input class="form-check-input" id="select-all" type="checkbox">
+                        <label class="form-check-label" for="select-all">全选</label>
+                    </div>
+
+                    <button class="btn btn-primary btn-sm mr-2" type="submit" name="submitStatus" value="1">
+                        <span class="fa fa-check-circle">
+                            <i class="fa">标记为已读</i>
+                        </span>
+                    </button>
+                    <button class="btn btn-secondary btn-sm" type="submit" name="submitStatus" value="2">
+                        <span class="fa fa-times-circle">
+                            <i class="fa">删除已选中</i>
+                        </span>
+                    </button>
+                </div>
+
+                <hr class="my-1" />
+                <div class="form-row text-center align-items-center">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">时间</div>
+                    <div class="col-sm-2 col-xl-1">
+                        <a href>
+                            订阅
+                            <span class="fa fa-cog"></span>
+                        </a>
+                    </div>
+                    <div class="col-sm-7 col-xl-8">内容</div>
+                </div>
+                <hr class="my-1" />
+
+                @for (int i = 0; i < Model.Messages.Count; i++)
+                {
+                    <div class="form-row text-center align-items-center font-weight-bold">
+                        <div class="col-sm-1 text-left">
+                            @*<input asp-for="Messages[i].IsChecked" />
+                            <input asp-for="Messages[i].Id" type="hidden" />*@
+
+                             <input type="checkbox" name="Messages[@i].IsChecked" value="true" />
+                             <input type="hidden" name="Messages[@i].IsChecked" value="false" />
+                            <input type="hidden" name="Messages[@i].Id" value="@Model.Messages[i].Id" />
+
+                        </div>
+                        <div class="col-sm-2">
+                            <span class="fa fa-calendar" data-toggle="tooltip" title="@Model.Messages[i].CreateTime.ToString("yyyy年MM月dd日 HH点mm分")"></span>
+                            <span>@Model.Messages[i].CreateTime.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-sm-2 col-xl-1">
+                            <a href data-toggle="tooltip" title="退订">
+                                <span class="fa fa-times-circle"></span>
+                            </a>
+                            @Model.Messages[i].Kind
+                        </div>
+                        <div class="col-sm-7 col-xl-8">
+                            <span>@Model.Messages[i].Recipient.Name</span>因为登录获得系统随机分配给你的
+                            <a href="" class="bean">
+                                <span class="fa fa-eercast"></span>
+                                学习豆
+                            </a>
+                            <span>12</span>
+                            枚，可用于感谢赞赏等。
+                        </div>
+                    </div>
+                    <hr class="my-1 border-dashed" />
+                }
+
+                <div class="form-inline mt-2">
+                    <div class="form-check mr-2">
+                        <input class="form-check-input" id="select-all" type="checkbox">
+                        <label class="form-check-label" for="select-all">全选</label>
+                    </div>
+                    <button class="btn btn-primary btn-sm mr-2" type="submit" name="submitStatus" value="read">
+                        <span class="fa fa-check-circle">
+                            <i class="fa">标记为已读</i>
+                        </span>
+                    </button>
+                    <button class="btn btn-secondary btn-sm" type="submit" name="submitStatus" value="deleted">
+                        <span class="fa fa-times-circle">
+                            <i class="fa">删除已选中</i>
+                        </span>
+                    </button>
+                </div>
+
+            </form>
+
+            <nav>
+                <ul class="pagination my-3">
+
+                    @if (Model.PageIndex == 1)
+                    {
+                        <li class="page-item disabled">
+                            <a href="javascript: void(0);" class="page-link">&laquo;</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-page="/Backstage/MessageMine" asp-route-msgStatus="@((int)Model.MsgStatus)" asp-route-pageIndex="@(Model.PageIndex-1)">&laquo;</a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= Model.PageNumber; i++)
+                    {
+                        if (Model.PageIndex == i)
+                        {
+                            <li class="page-item active">
+                                <a href="javascript: void(0);" class="page-link">@i</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-page="/Backstage/MessageMine" asp-route-msgStatus="@((int)Model.MsgStatus)" asp-route-pageIndex="@i">@i</a>
+                            </li>
+                        }
+
+                    }
+
+                    @if (Model.PageIndex == Model.PageNumber)
+                    {
+                        <li class="page-item disabled">
+                            <a href="javascript: void(0);" class="page-link">&raquo;</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-page="/Backstage/MessageMine" asp-route-msgStatus="@((int)Model.MsgStatus)" asp-route-pageIndex="@(Model.PageIndex+1)">&raquo;</a>
+                        </li>
+                    }
+
+                </ul>
+            </nav>
+        </div>
+        <div class="tab-pane fade" id="msg-read">已读的</div>
+        <div class="tab-pane fade" id="msg-deleted">回收站</div>
+    </div>
+</div>

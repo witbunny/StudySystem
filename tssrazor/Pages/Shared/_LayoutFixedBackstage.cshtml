@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "_LayoutFixed";
+}
+
+<div class="row mt-5">
+    <div class="col-md-9">
+        @RenderBody()
+    </div>
+    <div class="col-md-3">
+
+        <div class="card border-dashed-2 yellow-highlight mb-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <span class="fa fa-tasks">
+                        <i class="fa">新手任务</i>
+                    </span>
+                </h5>
+                <hr />
+                <p class="card-text">
+                    <span class="fa fa-check-square-o fa-fw text-success"></span>
+                    填写：
+                    <a href>联系方式</a>
+                </p>
+                <p class="card-text">
+                    <span class="fa fa-check-square-o fa-fw text-success"></span>
+                    激活：
+                    <a href>Email</a>
+                </p>
+                <p class="card-text">
+                    <span class="fa fa-square-o fa-fw"></span>
+                    邀请：
+                    <a href>我的小伙伴</a>
+                </p>
+                <p class="card-text">
+                    <span class="fa fa-square-o fa-fw"></span>
+                    参加：
+                    <a href>新人测试</a>
+                </p>
+                <p class="card-text">
+                    <span class="fa fa-square-o fa-fw"></span>
+                    发布：
+                    <a href>第一个求助</a>
+                </p>
+                <p class="card-text">
+                    <span class="fa fa-square-o fa-fw"></span>
+                    尝试：
+                    <a href>第一次协助</a>
+                </p>
+                <p class="card-text">
+                    <span class="fa fa-check-square-o fa-fw text-success"></span>
+                    获得：若干
+                    <a href class="fa fa-user-secret credit" data-toggle="tooltip" title="点击了解">学习币</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <div class="d-flex justify-content-end">
+                <a href class="p-2">
+                    <span class="fa fa-pencil-square-o"></span>
+                    修改
+                </a>
+            </div>
+            <div class="card">
+                <img src="" class="card-img profile-picture" />
+                <div class="card-img-overlay">
+                    <div class="d-flex flex-wrap justify-content-center align-content-center h-100">
+                        <span class="fa fa-picture-o fa-3x"></span>
+                        <div class="w-100 text-center mt-3">
+                            等待上传中
+                            <span class="fa fa-hourglass-half"></span>
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <div class="p-2">
+                    <span>用户：</span>
+                    <a href>witbunny</a>
+                    <a href data-toggle="tooltip" title="高级学徒">③</a>
+                </div>
+                <a href class="p-2">
+                    <span class="fa fa-pencil-square-o"></span>
+                    修改
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

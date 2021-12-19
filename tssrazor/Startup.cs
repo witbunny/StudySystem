@@ -28,6 +28,7 @@ namespace tssrazor
 					opt.Conventions.AddPageRoute("/Articles/Article", "/Article/{id:int}");
 					opt.Conventions.AddPageRoute("/Articles/Index", "/Article/Page/{pageIndex:int}");
 					opt.Conventions.AddPageRoute("/Members/Register", "/Register/{id:int?}");
+					opt.Conventions.AddPageRoute("/Backstage/MessageMine", "/Message/Mine/Status/{msgStatus:int}/Page/{pageIndex:int}");
 				});
 		}
 

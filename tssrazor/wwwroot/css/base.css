@@ -143,21 +143,62 @@ body {
     border-radius: 0.25rem;
 }
 
-/* widget info nav-tabs nav-link
+/* widget info custom-nav tabs not active style
 ------------------------------------------------------------ */
-.widget-nav .nav-tabs .nav-link {
+.custom-nav.nav-tabs .nav-link {
     background-color: #f5f5f5;
     border-color: #dee2e6;
     border-style: dashed;
     border-bottom-style: solid;
 }
 
-    /* widget info nav-tabs nav-link active default (not changed)
+    /* widget info custom-nav tabs not active style : active default (not changed)
 ------------------------------------------------------------ */
-    .widget-nav .nav-tabs .nav-link.active {
+    .custom-nav.nav-tabs .nav-link.active {
         color: #495057;
         background-color: #fff;
         border-color: #dee2e6 #dee2e6 #fff;
+        border-style: solid;
+    }
+
+/* message nav-tabs-left tabs to left
+------------------------------------------------------------ */
+.nav-tabs-left.nav-tabs {
+    border-right: 1px solid #dee2e6;
+    border-bottom: 0;
+}
+
+    .nav-tabs-left.nav-tabs .nav-item {
+        margin-right: -1px;
+        margin-bottom: 0;
+    }
+
+    .nav-tabs-left.nav-tabs .nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+        border-top-right-radius: 0;
+    }
+
+        .nav-tabs-left.nav-tabs .nav-item.show .nav-link, .nav-tabs-left.nav-tabs .nav-link.active {
+            color: #495057;
+            background-color: #fff;
+            border-color: #dee2e6 #fff #dee2e6 #dee2e6;
+        }
+
+/* message custom-nav nav-tabs-left tabs not active style
+------------------------------------------------------------ */
+.custom-nav.nav-tabs-left.nav-tabs .nav-link {
+    background-color: #f5f5f5;
+    border-color: #dee2e6;
+    border-style: dashed;
+    border-right-style: solid;
+}
+
+    .custom-nav.nav-tabs-left.nav-tabs .nav-link.active {
+        color: #495057;
+        background-color: #fff;
+        border-color: #dee2e6 #fff #dee2e6 #dee2e6;
         border-style: solid;
     }
 
@@ -262,9 +303,14 @@ body {
     color: #17a2b8;
 }
 
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
 /* register form style
 ------------------------------------------------------------ */
-.border-dashed {
+.border-dashed-2 {
     border: 2px dashed #eee;
 }
 
@@ -274,4 +320,25 @@ body {
 
 .label-bold label {
     font-weight: bold;
+}
+
+/* profile picture
+------------------------------------------------------------ */
+img[src=""].profile-picture, img:not([src]).profile-picture {
+    width: 100%;
+    height: 200px;
+}
+
+img[src=""], img:not([src]) {
+    opacity: 0;
+}
+
+img[src*="."].profile-picture + div.card-img-overlay {
+    display: none;
+}
+
+/* input checkbox/radio style
+------------------------------------------------------------ */
+input[type="radio"], input[type="checkbox"] {
+    vertical-align: middle;
 }

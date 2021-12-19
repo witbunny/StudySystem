@@ -10,6 +10,11 @@ namespace tssrazor.Entities
 	{
 		protected IList<int> idTable;
 
+		public Entity()
+		{
+
+		}
+
 		public Entity(Repository repository)
 		{
 			idTable = repository.GetIdTable();
@@ -21,7 +26,7 @@ namespace tssrazor.Entities
 			Id = id;
 		}
 
-		public int Id { get; protected set; }
+		public int Id { get; /*protected*/ set; }
 
 	}
 }
