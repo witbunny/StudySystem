@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using tssrazor.Repositories;
@@ -38,7 +39,8 @@ namespace tssrazor.Entities.Messages
 	public enum KindOfMessage
 	{
 		Unknown = 0,
-		[Description("刷新")]
+		//[Description("刷新")]
+		//[Display(Name = "刷新")]
 		Refresh = 1
 	}
 
