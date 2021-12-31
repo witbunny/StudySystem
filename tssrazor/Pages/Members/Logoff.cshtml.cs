@@ -9,9 +9,11 @@ namespace tssrazor.Pages.Members
 {
     public class LogoffModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
             Response.Cookies.Delete(Keys.UserId);
+            //return RedirectToPage("/Members/Logon");
+            return Redirect(Request.Headers["Referer"][0]);
         }
     }
 }
