@@ -14,8 +14,8 @@ namespace tssrazor.Repositories
 		{
 			users = new List<User>
 			{
-				new User(1, "leo") { InviteCode = "0101" },
-				new User(2, "tik") { InviteCode = "0202" }
+				new User(1, "leo") { Password = "d001", InviteCode = "0101" },
+				new User(2, "tik") { Password = "d002", InviteCode = "0202" }
 			};
 		}
 

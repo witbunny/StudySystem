@@ -116,6 +116,10 @@
                             </a>
                         </div>
                     </li>
+
+                    @if (ViewData["HasLogon"] != null)
+                    {
+                    
                     <li class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-user-circle-o">
@@ -167,7 +171,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="" class="dropdown-item">
+                            <a class="dropdown-item" asp-page="/Members/Logoff">
                                 <span class="fa fa-sign-out">
                                     <i class="fa">退出登录</i>
                                 </span>
@@ -232,6 +236,11 @@
                             </a>
                         </div>
                     </li>
+
+                    }
+                    else
+                    {
+
                     <li class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-unlink">
@@ -239,7 +248,7 @@
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href>
+                            <a class="dropdown-item" asp-page="/Members/Logon">
                                 <span class="fa fa-sign-in">
                                     <i class="fa">登录</i>
                                 </span>
@@ -256,6 +265,8 @@
                             </a>
                         </div>
                     </li>
+
+                    }
 
                 </ul>
             </div>
