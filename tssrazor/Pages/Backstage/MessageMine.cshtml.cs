@@ -32,7 +32,7 @@ namespace tssrazor.Pages.Backstage
         public int TotalCount { get; set; }
         public int PageNumber { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
             MsgStatus = (MessageStatus)Convert.ToInt32(RouteData.Values["msgStatus"]);
             PageIndex = Convert.ToInt32(RouteData.Values["pageIndex"]);
@@ -40,10 +40,17 @@ namespace tssrazor.Pages.Backstage
             TotalCount = messageRepository.GetCount(MsgStatus);
             PageNumber = (int)Math.Ceiling((double)TotalCount / PageSize);
 
-            Messages = messageRepository.GetList(MsgStatus, PageIndex, PageSize);
+			//PageIndex = PageIndex > PageNumber ? PageNumber : PageIndex;
+			if (PageIndex > PageNumber)
+			{
+                return RedirectToPage(new { pageIndex = PageNumber });
+			} //else nothing
+
+            Messages = messageRepository.GetList(PageIndex, PageSize, MsgStatus);
+			return Page();
         }
 
-        public void OnPost()
+        public RedirectToPageResult OnPost()
 		{
 			foreach (var item in Messages)
 			{
@@ -52,12 +59,15 @@ namespace tssrazor.Pages.Backstage
                     messageRepository.Find(item.Id).Status = SubmitStatus;
 				}
 			}
-            PageIndex = 1;
 
-            TotalCount = messageRepository.GetCount(MsgStatus);
-            PageNumber = (int)Math.Ceiling((double)TotalCount / PageSize);
+            //PageIndex = 1;
 
-            Messages = messageRepository.GetList(MsgStatus, PageIndex, PageSize);
+            //TotalCount = messageRepository.GetCount(MsgStatus);
+            //PageNumber = (int)Math.Ceiling((double)TotalCount / PageSize);
+
+            //Messages = messageRepository.GetList(PageIndex, PageSize, MsgStatus);
+
+            return RedirectToPage();
         }
     }
 }

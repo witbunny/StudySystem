@@ -58,9 +58,9 @@ namespace tssrazor.Repositories
 			return messages.Where(m => m.Status == messageStatus).Count();
 		}
 
-		public IList<Message> GetList(MessageStatus? messageStatus, int pageIndex, int pageSize)
+		public IList<Message> GetList(int pageIndex, int pageSize, MessageStatus messageStatus = MessageStatus.All)
 		{
-			if (messageStatus == null)
+			if (messageStatus == MessageStatus.All)
 			{
 				return messages.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 			}
