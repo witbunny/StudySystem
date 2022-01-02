@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using tssrazor.Entities;
 using tssrazor.Repositories;
@@ -36,9 +37,24 @@ namespace tssrazor.Pages.Members
             RememberMe = true;
 
             ViewData["HasLogon"] = Request.Cookies[Keys.UserId];
+
+
+			var temp = TempData[Keys.ErrorInPost];
+			//var temp = TempData.Peek(Keys.ErrorInPost);
+			if (temp != null)
+			{
+                //Dictionary<string, string> errors = TempData[Keys.ErrorInPost] as Dictionary<string, string>;
+                Dictionary<string, string> errors = temp as Dictionary<string, string>;
+
+                foreach (var item in errors)
+                {
+                    ModelState.AddModelError(item.Key, item.Value);
+                }
+            }
+            //ModelState.Merge((ModelStateDictionary)TempData["errorInPost"]);
         }
 
-        public void OnPost()
+        public RedirectToPageResult OnPost()
 		{
             User ExistUser = userRepository.Find(LogonUser.Name);
 
@@ -54,7 +70,13 @@ namespace tssrazor.Pages.Members
 
             if (!ModelState.IsValid)
             {
-                return;
+                Dictionary<string, string> errors =
+                    ModelState.Where(m => m.Value.Errors.Any()).ToDictionary(
+                        m => m.Key, 
+                        m => m.Value.Errors.Select(e => e.ErrorMessage).First());
+
+                TempData[Keys.ErrorInPost] = errors;
+                return RedirectToPage();
             }
 
             CookieOptions cookieOptions = new CookieOptions();
@@ -65,6 +87,7 @@ namespace tssrazor.Pages.Members
             //else nothing
 
             Response.Cookies.Append(Keys.UserId, ExistUser.Id.ToString(), cookieOptions);
+            return RedirectToPage("/Index");
         }
     }
 }
