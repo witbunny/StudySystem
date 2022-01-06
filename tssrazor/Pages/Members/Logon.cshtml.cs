@@ -32,8 +32,14 @@ namespace tssrazor.Pages.Members
         [BindProperty]
         public bool RememberMe { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+			string url = Convert.ToString(RouteData.Values["refererURL"]);
+            if (string.IsNullOrEmpty(url))
+			{
+                return RedirectToPage(new { refererURL = Request.Headers["Referer"][0] });
+			}
+
             RememberMe = true;
 
             ViewData["HasLogon"] = Request.Cookies[Keys.UserId];
@@ -52,9 +58,10 @@ namespace tssrazor.Pages.Members
                 }
             }
             //ModelState.Merge((ModelStateDictionary)TempData["errorInPost"]);
+            return Page();
         }
 
-        public RedirectToPageResult OnPost()
+        public IActionResult OnPost()
 		{
             User ExistUser = userRepository.Find(LogonUser.Name);
 
@@ -87,7 +94,14 @@ namespace tssrazor.Pages.Members
             //else nothing
 
             Response.Cookies.Append(Keys.UserId, ExistUser.Id.ToString(), cookieOptions);
-            return RedirectToPage("/Index");
+
+            string url = Convert.ToString(RouteData.Values["refererURL"]);
+
+			//var url1 = Uri.EscapeUriString(url);
+			//var url2 = Uri.EscapeDataString(url);
+
+			url = Uri.UnescapeDataString(url);
+			return Redirect(url);
         }
     }
 }

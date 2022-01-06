@@ -34,6 +34,12 @@ namespace tssrazor.Pages.Backstage
 
         public IActionResult OnGet()
         {
+			if (string.IsNullOrEmpty(Request.Cookies[Keys.UserId]))
+			{
+                return RedirectToPage("/Members/Logon");
+			}
+            ViewData["HasLogon"] = Request.Cookies[Keys.UserId];
+
             MsgStatus = (MessageStatus)Convert.ToInt32(RouteData.Values["msgStatus"]);
             PageIndex = Convert.ToInt32(RouteData.Values["pageIndex"]);
 
