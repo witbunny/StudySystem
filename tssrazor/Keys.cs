@@ -9,5 +9,7 @@ namespace tssrazor
 	{
 		public const string UserId = "userid";
 		public const string ErrorInPost = "errorInPost";
+
+		public const string Captcha = "captcha";
 	}
 }

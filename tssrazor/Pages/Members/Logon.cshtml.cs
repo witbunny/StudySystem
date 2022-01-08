@@ -60,7 +60,12 @@ namespace tssrazor.Pages.Members
                 }
             }
             //ModelState.Merge((ModelStateDictionary)TempData["errorInPost"]);
-            
+
+            string captcha = "SQDU";
+            //生成图片
+            //Response.Cookies.Append(Keys.Captcha, captcha);
+            HttpContext.Session.SetString(Keys.Captcha, captcha);
+
             return Page();
         }
 
@@ -76,7 +81,15 @@ namespace tssrazor.Pages.Members
 			{
                 ModelState.AddModelError("LogonUser.Password", "用户名或密码错误");
 			}
-			//else nothing
+            //else nothing
+
+            //string captcha = Request.Cookies[Keys.Captcha];
+            string captcha = HttpContext.Session.GetString(Keys.Captcha);
+			if (captcha != CaptchaCode?.ToUpper())
+			{
+                ModelState.AddModelError("CaptchaCode", "验证码错误");
+                //Response.Cookies.Delete(Keys.Captcha);
+			}
 
 			if (!ModelState.IsValid)
 			{
@@ -86,7 +99,8 @@ namespace tssrazor.Pages.Members
 						m => m.Value.Errors.Select(e => e.ErrorMessage).First());
 
 				TempData[Keys.ErrorInPost] = errors;
-				return RedirectToPage();
+                //return RedirectToPage();
+                return Redirect(Request.Path.Value);
 			}
 
 			CookieOptions cookieOptions = new CookieOptions();
