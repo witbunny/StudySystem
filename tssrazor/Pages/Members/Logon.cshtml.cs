@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using tssrazor.Entities;
+using tssrazor.Filters;
 using tssrazor.Repositories;
 
 namespace tssrazor.Pages.Members
 {
+    [ModelValidation]
     public class LogonModel : PageModel
     {
         private UserRepository userRepository;
@@ -42,9 +44,9 @@ namespace tssrazor.Pages.Members
 
             RememberMe = true;
 
-            ViewData["HasLogon"] = Request.Cookies[Keys.UserId];
+            //ViewData["HasLogon"] = Request.Cookies[Keys.UserId];
 
-
+            
 			var temp = TempData[Keys.ErrorInPost];
 			//var temp = TempData.Peek(Keys.ErrorInPost);
 			if (temp != null)
@@ -58,6 +60,7 @@ namespace tssrazor.Pages.Members
                 }
             }
             //ModelState.Merge((ModelStateDictionary)TempData["errorInPost"]);
+            
             return Page();
         }
 
@@ -73,20 +76,20 @@ namespace tssrazor.Pages.Members
 			{
                 ModelState.AddModelError("LogonUser.Password", "用户名或密码错误");
 			}
-            //else nothing
+			//else nothing
 
-            if (!ModelState.IsValid)
-            {
-                Dictionary<string, string> errors =
-                    ModelState.Where(m => m.Value.Errors.Any()).ToDictionary(
-                        m => m.Key, 
-                        m => m.Value.Errors.Select(e => e.ErrorMessage).First());
+			if (!ModelState.IsValid)
+			{
+				Dictionary<string, string> errors =
+					ModelState.Where(m => m.Value.Errors.Any()).ToDictionary(
+						m => m.Key,
+						m => m.Value.Errors.Select(e => e.ErrorMessage).First());
 
-                TempData[Keys.ErrorInPost] = errors;
-                return RedirectToPage();
-            }
+				TempData[Keys.ErrorInPost] = errors;
+				return RedirectToPage();
+			}
 
-            CookieOptions cookieOptions = new CookieOptions();
+			CookieOptions cookieOptions = new CookieOptions();
 			if (RememberMe)
 			{
                 cookieOptions.Expires = DateTime.Now.AddDays(30);

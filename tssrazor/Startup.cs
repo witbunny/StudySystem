@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tssrazor.Filters;
 
 namespace tssrazor
 {
@@ -23,6 +24,11 @@ namespace tssrazor
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddRazorPages()
+				.AddMvcOptions(opt => 
+				{
+					//opt.Filters.Add(typeof(NeedLogonAttribute));
+					opt.Filters.Add<HasLogonAttribute>();
+				})
 				.AddRazorPagesOptions(opt =>
 				{
 					opt.Conventions.AddPageRoute("/Articles/Article", "/Article/{id:int}");

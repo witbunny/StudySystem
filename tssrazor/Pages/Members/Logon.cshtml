@@ -40,6 +40,14 @@
 }
 
 <form method="post" class="label-bold">
+    <div class="card card-body mb-3 card-warning">
+        <div class="">
+            <span class="fa fa-exclamation-triangle"></span>
+            访问页面：
+            <a href="@RouteData.Values["refererURL"]">@RouteData.Values["refererURL"]</a>
+            需要登录用户权限。
+        </div>
+    </div>
     <div class="form-group">
         <label>用户名：（* 必填）</label>
         <input class="form-control" asp-for="LogonUser.Name" placeholder="不是昵称，是登录用户名" />

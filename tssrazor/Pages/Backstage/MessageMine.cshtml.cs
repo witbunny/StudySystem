@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using tssrazor.Entities.Messages;
+using tssrazor.Filters;
 using tssrazor.Repositories;
 
 namespace tssrazor.Pages.Backstage
 {
+    [NeedLogon]
     public class MessageMineModel : PageModel
     {
         private MessageRepository messageRepository;
@@ -32,13 +35,36 @@ namespace tssrazor.Pages.Backstage
         public int TotalCount { get; set; }
         public int PageNumber { get; set; }
 
-        public IActionResult OnGet()
+        [BindProperty(SupportsGet = true)]
+        public int Testid { get; set; }
+
+		public override void OnPageHandlerSelected(PageHandlerSelectedContext context)
+		{
+			base.OnPageHandlerSelected(context);
+		}
+
+		public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
+		{
+            //if (string.IsNullOrEmpty(Request.Cookies[Keys.UserId]))
+            //{
+            //    context.Result = new RedirectToPageResult("/Members/Logon");
+            //}
+            base.OnPageHandlerExecuting(context);
+		}
+
+		public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
+		{
+			base.OnPageHandlerExecuted(context);
+		}
+
+		public IActionResult OnGet()
         {
-			if (string.IsNullOrEmpty(Request.Cookies[Keys.UserId]))
-			{
-                return RedirectToPage("/Members/Logon");
-			}
-            ViewData["HasLogon"] = Request.Cookies[Keys.UserId];
+			//if (string.IsNullOrEmpty(Request.Cookies[Keys.UserId]))
+			//{
+			//	return RedirectToPage("/Members/Logon");
+			//}
+
+			//ViewData["HasLogon"] = Request.Cookies[Keys.UserId];
 
             MsgStatus = (MessageStatus)Convert.ToInt32(RouteData.Values["msgStatus"]);
             PageIndex = Convert.ToInt32(RouteData.Values["pageIndex"]);
