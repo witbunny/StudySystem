@@ -1,13 +1,15 @@
 ﻿@page
 @model tssrazor.Pages.Articles.IndexModel
 @{
-    ViewData["Title"] = $"文章-第{Model.PageIndex}页-";
+    ViewData["Title"] = $"文章-第{Model.PaginationBar.PageIndex}页-";
     Layout = "_LayoutFixedContentWidget";
 }
 
 @foreach (var item in Model.Articles)
 {
-    <div class="mb-4 pb-2" style="border-bottom: 1px dashed #ccc;">
+    <partial name="_ArticleListItem" model="@item" />
+
+    @*<div class="mb-4 pb-2" style="border-bottom: 1px dashed #ccc;">
         <div>
             <div class="d-flex justify-content-between">
                 <span class="text-muted">
@@ -54,10 +56,12 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div>*@
 }
 
-<nav>
+<partial name="_PaginationBar" model="@Model.PaginationBar" />
+
+@*<nav>
     <ul class="pagination">
 
         @if (Model.PageIndex == 1)
@@ -104,4 +108,4 @@
         }
 
     </ul>
-</nav>
+</nav>*@

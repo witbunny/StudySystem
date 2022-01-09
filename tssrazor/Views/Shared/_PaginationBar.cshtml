@@ -1,0 +1,52 @@
+﻿@model tssrazor.UIComponents.Pagination
+@{
+}
+
+<nav>
+    <ul class="pagination">
+
+        @if (Model.PageIndex == 1)
+        {
+            <li class="page-item disabled">
+                <a href="javascript: void(0);" class="page-link">&laquo;</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-page="/Articles/Index" asp-route-pageIndex="@(Model.PageIndex-1)">&laquo;</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.PageNumber; i++)
+        {
+            if (Model.PageIndex == i)
+            {
+                <li class="page-item active">
+                    <a href="javascript: void(0);" class="page-link">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-page="/Articles/Index" asp-route-pageIndex="@i">@i</a>
+                </li>
+            }
+
+        }
+
+        @if (Model.PageIndex == Model.PageNumber)
+        {
+            <li class="page-item disabled">
+                <a href="javascript: void(0);" class="page-link">&raquo;</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-page="/Articles/Index" asp-route-pageIndex="@(Model.PageIndex+1)">&raquo;</a>
+            </li>
+        }
+
+    </ul>
+</nav>

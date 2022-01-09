@@ -1,0 +1,52 @@
+﻿@model tssrazor.Entities.Contents.Article 
+@{
+}
+
+<div class="mb-4 pb-2" style="border-bottom: 1px dashed #ccc;">
+    <div>
+        <div class="d-flex justify-content-between">
+            <span class="text-muted">
+                <span class="fa fa-calendar">
+                    <i class="fa">@Model.PublishTime.ToString("yyyy年MM月dd日 HH时mm分ss秒")</i>
+                </span>
+            </span>
+            <span>
+                <span>作者：</span>
+                <a href="">@Model.Author.Name</a>
+            </span>
+        </div>
+        <h4>
+            <a asp-page="/Articles/Article" asp-route-id="@Model.Id">@Model.Title</a>
+        </h4>
+        <p class="mt-2 mb-2 text-intro">
+            <span class="text-intro-text">@Model.Body</span>
+            <a class="text-muted text-intro-overflow" data-toggle="tooltip" title="全文" asp-page="/Articles/Article" asp-route-id="@Model.Id">......</a>
+        </p>
+        <div>
+            <label>
+                <span class="fa fa-tags">
+                    <i class="fa">关键字：</i>
+                </span>
+            </label>
+            <span class="badge badge-pill badge-secondary">model</span>
+            <span class="badge badge-pill badge-secondary">view</span>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="#" class="ml-3 text-info">
+                <span class="fa fa-comments-o">
+                    <i class="fa">评论：0</i>
+                </span>
+            </a>
+            <a href="#" class="ml-3 text-success">
+                <span class="fa fa-thumbs-o-up">
+                    <i class="fa">赞：0</i>
+                </span>
+            </a>
+            <a href="#" class="ml-3 text-secondary">
+                <span class="fa fa-thumbs-o-down">
+                    <i class="fa">踩：0</i>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
