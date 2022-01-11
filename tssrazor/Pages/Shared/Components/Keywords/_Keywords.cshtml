@@ -1,0 +1,29 @@
+﻿@using tssrazor.Entities
+@model IList<Keyword>
+@{
+}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <span class="fa fa-tags">
+                <i class="fa">关键字</i>
+            </span>
+        </h5>
+        <hr />
+
+        @foreach (var item in Model)
+        {
+            <span class="d-inline-block h4 mr-3">
+                <a href="/Keyword/@item.Id" class="badge badge-pill badge-dark" data-toggle="tooltip" title="已被使用 @item.UsedAmount 次">@item.Name</a>
+            </span>
+        }
+
+        <hr />
+        <a href="" class="btn btn-outline-info">
+            <span class="fa fa-random">
+                <i class="fa">换一批</i>
+            </span>
+        </a>
+    </div>
+</div>
