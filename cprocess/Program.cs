@@ -303,6 +303,7 @@ namespace cprocess
 			}
 			*/
 
+			/*
 			using (IDbConnection connection2 = new SqlConnection(connectionString2))
 			{
 				connection2.Open();
@@ -371,7 +372,18 @@ namespace cprocess
 					}
 				}
 			}
+			*/
 
+			DbHelper helper = new DbHelper();
+			string sqlstr = 
+				@"UPDATE Credit SET Points += 1 
+				WHERE Id = @Id
+				AND UserID = @UserID
+				AND Category = @Category";
+			IDbDataParameter pId = new SqlParameter("@Id", 1);
+			IDbDataParameter pUserID = new SqlParameter("@UserID", 1);
+			IDbDataParameter pCategory = new SqlParameter("@Category", 1);
+			helper.ExecuteNonQuery(sqlstr, pId, pUserID, pCategory);
 
 			Console.Read();
 		}

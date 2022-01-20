@@ -21,4 +21,7 @@ SELECT * FROM [Message]
 
 SELECT * FROM Credit
 
-UPDATE Credit SET Points += 1
+UPDATE Credit SET Points += 1 
+WHERE Id = 1 
+AND UserID = 1 
+AND Category = 1
