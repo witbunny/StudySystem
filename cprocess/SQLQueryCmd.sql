@@ -7,6 +7,10 @@ SELECT Score FROM StudentScore WHERE Id = 9
 
 SELECT * FROM StudentScore
 
+SELECT * FROM Student
+
+UPDATE Student SET [Name] = N'张三' WHERE Id = 1 
+
 --------------------------------------------------
 
 SELECT * FROM [User] WHERE UserName = 'Scorpio' AND [Password] = 'aa123456'

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using cprocess.dsPersonTableAdapters;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
+using static cprocess.dsPerson;
 
 namespace cprocess
 {
@@ -374,16 +376,90 @@ namespace cprocess
 			}
 			*/
 
-			DbHelper helper = new DbHelper();
-			string sqlstr = 
-				@"UPDATE Credit SET Points += 1 
-				WHERE Id = @Id
-				AND UserID = @UserID
-				AND Category = @Category";
-			IDbDataParameter pId = new SqlParameter("@Id", 1);
-			IDbDataParameter pUserID = new SqlParameter("@UserID", 1);
-			IDbDataParameter pCategory = new SqlParameter("@Category", 1);
-			helper.ExecuteNonQuery(sqlstr, pId, pUserID, pCategory);
+
+			//DbHelper helper = new DbHelper();
+			//string sqlstr = 
+			//	@"UPDATE Credit SET Points += 1 
+			//	WHERE Id = @Id
+			//	AND UserID = @UserID
+			//	AND Category = @Category";
+			//IDbDataParameter pId = new SqlParameter("@Id", 1);
+			//IDbDataParameter pUserID = new SqlParameter("@UserID", 1);
+			//IDbDataParameter pCategory = new SqlParameter("@Category", 1);
+			//helper.ExecuteNonQuery(sqlstr, pId, pUserID, pCategory);
+
+
+
+
+			//DataTable dtTeacher = new DataTable("Teacher");
+			//dtTeacher.Columns.Add("Id", typeof(int));
+			//dtTeacher.Columns.Add("Name", typeof(string));
+
+			//dtTeacher.Rows.Add(1, "赵老师");
+			//dtTeacher.Rows.Add(2, "李老师");
+
+			//DataSet dsPerson = new DataSet("Person");
+			//dsPerson.Tables.Add(dtTeacher);
+
+			//Console.WriteLine(dsPerson.Tables["Teacher"].Rows[0]["Name"]);
+
+			//Console.WriteLine(dtTeacher.AsEnumerable().Where(r => r["Name"].ToString() == "赵老师").SingleOrDefault()?["Id"]);
+
+
+			/*
+			SqlConnection connection = new SqlConnection(connectionString1);
+			string querystr = "SELECT * FROM Student";
+			IDataAdapter adapter = new SqlDataAdapter(querystr, connection);
+
+			DataSet dsPerson = new DataSet("Person");
+			adapter.Fill(dsPerson);
+			//dsPerson.Tables["Table"].TableName = "Student";
+
+			dsPerson.Tables[0].Rows[0]["Name"] = "张三";
+
+			//DataRow row = dsPerson.Tables[0].NewRow();
+			//row["Name"] = "wangba";
+			//dsPerson.Tables[0].Rows.Add(row);
+
+			//dsPerson.Tables[0].Rows[4].Delete();
+
+
+			SqlCommand updateCmd = new SqlCommand("UPDATE Student SET [Name] = @name WHERE Id = @id ", connection);
+
+			SqlParameter pname = new SqlParameter("@name", SqlDbType.NVarChar);
+			pname.SourceColumn = "Name";
+			updateCmd.Parameters.Add(pname);
+
+			SqlParameter pid = new SqlParameter("@id", SqlDbType.Int);
+			pid.SourceColumn = "Id";
+			updateCmd.Parameters.Add(pid);
+
+			((SqlDataAdapter)adapter).UpdateCommand = updateCmd;
+			adapter.Update(dsPerson);
+			*/
+
+
+
+			StudentTableAdapter studentadapter = new StudentTableAdapter();
+
+			dsPerson dsperson = new dsPerson();
+			studentadapter.Fill(dsperson.Student);
+
+			//StudentDataTable dts = studentadapter.GetData();
+
+			//StudentRow studentrow = dsperson.Student.FindById(1);
+			//studentrow.Name = "张一";
+
+			//dsperson.Student.Where(r => r.Id == 1).SingleOrDefault().Name = "张一";
+
+			//StudentRow row = dsperson.Student.NewStudentRow();
+			//row.Id = 6;
+			//dsperson.Student.AddStudentRow(row);
+
+			dsperson.Student.Where(r => r.IsScoreNull()).SingleOrDefault().Delete();
+
+			studentadapter.Update(dsperson);
+
 
 			Console.Read();
 		}
