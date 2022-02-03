@@ -439,7 +439,7 @@ namespace cprocess
 			*/
 
 
-
+			/*
 			StudentTableAdapter studentadapter = new StudentTableAdapter();
 
 			dsPerson dsperson = new dsPerson();
@@ -459,6 +459,10 @@ namespace cprocess
 			dsperson.Student.Where(r => r.IsScoreNull()).SingleOrDefault().Delete();
 
 			studentadapter.Update(dsperson);
+			*/
+
+
+
 
 
 			Console.Read();
