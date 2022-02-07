@@ -12,11 +12,11 @@ namespace cprocess.EF
 		public int Id { get; set; }
 		//[Key]
 		public string Name { get; set; }
-		public int Age { get; set; }
+		public int? Age { get; set; }
 
-		public bool IsFemale { get; set; }
+		public bool? IsFemale { get; set; }
 
-		public DateTime Enroll { get; set; }
+		public DateTime? Enroll { get; set; }
 
 		public DayOfWeek? Oncall { get; set; }
 	}

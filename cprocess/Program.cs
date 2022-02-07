@@ -1,4 +1,5 @@
 ﻿using cprocess.dsPersonTableAdapters;
+using cprocess.EF;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -462,10 +463,28 @@ namespace cprocess
 			*/
 
 
+			SqlDbContext context = new SqlDbContext();
+			//EfStudent student = new EfStudent { Name = "syk" };
+
+			//context.Students.Add(student);
+			//context.Add(student);
+			//context.Add<EfStudent>(student);
+
+			
+			EfStudent find = context.Students.Find(8);
+			//EfStudent find = context.Find<EfStudent>(1);
+
+			//find.IsFemale = false;
+
+
+			context.Remove<EfStudent>(find);
+
+
+			context.SaveChanges();
 
 
 
-			Console.Read();
+		   Console.Read();
 		}
 
 

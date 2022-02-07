@@ -1,5 +1,11 @@
-﻿using cprocess.EF;
+﻿//#define PUBLISH
+
+using cprocess.EF;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging.Debug;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +20,24 @@ namespace cprocess
 		{
 			string connectionStr = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=ssmsDemo;User ID=sa;Password=0117;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-			optionsBuilder.UseSqlServer(connectionStr);
+			optionsBuilder
+				.UseSqlServer(connectionStr)
+#if PUBLISH
+				.EnableSensitiveDataLogging()
+#elif DEBUG
+				.EnableSensitiveDataLogging()
+#else
+				.EnableSensitiveDataLogging(false)
+#endif
+				//.UseLoggerFactory(new LoggerFactory(new ILoggerProvider[] { 
+				//	new DebugLoggerProvider(),
+				//	//new ConsoleLoggerProvider()
+				//}))
+				.LogTo(
+					(id, level) => level == LogLevel.Debug,
+					data => Console.WriteLine(data)
+				)
+				;
 
 			base.OnConfiguring(optionsBuilder);
 		}
