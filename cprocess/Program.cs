@@ -1,10 +1,12 @@
 ﻿using cprocess.dsPersonTableAdapters;
 using cprocess.EF;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -470,21 +472,43 @@ namespace cprocess
 			//context.Add(student);
 			//context.Add<EfStudent>(student);
 
-			
-			EfStudent find = context.Students.Find(8);
+
+			//EfStudent find = context.Students.Find(8);
 			//EfStudent find = context.Find<EfStudent>(1);
 
 			//find.IsFemale = false;
 
 
-			context.Remove<EfStudent>(find);
+			//context.Remove<EfStudent>(find);
 
 
-			context.SaveChanges();
+			//IQueryable<EfStudent> query = context.Students;
+			//query = query.Where(s => s.Id > 5);
+			//query = query.Where(s => s.Name.StartsWith("h"));
+			//EfStudent student = query.FirstOrDefault();
+
+			int num = 5;
+			IQueryable<EfStudent> query = context.Students
+				//.FromSqlInterpolated($"SELECT * FROM EF_Student WHERE Id > {num}")
+				.FromSqlRaw("SELECT * FROM EF_Student WHERE Id > @num", new SqlParameter("@num", num))
+				;
+
+			IList<EfStudent> list = query.AsNoTracking().ToList();
+			//EfStudent single = context.Students.Find(7);
+
+
+			//IQueryable<EfStudent> query = context.Students;
+			//query = query.Where(s => s.Id > 5);
+			//var find = query.AsEnumerable();
+			//find = find.Where(s => s.Name.StartsWith('h'));
+			//EfStudent student = find.FirstOrDefault();
+
+
+			//context.SaveChanges();
 
 
 
-		   Console.Read();
+			Console.Read();
 		}
 
 
