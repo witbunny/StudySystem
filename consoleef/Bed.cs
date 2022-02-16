@@ -4,10 +4,10 @@ using System.Text;
 
 namespace consoleef
 {
-	class Bed : Entity
+	public class Bed : Entity
 	{
 		public string Location { get; set; }
 
-		public Student Student { get; set; }
+		public virtual Student Student { get; set; }
 	}
 }

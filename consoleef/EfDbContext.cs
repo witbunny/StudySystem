@@ -10,6 +10,7 @@ namespace consoleef
 {
 	class EfDbContext : DbContext
 	{
+		public DbSet<Classroom> Classrooms { get; set; }
 		public DbSet<Student> Students { get; set; }
 		public DbSet<Teacher> Teachers { get; set; }
 		public DbSet<Person> Persons { get; set; }
@@ -21,6 +22,7 @@ namespace consoleef
 
 			optionsBuilder
 				.UseSqlServer(connectionstr)
+				.UseLazyLoadingProxies()
 				.EnableSensitiveDataLogging()
 				.UseLoggerFactory(new LoggerFactory(new ILoggerProvider[] { 
 					new DebugLoggerProvider()
@@ -56,6 +58,7 @@ namespace consoleef
 				.HasOne<Bed>(s => s.Bed)
 				.WithOne(b => b.Student)
 				.HasForeignKey<Student>(s => s.BedId)
+				.OnDelete(DeleteBehavior.SetNull)
 				;
 
 			base.OnModelCreating(modelBuilder);

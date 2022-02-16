@@ -4,8 +4,10 @@ using System.Text;
 
 namespace consoleef
 {
-	public class Person : Entity
+	public class Classroom : Entity
 	{
 		public string Name { get; set; }
+
+		public virtual IList<Student> Students { get; set; }
 	}
 }
