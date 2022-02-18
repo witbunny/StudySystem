@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace captcha
 	{
 		static void Main(string[] args)
 		{
+			#region capcha
+
 			/*
 			//draw
 			Bitmap image = new Bitmap(500, 200);
@@ -53,9 +56,46 @@ namespace captcha
 			Console.WriteLine("您的验证码：" + code.VerifyCode(inputCode));
 			*/
 
-			CaptchaService cs = new CaptchaService(300);
-			cs.CreateCaptcha(@"E:\echo\zero\adn\test\testing\hello.jpg");
-			cs.VerifyInput();
+			//CaptchaService cs = new CaptchaService(300);
+			//cs.CreateCaptcha(@"E:\echo\zero\adn\test\testing\hello.jpg");
+			//cs.VerifyInput();
+
+			#endregion
+
+			EfDbContext context = new EfDbContext();
+
+			//var db = context.Database;
+			//db.Delete();
+			//db.Create();
+
+			//context.Database.Delete();
+			//context.Database.Create();
+
+			//context.Students.Add(new Student() { Id = Guid.NewGuid(), Name = "leo" });
+			//context.Teachers.Add(new Teacher() { Id = Guid.NewGuid(), Name = "tee" });
+			//context.SaveChanges();
+
+			//Person person = context.Persons.Where(p => p.Name == "leo").SingleOrDefault();
+			//Console.WriteLine(person.Id);
+
+			//Student student = context.Students.Where(s => s.Name == "leo").SingleOrDefault();
+			//Console.WriteLine(student.Id);
+
+			//Student student = context.Students.Find(1);
+
+			//string sql = @"SELECT * FROM Students WHERE Id = @p0";
+			//Student student = context.Students
+			//	.SqlQuery(sql, 1).SingleOrDefault();
+
+			//Console.WriteLine(student.Name);
+
+			//Bed bed = context.Set<Bed>()
+			//	.Where(b => b.Location == "").SingleOrDefault();
+
+			Teacher teacher = context.Set<Teacher>()
+				.Include(t => t.Students
+					.Select(s => s.Bed))
+				.Where(t => t.Name == "tee").SingleOrDefault();
 
 			Console.Read();
 		}
