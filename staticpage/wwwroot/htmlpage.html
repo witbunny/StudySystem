@@ -245,6 +245,68 @@
         }
 
 
+        function guess() {
+            var startGuess = confirm("开始猜数字游戏：\n游戏说明：随机生成数字，用户猜测输入，根据猜测提示'大了'或者'小了'，直到最后结束。\n确定要开始游戏吗？");
+            if (!startGuess) {
+                return;
+            }
+
+            var target = Math.floor(Math.random() * 1000);
+            var input;
+            var count = 1;
+            var message = `第${count}次：请猜数字：`;
+            do {
+                //input = count == 1 ?
+                //    +prompt("请猜数字：") :
+                //    +prompt(`数字：${message}！\n请猜数字：`);
+                input = prompt(message);
+                if (input == null) {
+                    return;
+                }
+
+                if (+input == target) {
+                    
+                    if (count < 6) {
+                        alert("碉堡了!");
+                    }
+                    else if (count < 8) {
+                        alert("666!");
+                    }
+                    else {
+                        alert("猜到了!");
+                    }
+                    return;
+                }
+                else {
+                    if (count >= 10) {
+                        alert("^(*￣(oo)￣)^");
+                        return;
+                    }
+                    message = +input > target ?
+                        `数字：大了！\n第${count + 1}次：请猜数字：` :
+                        `数字：小了！\n第${count + 1}次：请猜数字：`;
+                }
+                count++;
+            } while (true);
+        }
+
+        function randomShow() {
+            var n = 1;
+            //var id = setInterval(function () {
+            //    console.log(`第${n}周，有${Math.floor(Math.random() * 10)}人`);
+            //    n++;
+            //}, 1000);
+
+            (function timeoutShow() {
+                console.log(`第${n}周，有${Math.floor(Math.random() * 10)}人`);
+                n++;
+                var id = setTimeout(timeoutShow, 1000);
+            }) ();
+            
+
+        }
+
+
     </script>
 </body>
 </html>
