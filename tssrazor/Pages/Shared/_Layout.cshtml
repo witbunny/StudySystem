@@ -17,10 +17,17 @@
 
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top border-bottom box-shadow navbar-p-0">
         <div class="container">
-            <a href="/" class="navbar-brand">
-                <img src="/images/sss48x48.ico" alt="Super StudySystem Logo" class="navbar-brand-img" asp-append-version="true" />
-                <strong style="font-weight: 600;">Super StudySystem</strong>
-            </a>
+            <div>
+                <a href="/" class="navbar-brand">
+                    <img src="/images/sss48x48.ico" alt="Super StudySystem Logo" class="navbar-brand-img" asp-append-version="true" />
+                    <strong style="font-weight: 600;">Super StudySystem</strong>
+                </a>
+
+                <a href class="navbar-bell">
+                    <span class="fa fa-bell lightblue" id="bell"></span>
+                </a>
+            </div>
+
             <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-main">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -304,6 +311,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+    <script src="~/js/testJS/bell.js" asp-append-version="true"></script>
     <script src="/js/base.js" asp-append-version="true"></script>
 
 </body>

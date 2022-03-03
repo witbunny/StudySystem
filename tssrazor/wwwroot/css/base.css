@@ -24,6 +24,18 @@ body {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+.navbar-bell {
+    font-size: 1.25rem;
+}
+
+.darkblue {
+    color: darkblue;
+}
+
+.lightblue {
+    color: lightblue;
+}
+
 .navbar-brand-img {
     width: 1.5em;
     height: 1.5em;
