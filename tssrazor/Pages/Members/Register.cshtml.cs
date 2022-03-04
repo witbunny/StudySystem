@@ -91,7 +91,7 @@ namespace tssrazor.Pages.Members
 
 
         [Required(ErrorMessage = "* 确认密码不能为空")]
-        [Compare("Password", ErrorMessage = "必须和密码相同")]
+        [Compare("Password", ErrorMessage = "* 必须和密码相同")]
         //[DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 

@@ -48,7 +48,7 @@
 {
     <div asp-validation-summary="ModelOnly"></div>
 
-    <form method="post" class="label-bold">
+    <form asp-page="/Members/Register" method="post" class="label-bold">
         <section class="card card-body border-dashed-2 yellow-highlight mb-3">
             <div class="d-flex justify-content-end mb-2">
                 <a class="text-primary" href>
@@ -59,6 +59,7 @@
             <div class="form-group">
                 <label>邀请人：（* 必填，<a data-toggle="tooltip" title="点击由系统推荐" href>没有邀请人</a>）</label>
                 <input class="form-control" asp-for="Register.InvitedName" placeholder="他的用户名，模糊查询只能从头开始" />
+                <div></div>
                 <span asp-validation-for="Register.InvitedName"></span>
             </div>
             <div class="form-group mb-0">
