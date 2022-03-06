@@ -334,6 +334,10 @@ body {
     font-weight: bold;
 }
 
+.label-normal label {
+    font-weight: normal;
+}
+
 /* profile picture
 ------------------------------------------------------------ */
 img[src=""].profile-picture, img:not([src]).profile-picture {

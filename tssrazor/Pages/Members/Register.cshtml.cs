@@ -11,6 +11,7 @@ using tssrazor.Validations;
 
 namespace tssrazor.Pages.Members
 {
+    //[IgnoreAntiforgeryToken]
     //[BindProperties]
     public class RegisterModel : PageModel
     {
@@ -31,17 +32,29 @@ namespace tssrazor.Pages.Members
 
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
 		{
+			if (Request.Form["ajax"].Count != 0 && Request.Form["ajax"][0] == "invite")
+			{
+                IList<User> invitedList = userRepository.FindList(Register.InvitedName);
+                return new JsonResult(invitedList);
+			}
+
+            if (Request.Form["ajax"].Count != 0 && Request.Form["ajax"][0] == "name")
+            {
+                User existUser = userRepository.Find(Register.Name);
+                return new JsonResult(existUser);
+            }
+
             User invitedUser = userRepository.Find(Register.InvitedName);
 
             if (invitedUser == null)
 			{
-                ModelState.AddModelError("Register.InvitedName", "邀请人不存在");
+                ModelState.AddModelError("Register.InvitedName", "* 邀请人不存在");
             }
 			else if (invitedUser.InviteCode != Register.InvitedCode)
 			{
-                ModelState.AddModelError("Register.InvitedCode", "邀请码不一致");
+                ModelState.AddModelError("Register.InvitedCode", "* 邀请码不一致");
             }
             //else nothing 
 
@@ -49,12 +62,12 @@ namespace tssrazor.Pages.Members
 
 			if (ExistUser != null)
 			{
-                ModelState.AddModelError("Register.Name", "用户名已注册");
+                ModelState.AddModelError("Register.Name", "* 用户名已注册");
             }
 
 			if (!ModelState.IsValid)
 			{
-                return;
+                return Page();
 			}
 
             NewUser = new User(userRepository, Register.Name)
@@ -64,6 +77,8 @@ namespace tssrazor.Pages.Members
             };
 
             userRepository.Save(NewUser);
+
+            return Page();
 		}
     }
 

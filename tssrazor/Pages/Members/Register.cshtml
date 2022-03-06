@@ -59,7 +59,25 @@
             <div class="form-group">
                 <label>邀请人：（* 必填，<a data-toggle="tooltip" title="点击由系统推荐" href>没有邀请人</a>）</label>
                 <input class="form-control" asp-for="Register.InvitedName" placeholder="他的用户名，模糊查询只能从头开始" />
-                <div></div>
+
+                <div>
+                    <!--<div class="px-2 pt-3 label-normal">-->
+
+                        @*<div class="form-inline">
+                            <div class="form-check mr-4">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="invited-list">leo
+                                </label>
+                            </div>
+                            <a href>
+                                <span class="fa fa-hand-o-right"></span>主页
+                            </a>
+                        </div>*@
+
+                    <!--</div>-->
+                </div>
+                
+
                 <span asp-validation-for="Register.InvitedName"></span>
             </div>
             <div class="form-group mb-0">
