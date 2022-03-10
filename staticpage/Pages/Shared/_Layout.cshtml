@@ -41,10 +41,138 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        
+        //$.validator.addMethod("greater", function (value, element, param) {
+        //    return +value > +param;
+        //}, "请输入大于100的数字");
+
+        //var validator = $('form').validate({
+        //    rules: {
+        //        //user: "greater"
+        //        user: {
+        //            greater: 100
+        //        }
+        //    }
+        //});
+
+        $.validator.addMethod("less", function (value, element, param) {
+            return this.optional(element) || + value >= +$(`#${param}`).text()
+        }, "金额不足");
+        //$('form').validate();
+        $.validator.unobtrusive.adapters.add("less", ["than"], function (options) {
+            options.rules["less"] = options.params.than;
+            options.messages["less"] = options.message;
+        });
+
+
+        $(':submit').click(function (event) {
+            event.preventDefault();
+            var $this = $(this);
+            var $form = $('form');
+
+            if (!$form.valid()) {
+                return;
+            }
+
+            $.ajax({
+                url: "/Privacy",
+                method: "POST",
+                //data: "id=3&name=leo",
+                //data: {
+                //    id: 3,
+                //    name: "leo"
+                //},
+                data: $('form').serialize(),
+                //contentType: "",
+                //dataType: "",
+                //cache: false,
+
+                beforeSend: function () {
+                    $this.prop("disabled", true);
+                    console.log("beforesend");
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                },
+                complete: function () {
+                    $this.prop("disabled", false);
+                    console.log("complete");
+                }
+            });
+        });
+
+
+        $('#submit').on('click', up);
+        function up(event) {
+            event.preventDefault();
+            var $this = $(this);
+
+            $.ajax({
+                url: "/Privacy",
+                method: "POST",
+                //data: "id=3&name=leo",
+                //data: {
+                //    id: 3,
+                //    name: "leo"
+                //},
+                data: $('form').serialize(),
+                //contentType: "",
+                //dataType: "",
+                //cache: false,
+
+                beforeSend: function () {
+                    $this.off('click', up);
+                    console.log("beforesend");
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                },
+                complete: function () {
+                    $this.on('click', up);
+                    console.log("complete");
+                }
+            });
+        }
+
+
+        //$('div#container').load("/Privacy", "id=3&name=leo", function (resText, textStatus, jqXHR) {
+        //    console.log(resText);
+        //    console.log(textStatus);
+        //    console.log(jqXHR);
+        //});
+
+        //$.get("/Privacy", "id=3&name=leo", function (t, u, v, r) {
+        //    console.log(t);
+        //    console.log(u);
+        //    console.log(v);
+        //    console.log(r);
+        //});
+
+        $.post("/Privacy", "id=3&name=leo", function (t, u, v, r) {
+            console.log(t);
+            console.log(u);
+            console.log(v);
+            console.log(r);
+        });
+    </script>
 </body>
 </html>

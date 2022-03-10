@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace staticpage.Pages
 {
+    [IgnoreAntiforgeryToken]
     public class PrivacyModel : PageModel
     {
         private readonly ILogger<PrivacyModel> _logger;
@@ -19,6 +20,13 @@ namespace staticpage.Pages
 
         public void OnGet()
         {
+            //return new JsonResult(new { name = "leo", age = 23 });
+        }
+
+        public IActionResult OnPost()
+		{
+            //throw new Exception("hahhah");
+            return new JsonResult(new { name = "leo", age = 23 });
         }
     }
 }

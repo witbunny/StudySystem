@@ -6,3 +6,39 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
+
+<div>
+    <form>
+        <label>用户名：<input type="text" name="user" @*required greater="100"*@ data-val="true" @*data-val-required="必须填写"*@ @*less="balance"*@ data-val-less="不够不够" data-val-less-than="balance" /></label><br />
+        <span>现有：<span id="balance">50</span></span>
+        <div><span data-valmsg-for="user" data-valmsg-replace="true"></span></div>
+
+        <label>密  码：<input type="password" name="password" @*minlength="4"*@ /></label><br />
+        <label>确认密码：<input type="password" /></label><br />
+        <div>
+            <label>性别：</label>
+            <label><input type="radio" value="male" name="gender" />男</label>
+            <label><input type="radio" value="female" name="gender" />女</label>
+        </div>
+        <div>
+            <label>来自：</label>
+            <select name="province">
+                <option value="js">江苏</option>
+                <option value="hn">湖南</option>
+                <option value="bj">北京</option>
+            </select>
+        </div>
+        <div>
+            <label>自我介绍：</label><br />
+            <textarea name="self"></textarea>
+        </div>
+        <label><input type="checkbox" id="remember" checked />记住我</label><br />
+        <input type="submit" value="提交" />
+        <a id="submit">提交</a>
+        <input type="reset" value="重置" />
+    </form>
+
+    <div id="container">
+
+    </div>
+</div>
