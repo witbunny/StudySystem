@@ -313,6 +313,42 @@
         }
 
 
+        class Person {
+            constructor(name) {
+                this.pname = name;
+            }
+            phello() {
+                console.log(`phello, ${this.pname}`);
+            }
+        }
+        class Student extends Person {
+            constructor(name, id) {
+                super(name);
+                this.sid = id;
+            }
+            slearn() {
+                console.log(`slearn, ${this.pname}`);
+            }
+        }
+        class Online extends Student {
+            constructor(name, id, city) {
+                super(name, id);
+                this.ocity = city;
+            }
+            odo() {
+                console.log(`odo, ${this.pname}`);
+            }
+        }
+
+        class Employee {
+            constructor(name) {
+                this.em = name;
+            }
+            ework() {
+                console.log(`eworking`);
+            }
+        }
+
     </script>
 </body>
 </html>
