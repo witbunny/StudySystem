@@ -313,42 +313,222 @@
         }
 
 
-        class Person {
-            constructor(name) {
-                this.pname = name;
+        //class Person {
+        //    constructor(name) {
+        //        this.pname = name;
+        //    }
+        //    phello() {
+        //        console.log(`phello, ${this.pname}`);
+        //    }
+        //}
+        //class Student extends Person {
+        //    constructor(name, id) {
+        //        super(name);
+        //        this.sid = id;
+        //    }
+        //    slearn() {
+        //        console.log(`slearn, ${this.pname}`);
+        //    }
+        //}
+        //class Online extends Student {
+        //    constructor(name, id, city) {
+        //        super(name, id);
+        //        this.ocity = city;
+        //    }
+        //    odo() {
+        //        console.log(`odo, ${this.pname}`);
+        //    }
+        //}
+
+        //class Employee {
+        //    constructor(name) {
+        //        this.em = name;
+        //    }
+        //    ework() {
+        //        console.log(`eworking`);
+        //    }
+        //}
+
+
+        {
+            const password = "123456";
+            let user = 6;
+            let output;
+            switch (user) {
+                case 0:
+                    output = "访客";
+                    break;
+                case 1:
+                    output = "注册用户";
+                    break;
+                case 2:
+                    output = "文章发布者";
+                    break;
+                case 3:
+                case 4:
+                    output = "管理员";
+                    break;
+                default:
+                    output = "异常";
+                    break;
             }
-            phello() {
-                console.log(`phello, ${this.pname}`);
-            }
+            //console.log(output);
         }
-        class Student extends Person {
-            constructor(name, id) {
-                super(name);
-                this.sid = id;
-            }
-            slearn() {
-                console.log(`slearn, ${this.pname}`);
-            }
-        }
-        class Online extends Student {
-            constructor(name, id, city) {
-                super(name, id);
-                this.ocity = city;
-            }
-            odo() {
-                console.log(`odo, ${this.pname}`);
+
+        //function student() {
+        //    let name = "leo";
+        //    let age = 23;
+        //    let female = false;
+        //    return function () {
+        //        //console.log(name +=  name);
+        //        //console.log(++age);
+        //        //console.log(++female);
+        //        //return ++age;
+        //        return [name, ++age, ++female];
+        //    }
+        //}
+        //let show = student();
+
+        function foo(x) {
+            var tmp = 3;
+            return function (y) {
+                x = x ? x + 1 : 1;
+                console.log(x + y + tmp);
             }
         }
 
-        class Employee {
-            constructor(name) {
-                this.em = name;
+        var bar = foo(-1);
+        //或者：var bar = foo(1);
+        //或者：var bar = foo(0);
+
+        //bar(10);
+
+
+
+        //function buildList(list) {
+        //    var result = [];
+        //    for (var i = 0; i < list.length; i++) {
+        //        result.push(function (i) {
+        //            return function () {
+        //                console.log('item' + i + ': ' + list[i]);
+        //            }
+        //        }(i));
+        //    }
+        //    return result;
+        //}
+
+        //function buildList(list) {
+        //    var result = [];
+        //    for (let i = 0; i < list.length; i++) {
+        //        result.push(function () {
+        //            console.log('item' + i + ': ' + list[i]);
+        //        });
+        //    }
+        //    return result;
+        //}
+
+        //(function () {
+        //    var fnlist = buildList([1, 2, 3]);
+        //    for (var i = 0; i < fnlist.length; i++) {
+        //        fnlist[i]();
+        //    }
+        //})();
+
+
+        class Course {
+            //static constructor() {
+            //    Course.allCouuse = new Map();
+            //}
+            constructor(name, array, start, end) {
+                this.name = name;
+                this.students = array;
+                this.startDate = new Date(start);
+                //this.endDate = new Date(end);
+                this.setEndDate = end;
+
+                Course.allCouuse.set(this.name, this.students);
             }
-            ework() {
-                console.log(`eworking`);
+
+            get getEndDate() {
+                return this.endDate;
+            }
+            set setEndDate(value) {
+                let start = new Date(this.startDate);
+                let end = new Date(value);
+
+                if (end < start) {
+                    console.log("end太小");
+                    return;
+                }
+                if (end > new Date(start.setDate(start.getDate() + 365)) ) {
+                    console.log("end太大");
+                    return;
+                }
+
+                this.endDate = end;
+            }
+
+            static GetStudentsByName(name) {
+                return Course.allCouuse.get(name).length;
+            }
+
+            begin() {
+                console.log(`${this.name}于${this.startDate.toLocaleDateString()}开课，共有${this.students.length}同学（${this.students}）`);
+            }
+            end(end) {
+                this.setEndDate = end;
+                console.log(`${this.name}于${this.endDate.toLocaleDateString()}结束，共有${this.students.length}同学（${this.students}）`);
             }
         }
 
+        class MajorCourse extends Course {
+            Exam(student,end) {
+                this.end(end);
+                student.score = Math.floor(Math.random() * 51 + 50);
+            }
+            GetStudentsCount() {
+                return Course.GetStudentsByName(this.name);
+            }
+        }
+
+        class ElectiveCourse extends Course {
+            Assess(student,end) {
+                this.end(end);
+                var grade = ['A', 'B', 'C', 'D', 'E'];
+                student.score = grade[Math.floor(Math.random() * 5)];
+            }
+            GetStudentsCount() {
+                return Course.GetStudentsByName(this.name);
+            }
+        }
+
+        class Student {
+            constructor(name, score) {
+                this.name = name;
+                this.score = score;
+            }
+        }
+
+        var leo = new Student("leo");
+        var huk = new Student("huk");
+        var ana = new Student("ana");
+        //var javascript = new Course("js", ['leo', 'huk'], '2019-5-5', '2020-1-3');
+        //var sql = new Course("sql", ['leo', 'tik'], '2019-5-10', '2020-2-7');
+
+        Course.allCouuse = new Map();
+        var javascript = new MajorCourse("js", [leo, huk], '2019-5-5');
+        var sql = new ElectiveCourse("sql", [leo, huk, ana], '2019-5-10');
+        //javascript.Exam(leo, '2020-1-3');
+        //sql.Assess(ana, '2020-2-7');
+
+
+        var sname = "飞哥";
+        var a = {
+            sname: '老程',
+            fn: function () {
+                console.log(this.sname);
+            }
+        }
     </script>
 </body>
 </html>
