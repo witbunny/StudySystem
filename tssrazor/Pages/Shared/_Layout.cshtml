@@ -126,152 +126,152 @@
 
                     @if (ViewData["HasLogon"] != null)
                     {
-                    
-                    <li class="nav-item dropdown">
-                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            <span class="fa fa-user-circle-o">
-                                <i class="fa">用户</i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-home">
-                                    <i class="fa">我的主页</i>
+
+                        <li class="nav-item dropdown">
+                            <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-user-circle-o">
+                                    <i class="fa">用户</i>
                                 </span>
                             </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-tasks">
-                                    <i class="fa">新手任务</i>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-home">
+                                        <i class="fa">我的主页</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-tasks">
+                                        <i class="fa">新手任务</i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-eercast bean">
+                                        <i class="fa">学习豆</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-bullseye dot">
+                                        <i class="fa">学习点</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-user-secret credit">
+                                        <i class="fa">学习币</i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">修改</h6>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-lock">
+                                        <i class="fa">我的密码</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-envelope">
+                                        <i class="fa">联系方式</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-camera">
+                                        <i class="fa">个人资料</i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-page="/Members/Logoff">
+                                    <span class="fa fa-sign-out">
+                                        <i class="fa">退出登录</i>
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-gear">
+                                    <i class="fa">管理</i>
                                 </span>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-eercast bean">
-                                    <i class="fa">学习豆</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-bullseye dot">
-                                    <i class="fa">学习点</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-user-secret credit">
-                                    <i class="fa">学习币</i>
-                                </span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="dropdown-header">修改</h6>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-lock">
-                                    <i class="fa">我的密码</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-envelope">
-                                    <i class="fa">联系方式</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-camera">
-                                    <i class="fa">个人资料</i>
-                                </span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" asp-page="/Members/Logoff">
-                                <span class="fa fa-sign-out">
-                                    <i class="fa">退出登录</i>
-                                </span>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            <span class="fa fa-gear">
-                                <i class="fa">管理</i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" asp-page="/Backstage/MessageMine" asp-route-msgStatus="0" asp-route-pageIndex="1">
-                                <span class="fa fa-bell">
-                                    <i class="fa">我的消息</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-file-o">
-                                    <i class="fa">我的草稿</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-user-plus">
-                                    <i class="fa">邀请注册</i>
-                                </span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="dropdown-header">广告推广</h6>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-fax">
-                                    <i class="fa">联系我们</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-window-maximize">
-                                    <i class="fa">侧边栏</i>
-                                </span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="dropdown-header">学习币</h6>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-cart-plus">
-                                    <i class="fa">购买</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-shopping-cart">
-                                    <i class="fa">出售</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-download">
-                                    <i class="fa">已购买</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-upload">
-                                    <i class="fa">已出售</i>
-                                </span>
-                            </a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" asp-page="/Backstage/MessageMine" asp-route-msgStatus="0" asp-route-pageIndex="1">
+                                    <span class="fa fa-bell">
+                                        <i class="fa">我的消息</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-file-o">
+                                        <i class="fa">我的草稿</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-user-plus">
+                                        <i class="fa">邀请注册</i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">广告推广</h6>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-fax">
+                                        <i class="fa">联系我们</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-window-maximize">
+                                        <i class="fa">侧边栏</i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">学习币</h6>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-cart-plus">
+                                        <i class="fa">购买</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-shopping-cart">
+                                        <i class="fa">出售</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-download">
+                                        <i class="fa">已购买</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-upload">
+                                        <i class="fa">已出售</i>
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
 
                     }
                     else
                     {
 
-                    <li class="nav-item dropdown">
-                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            <span class="fa fa-unlink">
-                                <i class="fa">未登录</i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" asp-page="/Members/Logon">
-                                <span class="fa fa-sign-in">
-                                    <i class="fa">登录</i>
+                        <li class="nav-item dropdown">
+                            <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-unlink">
+                                    <i class="fa">未登录</i>
                                 </span>
                             </a>
-                            <a class="dropdown-item" asp-page="/Members/Register">
-                                <span class="fa fa-registered">
-                                    <i class="fa">注册</i>
-                                </span>
-                            </a>
-                            <a href="" class="dropdown-item">
-                                <span class="fa fa-unlock-alt">
-                                    <i class="fa">忘记密码</i>
-                                </span>
-                            </a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" asp-page="/Members/Logon">
+                                    <span class="fa fa-sign-in">
+                                        <i class="fa">登录</i>
+                                    </span>
+                                </a>
+                                <a class="dropdown-item" asp-page="/Members/Register">
+                                    <span class="fa fa-registered">
+                                        <i class="fa">注册</i>
+                                    </span>
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    <span class="fa fa-unlock-alt">
+                                        <i class="fa">忘记密码</i>
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
 
                     }
 
@@ -311,10 +311,18 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+    <script src="/js/base.js" asp-append-version="true"></script>
+
     <script src="~/js/testJS/bell.js" asp-append-version="true"></script>
     <script src="~/js/testJS/message.js" asp-append-version="true"></script>
-    <script src="~/js/testJS/register.js" asp-append-version="true"></script>
-    <script src="/js/base.js" asp-append-version="true"></script>
+
+
+
+    @*<script src="~/js/testJS/register.js" asp-append-version="true"></script>*@
+    <script src="~/js/testJQ/register.js" asp-append-version="true"></script>
+
+    @*<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
 
 </body>
 </html>
