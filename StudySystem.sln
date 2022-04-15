@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tssmvc", "tssmvc\tssmvc.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zssapi", "zssapi\zssapi.csproj", "{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zssapicore", "zssapicore\zssapicore.csproj", "{179932C5-5AD1-47BB-A4D6-CA36EA7B0793}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{179932C5-5AD1-47BB-A4D6-CA36EA7B0793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{179932C5-5AD1-47BB-A4D6-CA36EA7B0793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{179932C5-5AD1-47BB-A4D6-CA36EA7B0793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{179932C5-5AD1-47BB-A4D6-CA36EA7B0793}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
