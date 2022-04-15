@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "consoleef", "consoleef\cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tssmvc", "tssmvc\tssmvc.csproj", "{4EB1A948-E272-4976-AC68-7F314FB05EFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zssapi", "zssapi\zssapi.csproj", "{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{4EB1A948-E272-4976-AC68-7F314FB05EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EB1A948-E272-4976-AC68-7F314FB05EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EB1A948-E272-4976-AC68-7F314FB05EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA3FC73-826C-4957-BCF5-AEDE02EC2F4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
