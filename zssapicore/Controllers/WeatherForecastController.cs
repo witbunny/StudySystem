@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace zssapicore.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	//[Route("api/[controller]/[action]")]
+	[Route("log")]
 	public class WeatherForecastController : ControllerBase
 	{
 		private static readonly string[] Summaries = new[]
@@ -35,5 +36,27 @@ namespace zssapicore.Controllers
 			})
 			.ToArray();
 		}
+
+		[HttpPost]
+		[Route("{id}")]
+		//[Route("/[action]/{id}")]
+		public string Post(int id)
+		{
+			return "post:" + id;
+		}
+
+		[HttpPut]
+		[Route("{id:int}")]
+		public string Put(int id)
+		{
+			return nameof(Put) + ":" + id;
+		}
+
+		[HttpDelete]
+		public string Delete()
+		{
+			return nameof(Delete);
+		}
+
 	}
 }
