@@ -25,6 +25,7 @@ namespace zssapicore.Controllers
 		}
 
 		[HttpGet]
+		//[Produces("application/xml")]
 		public IEnumerable<WeatherForecast> Get()
 		{
 			var rng = new Random();
