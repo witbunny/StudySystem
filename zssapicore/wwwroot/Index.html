@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="/vue.js"></script>
+</head>
+<body>
+    <div id="act-app">
+        <h1>{{slagon.description}}</h1>
+        <p v-for="s of students">{{s}}</p>
+    </div>
+    
+    <script>
+        var students = ['leo', 'ash'];
+        var objdata = {
+            greet: "hello",
+            slagon: {
+                //description: 'soso'
+            },
+            students
+        };
+        //Object.freeze(objdata);
+
+        var vm = new Vue({
+            el: "#act-app",
+            //data: {
+            //    greet: "hello",
+            //    students: ["leo", "ash"]
+            //},
+            data: objdata,
+            methods: {
+                hello: function () {
+                    return 'hehe';
+                }
+            },
+
+            created: function () {
+                console.log('created');
+            },
+            mounted: function () {
+                console.log('mounted');
+            },
+            updated: function () {
+                console.log('updated');
+            },
+            destroyed: function () {
+                console.log('destroyed');
+            }
+        });
+
+        var leo = {};
+        Object.defineProperty(leo, 'name', {
+            set: function (v) {
+                console.log(v);
+            },
+            get: function () {
+
+            }
+        })
+    </script>
+</body>
+</html>
