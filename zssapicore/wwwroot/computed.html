@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="/vue.js"></script>
+</head>
+<body>
+    <div id="act-app">
+        <h1>{{summary}}</h1>
+        <p v-for="(s, i) of bottom" >
+            <span>{{i}}--{{s+'--'}}</span>
+        </p>
+        <h1>computed:{{cnow}}</h1>
+        <h1>methods : {{mnow()}}</h1>
+        <p>{{body}}</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#act-app",
+            data: {
+                students: ["leo", "tik", "ash"],
+                body: "计算属性可以做得更多：模板里面的JavaScript表达式只能是单行的，计算属性的复杂度不受任何限制。"
+            },
+            computed: {
+                summary: function () {
+                    return this.body.substring(0, 26);
+                },
+                bottom: {
+                    get: function () {
+                        return this.students.filter(function (v, i) {
+                            return i > 1;
+                        });
+                    },
+                    set: function (value) {
+                        console.log(value);
+                    }
+                },
+                cnow: function () {
+                    return Date.now();
+                }
+            },
+            methods: {
+                mnow: function () {
+                    return Date.now();
+                }
+            },
+            watch: {
+                body: function (newValue, oldValue) {
+                    console.log(newValue);
+                    console.log(oldValue);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
