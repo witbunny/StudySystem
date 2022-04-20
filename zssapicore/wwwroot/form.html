@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="/vue.js"></script>
+</head>
+<body>
+    <form id="act-app">
+        <input type="text" v-model.trim="body" />
+        <input type="text" v-model="robot.short" />
+        <textarea v-model.lazy="robot.full"></textarea>
+
+        <label v-for="s of students">
+            <input type="radio" :value="s.id" v-model="checked" />{{s.name}}
+        </label>
+
+        <input type="checkbox" v-model="remember" />remember me
+
+        <label v-for="t of teachers">
+            <input type="checkbox" :value="t.id" v-model="checkedids" />{{t.name}}
+        </label>
+        
+        <select v-model.number="selected" >
+            <option value="0">---</option>
+            <option v-for="s of students" :value="s.id">{{s.name}}</option>
+        </select>
+
+        <ul>
+            <li v-for="s in students" :key="s.id">
+                <input type="checkbox" :value="s.id" v-model="list" />{{s.name}}
+            </li>
+        </ul>
+    </form>
+
+    <script>
+        var vm = new Vue({
+            el: "#act-app",
+            data: {
+                body: "hello",
+                robot: {
+                    //short: 'hehe',
+                    full: 'hehehehe'
+                },
+                checked: '1',
+                students: [
+                    { id: 1, name: 'leo' },
+                    { id: 2, name: 'ash' }
+                ],
+                remember: true,
+                //checkedids: [1],
+                teachers: [
+                    { id: 1, name: 'lee', select: true },
+                    { id: 2, name: 'huk', select: false },
+                    { id: 3, name: 'tim', select: true }
+                ],
+                selected: 0,
+                list: [2]
+            },
+            computed: {
+                checkedids: {
+                    get: function () {
+                        return this.teachers.filter(function (v) {
+                            return v.select;
+                        }).map(function (v) {
+                            return v.id;
+                        });
+                    },
+                    set: function (value) {
+                        this.teachers.forEach(function (t) {
+                            t.select = value.includes(t.id);
+                        });
+                    }
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
