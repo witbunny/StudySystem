@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +27,16 @@ namespace zssapicore
 		{
 			services.AddControllers();
 			services.AddMvcCore(opt => {
-				opt.Filters.Add(new ProducesAttribute("application/xml"));
+				//opt.Filters.Add(new ProducesAttribute("application/xml"));
 			}).AddXmlSerializerFormatters();
+
+			//System.IO.InvalidDataException: Multipart body length limit 134217728 exceeded.
+			//Multipart body length limit 128M
+			services.Configure<FormOptions>(option =>
+			{
+				option.ValueLengthLimit = int.MaxValue;
+				option.MultipartBodyLengthLimit = int.MaxValue;
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

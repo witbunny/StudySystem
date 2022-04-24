@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="vue.js"></script>
+    <script src="axios.js"></script>
+</head>
+<body>
+    <form id="act-app">
+        <input type="file" name="icon" ref="icon" v-on:change="upload" />
+        <p>{{progress}}</p>
+        <img v-if="imgshow" :src="imgsrc" alt="img" />
+    </form>
+
+    <script>
+        var vm = new Vue({
+            el: "#act-app",
+            data: {
+                progress: "",
+                imgsrc: ""
+            },
+            computed: {
+                imgshow: function () {
+                    return Boolean(this.imgsrc);
+                }
+            },
+            methods: {
+                upload: function () {
+                    var icon = this.$refs.icon;
+                    var formData = new window.FormData();
+                    formData.append("icon", icon.files[0]);
+
+                    //var form = this.$refs.icon.parentElement;
+                    //var formData = new window.FormData(form);
+
+                    axios.request({
+                        url: "/Student",
+                        method: "post",
+                        //timeout: 500,//毫秒
+                        //params: {
+                        //    enrolled: 1,
+                        //    graduate: true
+                        //},
+                        data: formData,
+                        headers: {
+                            //"Content-Type": "application/x-www-form-urlencoded"
+                            //"Content-Type": "application/json"
+                            "Content-Type": "multipart/form-data"
+                        },
+                        onUploadProgress: (event) => {
+                            var percent = (event.loaded / event.total * 100).toFixed(2);
+                            this.progress = "已上传：" + percent + "%";
+                            console.log(percent);
+                        }
+                    }).then((response) => {
+                        //this.progress = "";
+                        //this.imgsrc = response.data;
+                        return response.data;
+                    }).then((result) => {
+                        //console.log(this.imgsrc);
+                        this.imgsrc = result;
+                        return axios.request({
+                            url: "/Student/2",
+                            methods: "get"
+                        });
+                    }).then((response) => {
+                        console.log(response);
+                    }).catch((error) => {
+                        if (error.response) {
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        } else if (error.request) {
+                            console.log(error.request);
+                        } else {
+                            console.log(error.message);
+                        }
+                    }).finally(() => {
+
+                    });
+                }
+            }
+        });
+
+        axios.request("/Student/2", {}).then((response) => {
+            console.log(response.data);
+        });
+
+        axios.get("/Student/2", {}).then((response) => {
+            console.log(response.data);
+        });
+
+        axios.post("/Student/2", {}).then((response) => {
+            console.log(response.data);
+        });
+    </script>
+</body>
+</html>
